@@ -4,7 +4,8 @@ def main():
     status_area = st.empty()
 
 st.title('DBテストサイト')
-#py -m pip install firebase-admin
+py get-pip.py
+py -m pip install firebase-admin
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
