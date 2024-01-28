@@ -4,6 +4,8 @@ def main():
 
     st.title('DBテストサイト')
     st.markdown('pandasをインストールできた')
+    st.markdown('faをインストールできた')
+
     #py get-pip.py
     #!pip install firebase-admin
     import pandas as pd
