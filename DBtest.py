@@ -2,9 +2,9 @@ import streamlit as st
 #py get-pip.py
 #!pip install firebase-admin
 
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
+#import firebase_admin
+#from firebase_admin import credentials
+#from firebase_admin import db
 def main():
     status_area = st.empty()
 
