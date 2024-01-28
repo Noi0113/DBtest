@@ -1,11 +1,11 @@
-#py get-pip.py
-#!pip install firebase-admin
 import streamlit as st
 def main():
     status_area = st.empty()
 
     st.title('DBテストサイト')
     st.markdown('firebase adminをインストールできた')
+    #py get-pip.py
+    #!pip install firebase-admin
 
     import firebase_admin
     from firebase_admin import credentials
