@@ -6,6 +6,8 @@ def main():
     status_area = st.empty()
 
     st.title('DBテストサイト')
+    st.markdown('firebase adminをインストールできた')
+
 
     import firebase_admin
     from firebase_admin import credentials
