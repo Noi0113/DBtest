@@ -1,6 +1,7 @@
 import streamlit as st
 #py get-pip.py
 #!pip install firebase-admin
+import time
 def main():
     status_area = st.empty()
 
@@ -17,7 +18,7 @@ def main():
 
     #ref = db.reference('restricted_access/secret_document')
     #print(ref.get())
-    import time
+
     count_down_sec = 5
     for i in range(count_down_sec):
         # プレースホルダーに残り秒数を書き込む
