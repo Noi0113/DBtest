@@ -3,7 +3,7 @@ def main():
     status_area = st.empty()
 
     st.title('DBテストサイト')
-    st.markdown('firebase adminをインストールできた')
+    st.markdown('pandasをインストールできた')
     #py get-pip.py
     #!pip install firebase-admin
     import pandas as pd
