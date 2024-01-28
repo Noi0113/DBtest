@@ -1,7 +1,6 @@
 import streamlit as st
 #py get-pip.py
 #!pip install firebase-admin
-import time
 def main():
     status_area = st.empty()
 
