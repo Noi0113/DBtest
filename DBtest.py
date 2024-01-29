@@ -7,10 +7,10 @@ def main():
     import pulp
     #py get-pip.py
     #!pip install firebase-admin
-    #import pandas as pd
-    #import firebase_admin
-    #from firebase_admin import credentials
-    #from firebase_admin import db
+    import pandas as pd
+    import firebase_admin
+    from firebase_admin import credentials
+    from firebase_admin import db
     #cred = credentials.Certificate("path/to/serviceAccountKey.json")
     #firebase_admin.initialize_app(cred, {
     #    'databaseURL': 'https://<DATABASE_NAME>.firebaseio.com'
