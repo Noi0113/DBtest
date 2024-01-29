@@ -3,7 +3,7 @@ def main():
     status_area = st.empty()
 
     st.title('DBテストサイト')
-    st.markdown('requirements.txtをアップロードした。pulpは使えるか？')
+    st.markdown('requirements.txtをアップロードした。各モジュールは使えるか？')
     import pulp
     #py get-pip.py
     #!pip install firebase-admin
