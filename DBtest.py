@@ -3,7 +3,7 @@ def main():
     status_area = st.empty()
 
     st.title('DBテストサイト')
-    st.markdown('requirements.txtをアップロードした。各モジュールは使えるか？')
+    st.markdown('requirements.txtをアップロードし編集した')
     import pyrebase4
     import pandas as pd
     import firebase_admin
