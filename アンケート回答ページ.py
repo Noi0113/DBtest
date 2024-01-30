@@ -15,7 +15,7 @@ optionsA = ['あ','い']
 with st.form(key='my_form'):
     input_name = st.text_input(label='名前')
     input_level = st.selectbox('級',options=['A','B','C','D','E'])
-    input_gender = st.selectbox('性別', options=optionsA)
+    input_univ = st.selectbox('大学名', options=optionsA)
     #input_feedback = st.text_area(label='フィードバック')
     submit_button = st.form_submit_button(label='送信')
 
