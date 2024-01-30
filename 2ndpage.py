@@ -4,7 +4,7 @@ def main():
  #ここから上は編集しない
 
 #タイトル
-st.title('(旧)新規作成ページ・(新)最適化実行＆結果出力ページ')
+    st.title('(旧)新規作成ページ・(新)最適化実行＆結果出力ページ')
 
 #install coin-or-cbc
 #pip install pulp
