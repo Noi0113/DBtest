@@ -7,15 +7,15 @@ st.title('アンケート回答')
 st.markdown('大会ID、氏名、大学名など入力する欄がこの辺に来る')
 
 #ボタン
-st.button('回答を送信',use_container_width=True,help='ページ準備中')
 st.markdown('回答が送信されたら「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
 st.markdown('フォーム')
+optionsA = ['あ','い']
 # フォームを作成します
 with st.form(key='my_form'):
     input_name = st.text_input(label='名前')
     input_level = st.selectbox('級',options=['A','B','C','D','E'])
-    input_gender = st.selectbox('性別', options=['男性', '女性', 'その他'])
+    input_gender = st.selectbox('性別', options=optionsA)
     #input_feedback = st.text_area(label='フィードバック')
     submit_button = st.form_submit_button(label='送信')
 
@@ -23,9 +23,6 @@ with st.form(key='my_form'):
 if submit_button:
     st.write(f"ありがとうございます、{input_name}さん！")
 
-data_button = st.button('表示')
-if data_button:
-    st.write(input_name)
 ##ログインについて
 #st.link_button()を導入したい
 
