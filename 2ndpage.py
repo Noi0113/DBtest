@@ -20,6 +20,10 @@ import random
 import numpy as np
 import csv
 
+#大会ID入力欄を作るつもり
+#if st.button('対戦表の作成',use_container_width=True,help='このボタンを押すと最適化が実行されて対戦表が出力される'):
+    #↓以降最適化の実行
+
 #CSVファイルをアップロード(とりあえず)
 import pandas as pd
 uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
