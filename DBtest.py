@@ -3,7 +3,7 @@ def main():
     status_area = st.empty()
 
     st.title('DBテストサイト')
-    st.markdown('requirements.txtをアップロードし編集した')
+    st.markdown('requirements.txtをアップロードし編集した。仮想環境でもインストール済み')
     import pyrebase4
     import pandas as pd
     import firebase_admin
