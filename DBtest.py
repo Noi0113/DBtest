@@ -4,7 +4,7 @@ def main():
 
     st.title('DBテストサイト')
     st.markdown('requirements.txtをアップロードした。各モジュールは使えるか？')
-
+    import pyrebase4
     import pandas as pd
     import firebase_admin
     from firebase_admin import credentials
