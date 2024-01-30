@@ -35,10 +35,9 @@ PyJWT==2.8.0
 pyparsing==3.1.1
 python-dateutil==2.8.2
 pytz==2023.4
-requests==2.29.0
+requests==2.31.0
 rsa==4.9
 six==1.16.0
 tzdata==2023.4
 uritemplate==4.1.1
 urllib3==2.1.0
-Pyrebase4==4.7.1
