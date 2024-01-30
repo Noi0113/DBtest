@@ -10,7 +10,7 @@ st.markdown('大会ID、氏名、大学名など入力する欄がこの辺に�
 st.button('回答を送信',use_container_width=True,help='ページ準備中')
 st.markdown('回答が送信されたら「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
-
+st.markdown('フォーム')
 # フォームを作成します
 with st.form(key='my_form'):
     input_name = st.text_input(label='名前')
