@@ -16,6 +16,7 @@ univ_options = ['あ','い']#こんな感じで、データベースから大学
 
 # フォームを作成します
 with st.form(key='my_form'):
+    input_id = st.text_input(label = 'ID')
     input_name = st.text_input(label='名前')
     input_level = st.selectbox('級',options=['A','B','C','D','E'])
     input_univ = st.selectbox('大学名', options=univ_options)
