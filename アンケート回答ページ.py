@@ -10,12 +10,15 @@ st.markdown('大会ID、氏名、大学名など入力する欄がこの辺に�
 st.markdown('回答が送信されたら「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
 st.markdown('フォーム')
-optionsA = ['あ','い']
+
+
+univ_options = ['あ','い']#こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
+
 # フォームを作成します
 with st.form(key='my_form'):
     input_name = st.text_input(label='名前')
     input_level = st.selectbox('級',options=['A','B','C','D','E'])
-    input_univ = st.selectbox('大学名', options=optionsA)
+    input_univ = st.selectbox('大学名', options=univ_options)
     #input_feedback = st.text_area(label='フィードバック')
     submit_button = st.form_submit_button(label='送信')
 
