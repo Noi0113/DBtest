@@ -11,7 +11,7 @@ def main():
     from firebase_admin import db
     cred = credentials.Certificate("path/to/serviceAccountKey.json")
     firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://<DATABASE_NAME>.firebaseio.com'
+        'databaseURL': 'https://monketsu.firebaseio.com'
     })
 
     ref = db.reference('restricted_access/secret_document')
