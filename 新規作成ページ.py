@@ -1,3 +1,4 @@
+import streamlit as st
 def main():
     status_area = st.empty()
 #タイトル
