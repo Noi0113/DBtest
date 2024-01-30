@@ -4,7 +4,7 @@ def main():
 
     st.title('DBテストサイト')
     st.markdown('requirements.txtをアップロードし編集した。仮想環境でもインストール済み')
-    import pyrebase4
+    import Pyrebase4
     import pandas as pd
     import firebase_admin
     from firebase_admin import credentials
