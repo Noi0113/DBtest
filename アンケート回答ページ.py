@@ -14,15 +14,18 @@ st.markdown('フォーム')
 # フォームを作成します
 with st.form(key='my_form'):
     input_name = st.text_input(label='名前')
-    input_age = st.number_input(label='年齢', min_value=0)
+    input_level = st.selectbox('級',options=['A','B','C','D','E']
     input_gender = st.selectbox('性別', options=['男性', '女性', 'その他'])
-    input_feedback = st.text_area(label='フィードバック')
+    #input_feedback = st.text_area(label='フィードバック')
     submit_button = st.form_submit_button(label='送信')
 
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
 if submit_button:
     st.write(f"ありがとうございます、{input_name}さん！")
 
+data_button = st.button('表示')
+if data_button:
+    st.write(input_name)
 ##ログインについて
 #st.link_button()を導入したい
 
