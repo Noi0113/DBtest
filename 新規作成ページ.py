@@ -13,7 +13,8 @@ st.markdown('新規大会IDとパスワードの作成をする')
 st.markdown('ID発行されたらそのIDと「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
 #sqliteに接続
-conn = sqlite3.connect('user_database.db') #ここのデータベース名を「monketsu-option.db」に変更？
+conn = sqlite3.connect('user_database.db') 
+#ここのデータベース名を「monketsu-option.db」に変更？
 c=conn.cursor()
 
 def create_user():
@@ -48,8 +49,8 @@ def check_hashes(password,hashed_text):
 new_user = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
 new_password = st.text_input("大会パスワードを入力してください",type='password')
 #new_check = st.markdown('大会名とパスワードを記録しておいてください')
-new_taikai = st.button('ID発行',use_container_width=True,help='ページ準備中')
-if new_taikai:
+
+if st.button('ID発行',use_container_width=True,help='ページ準備中'):
 	if add_user(new_user,make_hashes(new_password)):
 		st.warning("その大会名は既にしようされています")
 	else:
