@@ -5,7 +5,7 @@ import sqlite3
 #機能の追加
 #ここからログイン機能について必要な定義
 #sqliteに接続
-conn = sqlite3.connect('user_monketsu.db') #ここのデータベース名を「monketsu-option.db」に変更？
+conn = sqlite3.connect('monketsu-option.db') #ここのデータベース名を「monketsu-option.db」に変更？
 c=conn.cursor()
 
 def create_user():
