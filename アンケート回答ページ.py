@@ -4,8 +4,6 @@ def main():
 #タイトル
 st.title('アンケート回答') 
 
-st.markdown('回答が送信されたら「完了しました」的な何か出力させたい。ページも変えられたら〇')
-
 st.markdown('フォーム')
 
 
@@ -20,11 +18,11 @@ with st.form(key='my_form'):
     #input_feedback = st.text_area(label='フィードバック')
     st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     input_kojinid = st.text_input(label = '個人ID')
-    submit_button = st.form_submit_button(label='送信')
+    submit_button = st.form_submit_button(label='送信',use_container = True)
 
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
 if submit_button:
-    st.write(f"ありがとうございます、{input_name}さん！")
+    st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
 
 ##ログインについて
 #st.link_button()を導入したい
