@@ -1,4 +1,6 @@
 import streamlit as st
+import hashlib
+import sqlite3
 
 def main():
     status_area = st.empty()
@@ -11,6 +13,41 @@ st.markdown('大会名・大学名など入力する欄がこの辺に来る')
 #st.button('ID発行',use_container_width=True,help='ページ準備中')
 #st.markdown('ID発行されたらそのIDと「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
+
+
+#機能の追加
+#ここからログイン機能について必要な定義
+#sqliteに接続
+conn = sqlite3.connect('user_database.db')
+c=conn.cursor()
+
+def create_user():
+    c.execute('CREATE TABLE IF NOT EXISTS userstable (username TEXT PRIMARY KEY, password TEXT)')
+
+def add_user(username, password):
+    # ユーザーが既に存在するかを確認
+    c.execute('SELECT * FROM userstable WHERE username = ?', (username,))
+    existing_user = c.fetchone()
+    if existing_user:
+        return True
+    else:
+	    c.execute('INSERT INTO userstable (username, password) VALUES (?, ?)', (username, password))
+	    conn.commit()
+	    return False
+
+def login_user(username, password):
+    c.execute('SELECT * FROM userstable WHERE username = ? AND password = ?', (username, password))
+    data = c.fetchall()
+    return data
+
+#パスワードのハッシュ化
+def make_hashes(password):
+	return hashlib.sha256(str.encode(password)).hexdigest()
+
+def check_hashes(password,hashed_text):
+	if make_hashes(password) == hashed_text:
+		return hashed_text
+	return False
 # ページの選択と表示
 menu = ["大会ログイン", "新規大会登録" ]
 choice = st.selectbox("選択してください",menu)
@@ -37,6 +74,9 @@ elif choice == "新規大会登録":
 			create_user()
 			st.success("新しい大会の作成に成功しました")
 			st.info("大会ログイン画面からログインしてください")
+
+
+
 
 
 ##ログインについて
