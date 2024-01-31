@@ -10,6 +10,10 @@ def main():
 	#st.markdown('大会名・大学名など入力する欄がこの辺に来る')
 	st.markdown('ID発行されたらそのIDと「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
+
+
+
+	
 #sqliteに接続
 	conn = sqlite3.connect('user_database.db') 
 #ここのデータベース名を「monketsu-option.db」に変更？
@@ -42,6 +46,9 @@ def check_hashes(password,hashed_text):
 	if make_hashes(password) == hashed_text:
 		return hashed_text
 	return False
+
+
+
 
 #ここから本作成
 new_user = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
