@@ -2,19 +2,6 @@ import streamlit as st
 import hashlib
 import sqlite3
 
-def main():
-    status_area = st.empty()
-#タイトル
-st.title('新規作成') 
-
-st.markdown('大会名・大学名など入力する欄がこの辺に来る')
-
-#ボタン
-#st.button('ID発行',use_container_width=True,help='ページ準備中')
-#st.markdown('ID発行されたらそのIDと「完了しました」的な何か出力させたい。ページも変えられたら〇')
-
-
-
 #機能の追加
 #ここからログイン機能について必要な定義
 #sqliteに接続
@@ -48,6 +35,19 @@ def check_hashes(password,hashed_text):
 	if make_hashes(password) == hashed_text:
 		return hashed_text
 	return False
+
+def main():
+    status_area = st.empty()
+#タイトル
+st.title('新規作成') 
+
+st.markdown('大会名・大学名など入力する欄がこの辺に来る')
+
+#ボタン
+#st.button('ID発行',use_container_width=True,help='ページ準備中')
+#st.markdown('ID発行されたらそのIDと「完了しました」的な何か出力させたい。ページも変えられたら〇')
+
+
 # ページの選択と表示
 menu = ["大会ログイン", "新規大会登録" ]
 choice = st.selectbox("選択してください",menu)
