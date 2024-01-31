@@ -45,9 +45,9 @@ st.markdown('ID発行されたらそのIDと「完了しました」的な何か
 #ここから本作成　
 new_user = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
 new_password = st.text_input("大会パスワードを入力してください",type='password')
-new_kazu = st.text_input("試合数を入力してください（これは今どこにも保存されてないと思う）")
-new_shozoku = st.text_input("参加大学数を入力してください")
-new_shozokuname = st.text_input("参加大学名１を入力してください（これを大学数分繰り返しできるようにしたい）")
+st.text_input("試合数を入力してください（これは今どこにも保存されてないと思う）")
+st.text_input("参加大学数を入力してください")
+st.text_input("参加大学名１を入力してください（これを大学数分繰り返しできるようにしたい）")
 #new_check = st.markdown('大会名とパスワードを記録しておいてください')
 
 if st.button('ID発行',use_container_width=True,help='ページ準備中'):
