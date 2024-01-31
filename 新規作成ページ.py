@@ -42,7 +42,7 @@ def check_hashes(password,hashed_text):
 		return hashed_text
 	return False
 
-#ここから本作成
+#ここから本作成　
 new_user = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
 new_password = st.text_input("大会パスワードを入力してください",type='password')
 #new_check = st.markdown('大会名とパスワードを記録しておいてください')
