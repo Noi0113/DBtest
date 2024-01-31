@@ -18,8 +18,10 @@ with st.form(key='my_form'):
     #input_feedback = st.text_area(label='フィードバック')
     st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     input_kojinid = st.text_input(label = '個人ID')
-    if input_taikaiid in not Null:
-        submit_button = st.form_submit_button(label='送信',use_container_width = True)
+
+    #すべての欄を埋めたら送信できるようにもしたい
+    #if input_taikaiid in not Null:
+    submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
 if submit_button:
