@@ -52,7 +52,7 @@ st.text_input("参加大学名１を入力してください（これを大学�
 
 if st.button('ID発行',use_container_width=True,help='ページ準備中'):
 	if add_user(new_user,make_hashes(new_password)):
-		st.warning("その大会名は既にしようされています")
+		st.warning("その大会名は既に使用されています")
 	else:
 		create_user()
 		st.success("新しい大会の作成に成功しました")
