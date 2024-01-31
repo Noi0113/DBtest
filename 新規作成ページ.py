@@ -2,8 +2,6 @@ import streamlit as st
 import hashlib
 import sqlite3
 
-
-
 def main():
     status_area = st.empty()
 #タイトル
