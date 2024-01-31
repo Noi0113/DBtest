@@ -21,6 +21,7 @@ import numpy as np
 import csv
 
 #大会ID入力欄を作るつもり
+input_taikaiid = st.text_input(label = '大会ID')
 st.button('対戦表の作成',use_container_width=True,help='このボタンを押すと最適化が実行されて対戦表が出力される')
     #↓以降最適化の実行
 
