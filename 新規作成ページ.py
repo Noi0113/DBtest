@@ -5,26 +5,26 @@ import sqlite3
 def main():
 	status_area = st.empty()
 #タイトル
-	st.title('新規作成') 
-	st.markdown('新規大会IDとパスワードの作成をする')
-	#st.markdown('大会名・大学名など入力する欄がこの辺に来る')
-	st.markdown('ID発行されたらそのIDと「完了しました」的な何か出力させたい。ページも変えられたら〇')
+st.title('新規作成') 
+st.markdown('新規大会IDとパスワードの作成をする')
+#st.markdown('大会名・大学名など入力する欄がこの辺に来る')
+st.markdown('ID発行されたらそのIDと「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
 
 
 
 	
 #sqliteに接続
-	conn = sqlite3.connect('user_database.db') 
+conn = sqlite3.connect('user_database.db') 
 #ここのデータベース名を「monketsu-option.db」に変更？
-	c=conn.cursor()
+c=conn.cursor()
 
 def create_user():
     c.execute('CREATE TABLE IF NOT EXISTS userstable (username TEXT PRIMARY KEY, password TEXT)')
 
 def add_user(username, password):
     # ユーザーが既に存在するかを確認
-    c.execute('SELECT * FROM userstable WHERE username = ?', (username,))
+    c.execute('SELECT * FROM userstable WHERE username = ?', (username))
     existing_user = c.fetchone()
     if existing_user:
         return True
