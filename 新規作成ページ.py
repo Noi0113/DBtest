@@ -19,7 +19,7 @@ def create_user():
 
 def add_user(username, password):
     # ユーザーが既に存在するかを確認
-    c.execute('SELECT * FROM userstable WHERE username = ?', (username))
+    c.execute('SELECT * FROM userstable WHERE username = ?', (username,))
     existing_user = c.fetchone()
     if existing_user:
         return True
