@@ -4,9 +4,6 @@ def main():
 #タイトル
 st.title('アンケート回答') 
 
-st.markdown('大会ID、氏名、大学名など入力する欄がこの辺に来る')
-
-#ボタン
 st.markdown('回答が送信されたら「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
 st.markdown('フォーム')
@@ -16,11 +13,13 @@ univ_options = ['あ','い']#こんな感じで、データベースから大学
 
 # フォームを作成します
 with st.form(key='my_form'):
-    input_id = st.text_input(label = 'ID')
+    input_taikaiid = st.text_input(label = '大会ID')
     input_name = st.text_input(label='名前')
     input_level = st.selectbox('級',options=['A','B','C','D','E'])
     input_univ = st.selectbox('大学名', options=univ_options)
     #input_feedback = st.text_area(label='フィードバック')
+    st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
+    input_kojinid = st.text_input(label = '個人ID')
     submit_button = st.form_submit_button(label='送信')
 
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
