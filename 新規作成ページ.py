@@ -40,6 +40,8 @@ def main():
     # ここから本作成
     new_user = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
     new_password = st.text_input("大会パスワードを入力してください",type='password')
+    num_player = st.selectbox("大会に参加する人数を入力してください", range(1, 100))
+    num_match = st.selectbox("大会の試合数を入力してください", range(1, 100))
     num_universities = st.number_input("参加大学数を入力してください", min_value=1, step=1)
     
     universities = []
