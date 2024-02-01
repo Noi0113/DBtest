@@ -8,18 +8,6 @@ def get_connection():
         st.session_state['conn'] = sqlite3.connect("monketsu.db")
     return st.session_state['conn']
 
-def is_taikaiid_exists(taikaiid):
-    # データベースに接続
-    conn = get_connection()
-    c = conn.cursor()
-    c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (taikaiid,))
-    count = c.fetchone()
-
-    # データベース接続を閉じる
-    conn.close()
-
-    return count[0] > 0 if count else False
-
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
 
@@ -43,7 +31,14 @@ def main():
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
         if submit_button:
-            if is_taikaiid_exists(new_taikaiid):
+            conn = get_connection()
+            c = conn.cursor()
+            c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
+            count = c.fetchone()
+            conn.close()
+            a = count[0] > 0 if count else False
+
+            if a:
                 st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
             else:
                 conn = get_connection()
