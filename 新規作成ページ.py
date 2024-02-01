@@ -5,7 +5,7 @@ import pandas as pd
 # SQLiteデータベースに接続する関数
 def get_connection():
     if 'conn' not in st.session_state:
-        st.session_state['conn'] = sqlite3.connect("test.db")
+        st.session_state['conn'] = sqlite3.connect("monketu.db")
     return st.session_state['conn']
 
 # データベース内のテーブルの内容を表示する関数
@@ -14,7 +14,7 @@ def show_table_data():
     c = conn.cursor()
 
     # テーブルの内容を取得
-    c.execute("SELECT * FROM TestTable")  # your_tableを実際のテーブル名に変更
+    c.execute("SELECT * FROM taikai_table")  # your_tableを実際のテーブル名に変更
     data = c.fetchall()
 
     # Pandas DataFrameに変換して表示
