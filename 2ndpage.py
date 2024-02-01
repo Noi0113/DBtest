@@ -4,7 +4,7 @@ def main():
  #ここから上は編集しない
 
 #タイトル
-st.title('対戦表の確認ページ')
+st.title('対戦表の確認ページです')
 st.markdown('現状、単純なcsv入力でしかできない。dbのデータから出力できるようになってない')
 #install coin-or-cbc
 
