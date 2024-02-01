@@ -31,34 +31,26 @@ def main():
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
         if submit_button:
-            conn = get_connection()
-            c = conn.cursor()
-            c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
-            count = c.fetchone()
-            a = count[0] > 0 if count else False
-            if a:
-                st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
+            if new_taikaiid and new_password and num_match and num_universities and len(universities)==int(num_universities):
+                conn = get_connection()
+                c = conn.cursor()
+                c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
+                count = c.fetchone()
+                a = count[0] > 0 if count else False
+                if a:
+                    st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
+                else:
+                    c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
+                    for u in universities:
+                        c.execute("INSERT INTO univ_data (taikaiid, univ) VALUES (?, ?);", (new_taikaiid, u))
+                    conn.commit()
+                    st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
             else:
-                c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
-                for u in universities:
-                    c.execute("INSERT INTO univ_data (taikaiid, univ) VALUES (?, ?);", (new_taikaiid, u))
-                conn.commit()
-                st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
+                # 全ての欄が埋まっていない場合の処理
+                st.warning("全ての項目を入力してください。")
             conn.close()
             
-enter_disable_script = """
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var form = document.querySelector('form');
-    form.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            return false;
-        }
-    });
-});
-</script>
-"""
+
 
 if __name__ == '__main__':
     main()
