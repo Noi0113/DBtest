@@ -50,6 +50,7 @@ def main():
         universities.append(university_name)
 
     if st.button('大会作成！', use_container_width=True, help='ページ準備中'):
+        st.write(type(num_match))
         if is_taikaiid_exists(new_taikaiid):
             st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
         else:
