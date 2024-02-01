@@ -19,7 +19,7 @@ def data_retu(database_path, table_name, target_name,target_id, column_name):
     result = cursor.fetchall()
     conn.close()
     result_list = [item[0] for item in result]
-    return result_list
+return result_list
 
 #loginする
 def login_user(id,pas):
@@ -39,12 +39,12 @@ def check_hashes(password,hashed_text):
 input_taikaiid = st.text_input(label = '大会IDを入力してください')
 input_password = st.text_input("大会パスワードを入力してください",type='password')
 
-hashed_pswd = make_hashes(input_password)
-result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
 if st.sidebar.checkbox("ログイン"):
-    if result:
-        st.success("{}の参加用フォーム".format(username))
-    else:
+	hashed_pswd = make_hashes(input_password)
+	result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
+	if result:
+        	st.success("{}の参加用フォーム".format(username))
+	else:
 	st.warning("大会IDか大会パスワードが間違っています")
 
 if st.button(label='確定'):
