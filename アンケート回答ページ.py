@@ -28,7 +28,7 @@ with st.form(key='my_form'):
     #st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     #input_kojinid = st.text_input(label = '個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     #すべての欄を埋めたら送信できるようにもしたい
-    if input_name and input_level and input_univ and input_kisuu and input_wantto and input_notwantto is not None
+    if input_name and input_level and input_univ and input_kisuu and input_wantto and input_notwantto is not None:
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
