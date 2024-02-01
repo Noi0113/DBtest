@@ -19,33 +19,33 @@ def data_retu(database_path, table_name, target_name,target_id, column_name):
     result = cursor.fetchall()
     conn.close()
     result_list = [item[0] for item in result]
-	return result_list
+    return result_list
 
 #loginする
 def login_user(id,pas):
-	c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
-	data = c.fetchall()
-	return data
+    c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
+    data = c.fetchall()
+    return data
 #hash化
 def make_hashes(password):
-	return hashlib.sha256(str.encode(password)).hexdigest()
+    return hashlib.sha256(str.encode(password)).hexdigest()
 
 def check_hashes(password,hashed_text):
-	if make_hashes(password) == hashed_text:
-		return hashed_text
-	return False
+    if make_hashes(password) == hashed_text:
+	return hashed_text
+    return False
 
 #選択肢はフォームの外に作らないとエラーが出るかも
 input_taikaiid = st.text_input(label = '大会IDを入力してください')
 input_password = st.text_input("大会パスワードを入力してください",type='password')
 
 if st.sidebar.checkbox("ログイン"):
-	hashed_pswd = make_hashes(input_password)
-	result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
-	if result:
-        	st.success("{}の参加用フォーム".format(username))
-	else:
-		st.warning("大会IDか大会パスワードが間違っています")
+    hashed_pswd = make_hashes(input_password)
+    result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
+    if result:
+        st.success("{}の参加用フォーム".format(username))
+    else:
+	st.warning("大会IDか大会パスワードが間違っています")
 
 if st.button(label='確定'):
     univ_options = data_retu('monketsu.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ'):#こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
