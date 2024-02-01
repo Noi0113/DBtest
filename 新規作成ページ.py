@@ -31,6 +31,8 @@ def main():
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
         if submit_button:
+            st.write(universities)
+            st.write(len(universities))
             if new_taikaiid and new_password and num_match and num_universities and len(universities)==int(num_universities):
                 conn = get_connection()
                 c = conn.cursor()
