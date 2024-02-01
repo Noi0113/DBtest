@@ -37,9 +37,9 @@ def check_hashes(password,hashed_text):
 
 #選択肢はフォームの外に作らないとエラーが出るかも
 input_taikaiid = st.text_input(label = '大会IDを入力してください')
-input_password = st.text_input("大会パスワードを入力してください",type='password')
+input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
 
-if st.sidebar.checkbox("ログイン"):
+if st.button(label='確定'):
     hashed_pswd = make_hashes(input_password)
     result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
     if result:
@@ -47,7 +47,6 @@ if st.sidebar.checkbox("ログイン"):
     else:
         st.warning("大会IDか大会パスワードが間違っています")
 
-if st.button(label='確定'):
     univ_options = data_retu('monketsu.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ') #こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
     s_number = data_retu('monketsu.db', 'taikai_data', 'taikaiid',input_taikaiid, 'snum')
     absent_options = []
