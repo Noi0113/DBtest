@@ -20,15 +20,6 @@ def is_taikaiid_exists(taikaiid):
 
     return count[0] > 0 if count else False
 
-def add_new_data(taikaiid, password, num):
-    conn = get_connection()
-    c = conn.cursor()
-    c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (taikaiid, password, num))
-    conn.commit()
-
-    # データベース接続を閉じる
-    conn.close()
-
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
 
@@ -53,7 +44,13 @@ def main():
         if is_taikaiid_exists(new_taikaiid):
             st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
         else:
-            add_new_data(new_taikaiid, make_hashes(new_password), int(num_match))
+            conn = get_connection()
+            c = conn.cursor()
+            c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
+            conn.commit()
+
+    # データベース接続を閉じる
+    conn.close()
             st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
 
 if __name__ == '__main__':
