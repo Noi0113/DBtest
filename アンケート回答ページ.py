@@ -17,8 +17,8 @@ with st.form(key='my_form'):
     input_taikaiid = st.text_input(label = '大会IDを入力してください')
     #大会IDはフォーム外のほうがいいかもしれない…？大会IDからuniv_optionsを作成するならその処理はフォーム外になるかも？
     input_name = st.text_input(label='名前を入力してください')
+    input_univ = st.selectbox('学校名または所属会名を入力してください', options=univ_options)
     input_level = st.selectbox('級を入力してください',options=['A','B','C','D','E'])
-    input_univ = st.selectbox('大学名を入力してください', options=univ_options)
     input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか',options=['はい','いいえ'])
     input_wantto = st.text_input(label='対戦したい人を記入してください')
     input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
@@ -32,7 +32,14 @@ with st.form(key='my_form'):
 
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
 if submit_button:
-    st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+    st.write(univ_options)
+    st.write(absent_matches)
+    #c.execute('''
+    #INSERT INTO user_data (input_name,input_school,input_level,input_kisuu,input_wantto,input_wantnotto,) VALUES (?, ?,　?,　?,　?,　?,　?)
+    #''', (name,school,clas,kisuu,wantto,wantnotto,os))
+    #    conn.commit()
+    st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+    #st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
 
 ##ログインについて
 #st.link_button()を導入したい
