@@ -14,7 +14,7 @@ def show_table_data():
     c = conn.cursor()
 
     # テーブルの内容を取得
-    c.execute("SELECT * FROM taikai_table")  # your_tableを実際のテーブル名に変更
+    c.execute("SELECT * FROM user_data")  # your_tableを実際のテーブル名に変更
     data = c.fetchall()
 
     # Pandas DataFrameに変換して表示
