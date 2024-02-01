@@ -4,8 +4,9 @@ import pandas as pd
 
 # SQLiteデータベースに接続する関数
 def get_connection():
-    conn = sqlite3.connect("test.db")  # データベースファイルのパスを指定
-    return conn
+    if 'conn' not in st.session_state:
+        st.session_state['conn'] = sqlite3.connect("test.db")
+    return st.session_state['conn']
 
 # データベース内のテーブルの内容を表示する関数
 def show_table_data():
