@@ -29,6 +29,9 @@ def add_new_data(taikaiid, password, num):
     # データベース接続を閉じる
     conn.close()
 
+def make_hashes(password):
+    return hashlib.sha256(str.encode(password)).hexdigest()
+
 def main():
     status_area = st.empty()
     
