@@ -22,7 +22,7 @@ with st.form(key='my_form'):
     absent_matchs = st.multiselect('Select your options', options)
 
     # オプションのリスト
-    options = ['Option 1', 'Option 2', 'Option 3', 'Option 4']　#このリストをmonketsu-option.dbから取得するとよい
+    options = ['Option 1', 'Option 2', 'Option 3', 'Option 4']#このリストをmonketsu-option.dbから取得するとよい
     # マルチセレクトウィジェット
     selected_options = st.multiselect('Select your options', options)
     # 選択されたオプションを表示
