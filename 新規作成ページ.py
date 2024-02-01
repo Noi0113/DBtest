@@ -12,7 +12,7 @@ def is_taikaiid_exists(taikaiid):
     # データベースに接続
     conn = get_connection()
     c = conn.cursor()
-    c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (taikaiid,))
+    c.execute(f"SELECT COUNT(*) FROM TestTable WHERE taikaiid = ?;", (taikaiid,))
     count = c.fetchone()
 
     # データベース接続を閉じる
