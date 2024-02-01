@@ -649,6 +649,7 @@ if uploaded_file is not None:
         new_df = pd.DataFrame(data)
 
         new_df.to_csv("outputcsv", index =False)
+        st.table(new_df)
         st.success("新しいCSVファイルが出力されました。")
 
 
