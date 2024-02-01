@@ -32,8 +32,13 @@ with st.form(key='my_form'):
 
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
 if submit_button:
-    st.write(univ_options)
-    st.write(absent_matches)
+    absent_01 = []
+    for i in absent_options:
+        if i in absent_matches:
+            absent_01.append(0)
+        else:
+            absent_01.append(1)
+    st.write(absent_01)
     #c.execute('''
     #INSERT INTO user_data (input_name,input_school,input_level,input_kisuu,input_wantto,input_wantnotto,) VALUES (?, ?,　?,　?,　?,　?,　?)
     #''', (name,school,clas,kisuu,wantto,wantnotto,os))
