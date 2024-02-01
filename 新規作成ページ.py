@@ -5,7 +5,7 @@ import sqlite3
 # sqliteに接続
 def get_connection():
     if 'conn' not in st.session_state:
-        st.session_state['conn'] = sqlite3.connect("monketsu.db")
+        st.session_state['conn'] = sqlite3.connect("test.db")
     return st.session_state['conn']
 
 def is_taikaiid_exists(taikaiid):
@@ -23,15 +23,7 @@ def is_taikaiid_exists(taikaiid):
 def add_new_data(taikaiid, password, num):
     conn = get_connection()
     c = conn.cursor()
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS taikai_data (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            taikaiid TEXT,
-            password TEXT,
-            snum INTEGER
-        )
-    ''')
-    c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (taikaiid, password, num))
+    c.execute("INSERT INTO TestTable (taikaiid, password, snum) VALUES (?, ?, ?);", (taikaiid, password, num))
     conn.commit()
 
     # データベース接続を閉じる
