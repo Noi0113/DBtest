@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
+import hashlib
 
 def main():
     status_area = st.empty()
@@ -25,6 +26,14 @@ def login_user(username,password):
 	c.execute('SELECT * FROM userstable WHERE username =? AND password = ?',(username,password))
 	data = c.fetchall()
 	return data
+#hash化
+def make_hashes(password):
+	return hashlib.sha256(str.encode(password)).hexdigest()
+
+def check_hashes(password,hashed_text):
+	if make_hashes(password) == hashed_text:
+		return hashed_text
+	return False
 
 #選択肢はフォームの外に作らないとエラーが出るかも
 input_taikaiid = st.text_input(label = '大会IDを入力してください')
@@ -36,7 +45,7 @@ if st.sidebar.checkbox("ログイン"):
     if result:
         st.success("{}の参加用フォーム".format(username))
     else:
-		st.warning("大会IDか大会パスワードが間違っています")
+	st.warning("大会IDか大会パスワードが間違っています")
 
 if st.button(label='確定'):
     univ_options = data_retu('monketsu.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ'):#こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
