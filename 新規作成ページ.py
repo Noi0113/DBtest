@@ -21,7 +21,7 @@ def main():
     def add_new_data(taikaiid, password):
         conn = get_connection()
         c = conn.cursor()
-        c.execute("INSERT INTO TestTable (taikaiid, password) VALUES (?, ?);", (taikaiid, password,))
+        c.execute("INSERT INTO TestTable (taikaiid, name) VALUES (?, ?);", (taikaiid, password,))
         conn.commit()
         conn.close()
 
