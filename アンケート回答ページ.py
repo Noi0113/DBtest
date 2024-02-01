@@ -45,7 +45,7 @@ if st.sidebar.checkbox("ログイン"):
     if result:
         st.success("{}の参加用フォーム".format(username))
     else:
-	st.warning("大会IDか大会パスワードが間違っています")
+        st.warning("大会IDか大会パスワードが間違っています")
 
 if st.button(label='確定'):
     univ_options = data_retu('monketsu.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ'):#こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
