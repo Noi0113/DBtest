@@ -36,7 +36,7 @@ def main():
     status_area = st.empty()
     
     # タイトル
-    st.title('新規作成') 
+    st.title('新規作成dayo') 
 
     # ここから本作成
     new_taikaiid = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
