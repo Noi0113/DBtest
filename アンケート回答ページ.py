@@ -22,8 +22,8 @@ def data_retu(database_path, table_name, target_name,target_id, column_name):
     return result_list
 
 #loginする
-def login_user(username,password):
-	c.execute('SELECT * FROM userstable WHERE username =? AND password = ?',(username,password))
+def login_user(id,pas):
+	c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
 	data = c.fetchall()
 	return data
 #hash化
@@ -37,10 +37,10 @@ def check_hashes(password,hashed_text):
 
 #選択肢はフォームの外に作らないとエラーが出るかも
 input_taikaiid = st.text_input(label = '大会IDを入力してください')
-input_password = st.sidebar.text_input("大会パスワードを入力してください",type='password')
+input_password = st.text_input("大会パスワードを入力してください",type='password')
 
 hashed_pswd = make_hashes(input_password)
-result = login_user(username,check_hashes(input_password,hashed_pswd))
+result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
 if st.sidebar.checkbox("ログイン"):
     if result:
         st.success("{}の参加用フォーム".format(username))
