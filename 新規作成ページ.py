@@ -28,28 +28,30 @@ def main():
     
     # タイトル
     st.title('新規作成') 
+    with st.form(key='my_form2'):
+        # ここから本作成
+        new_taikaiid = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
+        new_password = st.text_input("大会パスワードを入力してください", type='password')
+        num_match = st.selectbox("大会の試合数を入力してください", range(1, 15), format_func=lambda x: f'{x} 回')
+        num_universities = st.number_input("参加大学数を入力してください", min_value=1, step=1)
 
-    # ここから本作成
-    new_taikaiid = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
-    new_password = st.text_input("大会パスワードを入力してください", type='password')
-    num_match = st.selectbox("大会の試合数を入力してください", range(1, 15), format_func=lambda x: f'{x} 回')
-    num_universities = st.number_input("参加大学数を入力してください", min_value=1, step=1)
+        universities = []
+        for i in range(num_universities):
+            university_name = st.text_input(f"参加大学名{i+1}を入力してください")
+            universities.append(university_name)
 
-    universities = []
-    for i in range(num_universities):
-        university_name = st.text_input(f"参加大学名{i+1}を入力してください")
-        universities.append(university_name)
+        submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
-    if st.button('大会作成！', use_container_width=True, help='ページ準備中'):
-        if is_taikaiid_exists(new_taikaiid):
-            st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
-        else:
-            conn = get_connection()
-            c = conn.cursor()
-            c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
-            conn.commit()
-            conn.close()
-            st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
+        if submit_button:
+            if is_taikaiid_exists(new_taikaiid):
+                st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
+            else:
+                conn = get_connection()
+                c = conn.cursor()
+                c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
+                conn.commit()
+                conn.close()
+                st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
 
 if __name__ == '__main__':
     main()
