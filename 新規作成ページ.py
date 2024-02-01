@@ -9,12 +9,11 @@ def get_connection():
     return st.session_state['conn']
 
 def create_user():
-
     c.execute('CREATE TABLE IF NOT EXISTS userstable (username TEXT PRIMARY KEY, password TEXT)')
 
 def add_user(username, password):
     # ユーザーが既に存在するかを確認
-    conn = get_connection()#ここでコネクション確立？？
+    conn = get_connection()#ここでコネクション確立？？name errorが出てしまう
     c.execute('SELECT * FROM userstable WHERE username = ?', (username,))
     existing_user = c.fetchone()
     if existing_user:
