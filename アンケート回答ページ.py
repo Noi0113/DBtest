@@ -14,12 +14,12 @@ absent_options = ['Option 1', 'Option 2', 'Option 3', 'Option 4']#このリス�
 
 # フォームを作成します
 with st.form(key='my_form'):
-    input_taikaiid = st.text_input(label = '大会ID')
-    input_name = st.text_input(label='名前')
-    input_level = st.selectbox('級',options=['A','B','C','D','E'])
-    input_univ = st.selectbox('大学名', options=univ_options)
+    input_taikaiid = st.text_input(label = '大会IDを入力してください')
+    input_name = st.text_input(label='名前を入力してください')
+    input_level = st.selectbox('級を入力してください',options=['A','B','C','D','E'])
+    input_univ = st.selectbox('大学名を入力してください', options=univ_options)
     #input_feedback = st.text_area(label='フィードバック')
-    absent_matches = st.multiselect('欠席する試合(複数選択可)', absent_options)
+    absent_matches = st.multiselect('欠席する試合(複数選択可)を入力してください', absent_options)
   
     st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     input_kojinid = st.text_input(label = '個人ID')
