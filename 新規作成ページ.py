@@ -48,9 +48,7 @@ def main():
             c = conn.cursor()
             c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
             conn.commit()
-
-    # データベース接続を閉じる
-    conn.close()
+            conn.close()
             st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
 
 if __name__ == '__main__':
