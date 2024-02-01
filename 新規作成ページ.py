@@ -46,5 +46,19 @@ def main():
                 st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
             conn.close()
             
+enter_disable_script = """
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    form.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            return false;
+        }
+    });
+});
+</script>
+"""
+
 if __name__ == '__main__':
     main()
