@@ -19,15 +19,16 @@ with st.form(key='my_form'):
     input_level = st.selectbox('級',options=['A','B','C','D','E'])
     input_univ = st.selectbox('大学名', options=univ_options)
     #input_feedback = st.text_area(label='フィードバック')
-    absent_matchs = st.multiselect('欠席する試合', absent_options)
-    # 選択されたオプションを表示
-    #st.write('欠席する試合:', ', '.join(absent_matchs))
+    absent_matches = st.multiselect('欠席する試合(複数選択可)', absent_options)
+  
     st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     input_kojinid = st.text_input(label = '個人ID')
     #すべての欄を埋めたら送信できるようにもしたい
     #if input_taikaiid in not Null:
     submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
+#選択されたオプションを表示
+st.write('欠席する試合:', ', '.join(absent_matches))
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
 if submit_button:
     st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
