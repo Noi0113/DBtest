@@ -36,7 +36,7 @@ def main():
     status_area = st.empty()
     
     # タイトル
-    st.title('新規作成dayo') 
+    st.title('新規作成') 
 
     # ここから本作成
     new_taikaiid = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
@@ -50,11 +50,10 @@ def main():
         universities.append(university_name)
 
     if st.button('大会作成！', use_container_width=True, help='ページ準備中'):
-        st.write(type(num_match))
         if is_taikaiid_exists(new_taikaiid):
             st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
         else:
-            add_new_data(new_taikaiid, make_hashes(new_password), num_match)
+            add_new_data(new_taikaiid, make_hashes(new_password), int(num_match))
             st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
 
 if __name__ == '__main__':
