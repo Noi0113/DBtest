@@ -7,24 +7,15 @@ st.title('アンケート回答')
 
 st.markdown('フォーム')
 
-# データフレームを作成
-data = {'Name': ['Tom', 'Nick', 'John', 'Peter'],
-        'Age': [20, 21, 19, 18]}
-df = pd.DataFrame(data)
 
-# チェックボックスの状態を保存する辞書
-checkboxes = {i: False for i in range(df.shape[0])}
+# オプションのリスト
+options = ['Option 1', 'Option 2', 'Option 3', 'Option 4']
 
-# チェックボックスの状態を更新
-for i in range(df.shape[0]):
-    checkboxes[i] = st.checkbox(f'Row {i}', value=checkboxes[i])
+# マルチセレクトウィジェット
+selected_options = st.multiselect('Select your options', options)
 
-# チェックボックスの状態をデータフレームに追加
-df['Checked'] = checkboxes.values()
-
-# データフレームを表示
-st.write(df)
-
+# 選択されたオプションを表示
+st.write('You selected:', ', '.join(selected_options))
 univ_options = ['あ','い']#こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
 
 # フォームを作成します
