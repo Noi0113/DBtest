@@ -648,9 +648,8 @@ if uploaded_file is not None:
           writer.writerow(restlist)
           writer.writerow(rest2list)        
 
-
         ##csvファイルの出力##
-        st.write(data25結果.csv)
+        #st.write(data25結果.csv)
         #if st.button('学校名の抽出',use_container_width=True):
 
 
