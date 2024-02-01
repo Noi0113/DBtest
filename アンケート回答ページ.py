@@ -32,7 +32,7 @@ def make_hashes(password):
 
 def check_hashes(password,hashed_text):
     if make_hashes(password) == hashed_text:
-	return hashed_text
+        return hashed_text
     return False
 
 #選択肢はフォームの外に作らないとエラーが出るかも
