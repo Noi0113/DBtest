@@ -3,13 +3,6 @@ import pandas as pd
 import sqlite3
 import hashlib
 
-def main():
-    status_area = st.empty()
-#タイトル
-st.title('アンケート回答') 
-
-st.markdown('参加者の個人アンケートに回答するため、大会IDとパスワードを入力してください')
-
 #target_id列の値がtarget_idである行のcolumn_name列の値をリストで出す
 def data_retu(database_path, table_name, target_name,target_id, column_name):
     conn = sqlite3.connect(database_path)
@@ -34,27 +27,34 @@ def check_hashes(password,hashed_text):
     if make_hashes(password) == hashed_text:
         return hashed_text
     return False
+    
+def main():
+    status_area = st.empty()
+    #タイトル
+    st.title('アンケート回答') 
 
-#選択肢はフォームの外に作らないとエラーが出るかも
-input_taikaiid = st.text_input(label = '大会IDを入力してください')
-input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
+    st.markdown('参加者の個人アンケートに回答するため、大会IDとパスワードを入力してください')
 
-if st.button(label='確定'):
-    hashed_pswd = make_hashes(input_password)
-    result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
-    if result:
-        st.success("{}の参加用フォーム".format(username))
-    else:
-        st.warning("大会IDか大会パスワードが間違っています")
+    #選択肢はフォームの外に作らないとエラーが出るかも
+    #input_taikaiid = st.text_input(label = '大会IDを入力してください')
+    #input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
 
-    univ_options = data_retu('monketsu.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ') #こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
-    s_number = data_retu('monketsu.db', 'taikai_data', 'taikaiid',input_taikaiid, 'snum')
-    absent_options = []
-    for i in range(int(s_number[0])):
-        absent_options.append(f'{i+1}試合目')
+    #if st.button(label='確定'):
+    #    hashed_pswd = make_hashes(input_password)
+    #    result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
+    #    if result:
+    #        st.success("{}の参加用フォーム".format(username))
+    #    else:
+    #        st.warning("大会IDか大会パスワードが間違っています")
 
-    #univ_options = ['あ','い']
-    #absent_options = ['1','2','3']
+    #    univ_options = data_retu('monketsu.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ') #こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
+    #    s_number = data_retu('monketsu.db', 'taikai_data', 'taikaiid',input_taikaiid, 'snum')
+    #    absent_options = []
+    #    for i in range(int(s_number[0])):
+    #        absent_options.append(f'{i+1}試合目')
+
+    univ_options = ['あ','い']
+    absent_options = ['1','2','3']
 
     # フォームを作成します
     with st.form(key='my_form'):
@@ -73,23 +73,23 @@ if st.button(label='確定'):
     
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
-    # ユーザーが送信ボタンを押したときに表示されるメッセージ
-    if submit_button:
-        absent_01 = []
-        for i in absent_options:
-            if i in absent_matches:
+        # ユーザーが送信ボタンを押したときに表示されるメッセージ
+        if submit_button:
+            absent_01 = []
+            for i in absent_options:
+                if i in absent_matches:
+                    absent_01.append(0)
+                else:
+                    absent_01.append(1)
+            while len(absent_01) < 15:
                 absent_01.append(0)
-            else:
-                absent_01.append(1)
-        while len(absent_01) < 15:
-            absent_01.append(0)
     
-        #c.execute('''
-        #INSERT INTO user_data (name,school,level,kisuu,wantto,wantnotto,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15) VALUES ((?,?,?,?,?,?,?,?,?,?,?,?,,?,?,?,?,?,?,?,?)
-        #''', (input_name,input_school,input_level,input_kisuu,input_wantto,input_wantnotto,absent_01[0],absent_01[1],absent_01[2],absent_01[3],absent_01[4],absent_01[5],absent_01[6],absent_01[7],absent_01[8],absent_01[9],absent_01[10],absent_01[11],absent_01[12],absent_01[13],absent_01[14]))
-        #    conn.commit()
-        #st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-        #st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+            c.execute('''
+                INSERT INTO user_data (name,school,level,kisuu,wantto,wantnotto,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15) VALUES ((?,?,?,?,?,?,?,?,?,?,?,?,,?,?,?,?,?,?,?,?)
+                ''', (input_name,input_school,input_level,input_kisuu,input_wantto,input_wantnotto,absent_01[0],absent_01[1],absent_01[2],absent_01[3],absent_01[4],absent_01[5],absent_01[6],absent_01[7],absent_01[8],absent_01[9],absent_01[10],absent_01[11],absent_01[12],absent_01[13],absent_01[14]))
+            conn.commit()
+            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+            st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
 
     ##ログインについて
     #st.link_button()を導入したい
