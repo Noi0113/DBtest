@@ -20,10 +20,10 @@ def is_taikaiid_exists(taikaiid):
 
     return count[0] > 0 if count else False
 
-def add_new_data(taikaiid, password, num):
+def add_new_data(taikaiid, password):
     conn = get_connection()
     c = conn.cursor()
-    c.execute("INSERT INTO TestTable (taikaiid, password, snum) VALUES (?, ?, ?);", (taikaiid, password, num,))
+    c.execute("INSERT INTO TestTable (taikaiid, password) VALUES (?, ?);", (taikaiid, password,))
     conn.commit()
 
     # データベース接続を閉じる
@@ -53,7 +53,7 @@ def main():
         if is_taikaiid_exists(new_taikaiid):
             st.error("エラー: このtaikaiidは既に存在します。別のtaikaiidを入力してください。")
         else:
-            add_new_data(new_taikaiid, make_hashes(new_password), num_match)
+            add_new_data(new_taikaiid, make_hashes(new_password))
             st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
 
 if __name__ == '__main__':
