@@ -28,7 +28,7 @@ with st.form(key='my_form'):
     submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
 #選択されたオプションを表示
-st.write('欠席する試合:', ', '.join(absent_matches))
+st.write(absent_matches)
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
 if submit_button:
     st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
