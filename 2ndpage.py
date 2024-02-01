@@ -7,13 +7,10 @@ def main():
 st.title('(旧)新規作成ページ・(新)最適化実行＆結果出力ページ')
 
 #install coin-or-cbc
-#pip install pulp
-#pip install pulp
 
 import subprocess
 # subprocessモジュールを使用してpipを呼び出し、モジュールをインストールする
 subprocess.check_call(["pip", "install", "pulp"])
-#pip! install pulp
 
 import pulp
 import random
