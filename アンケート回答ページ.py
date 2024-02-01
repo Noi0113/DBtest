@@ -38,12 +38,15 @@ if submit_button:
             absent_01.append(0)
         else:
             absent_01.append(1)
+    while len(absent_01) < 15:
+        my_list.append(0)
     st.write(absent_01)
+    
     #c.execute('''
     #INSERT INTO user_data (input_name,input_school,input_level,input_kisuu,input_wantto,input_wantnotto,) VALUES (?, ?,　?,　?,　?,　?,　?)
-    #''', (name,school,clas,kisuu,wantto,wantnotto,os))
+    #''', (name,school,clas,kisuu,wantto,wantnotto,))
     #    conn.commit()
-    st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+    #st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
     #st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
 
 ##ログインについて
