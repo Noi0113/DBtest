@@ -8,7 +8,7 @@ def main():
 #タイトル
 st.title('アンケート回答') 
 
-st.markdown('フォーム')
+st.markdown('個人のアンケートに回答するため、大会IDとパスワードを入力してください')
 
 #target_id列の値がtarget_idである行のcolumn_name列の値をリストで出す
 def data_retu(database_path, table_name, target_name,target_id, column_name):
