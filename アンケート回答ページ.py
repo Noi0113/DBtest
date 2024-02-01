@@ -22,14 +22,13 @@ with st.form(key='my_form'):
     input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか',options=['はい','いいえ'])
     input_wantto = st.text_input(label='対戦したい人を記入してください')
     input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
-    #input_feedback = st.text_area(label='フィードバック')
     absent_matches = st.multiselect('欠席する試合(複数選択可)を入力してください', absent_options)
   
     #st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     #input_kojinid = st.text_input(label = '個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     #すべての欄を埋めたら送信できるようにもしたい
-    if input_name and input_level and input_univ is not None:
-        submit_button = st.form_submit_button(label='送信',use_container_width = True)
+    #if input_name and input_level and input_univ is not None:
+    submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
 # ユーザーが送信ボタンを押したときに表示されるメッセージ
 if submit_button:
