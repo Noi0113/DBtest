@@ -8,7 +8,7 @@ st.title('アンケート回答')
 st.markdown('フォーム')
 
 
-
+#選択肢はフォームの外に作らないとエラーが出るかも
 univ_options = ['あ','い']#こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
 absent_options = ['Option 1', 'Option 2', 'Option 3', 'Option 4']#このリストをmonketsu-option.dbから取得するとよい
 
@@ -21,7 +21,7 @@ with st.form(key='my_form'):
     #input_feedback = st.text_area(label='フィードバック')
     absent_matchs = st.multiselect('欠席する試合', absent_options)
     # 選択されたオプションを表示
-    st.write('欠席する試合:', ', '.join(absent_matchs))
+    #st.write('欠席する試合:', ', '.join(absent_matchs))
     st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     input_kojinid = st.text_input(label = '個人ID')
     #すべての欄を埋めたら送信できるようにもしたい
