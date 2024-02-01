@@ -637,20 +637,19 @@ if uploaded_file is not None:
         Qnew = []
         Qnew.append('')
         for q in Q:
-          Qnew.append(q)
-
-        #出力
-        with open('data25結果.csv', 'w', newline='') as csvfile:
-          writer = csv.writer(csvfile)
-          writer.writerow(Qnew)
-          for p in range(maxpairnum):
-            writer.writerow(kekkalist_new[p])
-          writer.writerow(restlist)
-          writer.writerow(rest2list)        
+          Qnew.append(q)     
 
         ##csvファイルの出力##
-        #st.write(data25結果.csv)
-        #if st.button('学校名の抽出',use_container_width=True):
+        data = {}
+        data[0]=Qnew
+        for i in range(maxpairnum):
+            data[i+1] = kekkalist_new[i]
+        data[maxpairnum+1] = restlist
+        data[maxpairnum+2] = rest2list
+        new_df = pd.DataFrame(data)
+
+        new_df.to_csv("outputcsv", index =False)
+        st.success("新しいCSVファイルが出力されました。")
 
 
 #ここから下は編集しない
