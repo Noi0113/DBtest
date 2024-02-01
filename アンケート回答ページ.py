@@ -39,7 +39,7 @@ if submit_button:
         else:
             absent_01.append(1)
     while len(absent_01) < 15:
-        my_list.append(0)
+        absent_01.append(0)
     st.write(absent_01)
     
     #c.execute('''
