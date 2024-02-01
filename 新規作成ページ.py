@@ -40,9 +40,10 @@ def main():
     # ここから本作成
     new_user = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
     new_password = st.text_input("大会パスワードを入力してください",type='password')
-    num_player = st.selectbox("大会に参加する人数を入力してください", range(1, 100))
-    num_match = st.selectbox("大会の試合数を入力してください", range(1, 100))
-    num_universities = st.number_input("参加大学数を入力してください", min_value=1, step=1)
+    num_player = st.selectbox("大会に参加する人数を入力してください", range(1, 100),format_func=lambda x: f'{x} 人')
+    num_match = st.selectbox("大会の総試合回数を入力してください", range(1, 100),format_func=lambda x: f'{x} 回')
+            ♯↑「総試合回数」って表現わかりにくいかな…？？いい表現あったら変更しておいてください
+    num_universities = st.number_input("参加大学数を入力してください", min_value=1, step=1,format_func=lambda x: f'{x} 校')
     
     universities = []
     for i in range(num_universities):
