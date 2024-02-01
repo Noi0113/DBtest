@@ -23,7 +23,7 @@ def is_taikaiid_exists(taikaiid):
 def add_new_data(taikaiid, password, num):
     conn = get_connection()
     c = conn.cursor()
-    c.execute("INSERT INTO TestTable (taikaiid, password, snum) VALUES (?, ?, ?);", (taikaiid, password, num))
+    c.execute("INSERT INTO TestTable (taikaiid, password, snum) VALUES (?, ?, ?);", (taikaiid, password, num,))
     conn.commit()
 
     # データベース接続を閉じる
