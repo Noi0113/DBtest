@@ -7,6 +7,18 @@ st.title('アンケート回答')
 
 st.markdown('フォーム')
 
+df = pd.DataFrame({
+    'name': ['Alice', 'Bob', 'Charlie'],
+    'age': [25, 30, 35],
+    'is_selected': [False, False, False]
+})
+
+st.write(df)
+
+for i in range(len(df)):
+    df.at[i, 'is_selected'] = st.checkbox('', value=df.at[i, 'is_selected'])
+
+st.write(df)
 
 univ_options = ['あ','い']#こんな感じで、データベースから大学名のリストを取ってくればプルダウン作成は可能です！！！
 
@@ -20,18 +32,7 @@ with st.form(key='my_form'):
     st.markdown ('個人IDを作成してください。アンケート結果を編集する際に必要となりますので、お手元にお控え下さい。')
     input_kojinid = st.text_input(label = '個人ID')
 
-    df = pd.DataFrame({
-    'name': ['Alice', 'Bob', 'Charlie'],
-    'age': [25, 30, 35],
-    'is_selected': [False, False, False]
-})
-
-st.write(df)
-
-for i in range(len(df)):
-    df.at[i, 'is_selected'] = st.checkbox('', value=df.at[i, 'is_selected'])
-
-st.write(df)
+   
 
     #すべての欄を埋めたら送信できるようにもしたい
     #if input_taikaiid in not Null:
