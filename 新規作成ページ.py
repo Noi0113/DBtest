@@ -23,6 +23,14 @@ def is_taikaiid_exists(taikaiid):
 def add_new_data(taikaiid, password, num):
     conn = get_connection()
     c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS taikai_data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            taikaiid TEXT,
+            password TEXT,
+            snum INTEGER
+        )
+    ''')
     c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (taikaiid, password, num))
     conn.commit()
 
