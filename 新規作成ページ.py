@@ -20,10 +20,10 @@ def is_taikaiid_exists(taikaiid):
     conn.close()
     return count > 0
 
-def add_new_data(taikaiid, password):
+def add_new_data(taikaiid, password,num):
     conn =  get_connection()
     c = conn.cursor()
-    c.execute("INSERT INTO taikai_data (taikaiid, password,num_match) VALUES (?, ?);", (taikaiid, password,num_match))
+    c.execute("INSERT INTO taikai_data (taikaiid, password,s_num) VALUES (?, ?, ?);", (taikaiid, password,num))
     conn.commit()
     # データベース接続を閉じる
     conn.close()
