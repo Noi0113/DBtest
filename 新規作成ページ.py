@@ -8,10 +8,10 @@ def get_connection():
         st.session_state['conn'] = sqlite3.connect("monketsu.db")
     return st.session_state['conn']
     
-def create_user():
-	c.execute('CREATE TABLE IF NOT EXISTS userstable(username TEXT,password TEXT)')
+#def create_taikai():
+#	c.execute('CREATE TABLE IF NOT EXISTS taikai_table(username TEXT,password TEXT)')
 
-def add_user(username, password):
+def add_taikai(username, password,num):
     # 大会IDが既に存在するかを確認
     conn = get_connection() #ここでコネクション確立？？name errorが出てしまう
     c.execute('SELECT * FROM taikai_data WHERE taikaiid = ?', (username,))
@@ -19,7 +19,7 @@ def add_user(username, password):
     if existing_user:
         return True
     else:
-        c.execute('INSERT INTO taikai_data (username, password) VALUES (?, ?)', (username, password))
+        c.execute('INSERT INTO taikai_data(taikaiid, password,snum) VALUES (?, ?, ?)', (username, password,num))
         conn.commit()
         return False
 
@@ -46,8 +46,8 @@ def main():
         university_name = st.text_input(f"参加大学名{i+1}を入力してください")
         universities.append(university_name)
 
-    if st.button('ID発行', use_container_width=True, help='ページ準備中'):
-        if add_user(new_user, make_hashes(new_password)):
+    if st.button('大会作成！', use_container_width=True, help='ページ準備中'):
+        if add_user(new_taikai, make_hashes(new_password),num_match):
             st.warning("その大会名は既に使用されています")
         else:
             create_user()
