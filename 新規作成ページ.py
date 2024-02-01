@@ -3,10 +3,13 @@ import hashlib
 import sqlite3
 
 # sqliteに接続
-conn = sqlite3.connect('monketsu-option.db')
-c = conn.cursor()
+def get_connection():
+    if 'conn' not in st.session_state:
+        st.session_state['conn'] = sqlite3.connect("monketsu-option.db")
+    return st.session_state['conn']
 
 def create_user():
+    conn = get_connection()#ここでコネクション確立？？
     c.execute('CREATE TABLE IF NOT EXISTS userstable (username TEXT PRIMARY KEY, password TEXT)')
 
 def add_user(username, password):
@@ -31,7 +34,7 @@ def make_hashes(password):
 
 def main():
     status_area = st.empty()
-
+    
     # タイトル
     st.title('新規作成') 
     st.markdown('新規大会IDとパスワードの作成をする')
