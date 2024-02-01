@@ -1,35 +1,60 @@
 import streamlit as st
+import hashlib
 import sqlite3
-import pandas as pd
 
-# SQLiteデータベースに接続する関数
+# sqliteに接続
 def get_connection():
     if 'conn' not in st.session_state:
-        st.session_state['conn'] = sqlite3.connect("monketu.db")
+        st.session_state['conn'] = sqlite3.connect("monketsu.db")
     return st.session_state['conn']
+    
+#def create_taikai():
+#	c.execute('CREATE TABLE IF NOT EXISTS taikai_table(username TEXT,password TEXT)')
 
-# データベース内のテーブルの内容を表示する関数
-def show_table_data():
-    conn = get_connection()
-    c = conn.cursor()
+def add_taikai(username, password,num):
+    # 大会IDが既に存在するかを確認
+    conn = get_connection() #ここでコネクション確立？？name errorが出てしまう
+    c.execute('SELECT * FROM taikai_data WHERE taikaiid = ?', (username,))
+    existing_user = c.fetchone()
+    if existing_user:
+        return True
+    else:
+        c.execute('INSERT INTO taikai_data(taikaiid, password,snum) VALUES (?, ?, ?)', (username, password,num))
+        conn.commit()
+        return False
 
-    # テーブルの内容を取得
-    c.execute("SELECT * FROM user_data")  # your_tableを実際のテーブル名に変更
-    data = c.fetchall()
+# パスワードのハッシュ化
+def make_hashes(password):
+    return hashlib.sha256(str.encode(password)).hexdigest()
 
-    # Pandas DataFrameに変換して表示
-    df = pd.DataFrame(data, columns=[description[0] for description in c.description])
-    st.dataframe(df)
-
-    # データベース接続を閉じる
-    conn.close()
-
-# メインのStreamlitアプリケーション
 def main():
-    st.title("Streamlit SQLiteアプリ")
+    status_area = st.empty()
+    
+    # タイトル
+    st.title('新規作成') 
+    #st.markdown('新規大会IDとパスワードの作成をする')
+    #st.markdown('ID発行されたらそのIDと「完了しました」的な何か出力させたい。ページも変えられたら〇')
 
-    # データベース内のテーブルの内容を表示する
-    show_table_data()
+    # ここから本作成
+    new_taikai = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
+    new_password = st.text_input("大会パスワードを入力してください",type='password')
+    num_match = st.selectbox("大会の試合数を入力してください", range(1, 15),format_func=lambda x: f'{x} 回')
+    num_universities = st.number_input("参加大学数を入力してください", min_value=1, step=1)
+    
+    universities = []
+    for i in range(num_universities):
+        university_name = st.text_input(f"参加大学名{i+1}を入力してください")
+        universities.append(university_name)
 
-if __name__ == "__main__":
+    if st.button('大会作成！', use_container_width=True, help='ページ準備中'):
+        if add_user(new_taikai, make_hashes(new_password),num_match):
+            st.warning("その大会名は既に使用されています")
+        else:
+            create_user()
+            st.success(f"新しい大会({new_taikai})の作成に成功しました")
+            st.info("参加者にアンケートのURL（https://monketsu-questionnaire.streamlit.app/）を送ってください。")
+            st.info("アンケートの回答には大会IDと大会パスワードの入力が必要です")
+            
+
+if __name__ == '__main__':
     main()
