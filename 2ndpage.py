@@ -20,7 +20,6 @@ import random
 import numpy as np
 import csv
 
-#大会ID入力欄を作るつもり
 st.markdown('対戦表を作成したい大会の大会ID・大会パスワードを入力してください')
 input_taikaiid = st.text_input(label = '大会ID')
 input_new_password = st.text_input(label = 'パスワード',type = 'password')
