@@ -3,36 +3,31 @@ import hashlib
 import sqlite3
 
 # sqliteに接続
-def get_connection():
-    if 'conn' not in st.session_state:
-        st.session_state['conn'] = sqlite3.connect("test.db")
-    return st.session_state['conn']
-
-def is_taikaiid_exists(taikaiid):
-    # データベースに接続
-    conn = get_connection()
-    c = conn.cursor()
-    c.execute(f"SELECT COUNT(*) FROM TestTable WHERE taikaiid = ?;", (taikaiid,))
-    count = c.fetchone()
-
-    # データベース接続を閉じる
-    conn.close()
-
-    return count[0] > 0 if count else False
-
-def add_new_data(taikaiid, password):
-    conn = get_connection()
-    c = conn.cursor()
-    c.execute("INSERT INTO TestTable (taikaiid, password) VALUES (?, ?);", (taikaiid, password,))
-    conn.commit()
-
-    # データベース接続を閉じる
-    conn.close()
-
-def make_hashes(password):
-    return hashlib.sha256(str.encode(password)).hexdigest()
-
 def main():
+    def get_connection():
+        if 'conn' not in st.session_state:
+            st.session_state['conn'] = sqlite3.connect("test.db")
+        return st.session_state['conn']
+
+    def is_taikaiid_exists(taikaiid):
+        # データベースに接続
+        conn = get_connection()
+        c = conn.cursor()
+        c.execute(f"SELECT COUNT(*) FROM TestTable WHERE taikaiid = ?;", (taikaiid,))
+        count = c.fetchone()
+        conn.close()
+        return count[0] > 0 if count else False
+
+    def add_new_data(taikaiid, password):
+        conn = get_connection()
+        c = conn.cursor()
+        c.execute("INSERT INTO TestTable (taikaiid, password) VALUES (?, ?);", (taikaiid, password,))
+        conn.commit()
+        conn.close()
+
+    def make_hashes(password):
+        return hashlib.sha256(str.encode(password)).hexdigest()
+    
     status_area = st.empty()
     
     # タイトル
