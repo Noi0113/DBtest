@@ -23,14 +23,14 @@ def is_taikaiid_exists(taikaiid):
 def add_new_data(taikaiid, password, num):
     conn = get_connection()
     c = conn.cursor()
-    c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?)", (taikaiid, password, num))
+    c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (taikaiid, password, num))
     conn.commit()
 
     # データベース接続を閉じる
     conn.close()
 
 def make_hashes(password):
-        return hashlib.sha256(str.encode(password)).hexdigest()
+    return hashlib.sha256(str.encode(password)).hexdigest()
 
 def main():
     status_area = st.empty()
