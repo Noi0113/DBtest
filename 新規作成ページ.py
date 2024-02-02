@@ -13,6 +13,11 @@ def make_hashes(password):
 
 def main():
     status_area = st.empty()
+
+    # sqliteに接続
+    conn = sqlite3.connect('monketsu.db')
+    c = conn.cursor()
+
     
     # タイトル
     st.title('新規作成') 
@@ -55,8 +60,8 @@ def main():
                 # 全ての欄が埋まっていない場合の処理
                 st.warning("全ての項目を入力してください。")
             
-           
+    conn.close()
 if __name__ == '__main__':
     main()
 
-conn.close()
+
