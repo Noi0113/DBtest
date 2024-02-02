@@ -28,7 +28,7 @@ def get_data_by_taikaiid(n, id):
     S = ", ".join([f"s{i}" for i in range(1, n+1)])
     
     # user_dataテーブルから特定のtaikaiidに一致する行を取得
-    query = f"SELECT name, school, level, kisuu, wantto, wantnotto, {S}, taikaiid FROM user_data WHERE taikaiid=?"
+    query = f"SELECT name, school, level, kisuu, wantto, wantnotto, {S} FROM user_data WHERE taikaiid=?"
     df = pd.read_sql_query(query, conn, params=(id,))
     
     conn.close()
