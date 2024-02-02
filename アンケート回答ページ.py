@@ -50,7 +50,7 @@ def main():
         #hashed_pswd = make_hashes(input_password)
         #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
         #if result:
-        st.success("{}の参加用フォーム".format(username))
+        st.success("{}の参加用フォーム".format(input_taikaiid))
 
         univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
         s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
