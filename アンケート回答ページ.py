@@ -57,10 +57,10 @@ def main():
   
                 #if input_name and input_level and input_univ is not None:
     
-            submit_button = st.form_submit_button(label='送信',use_container_width = True)
+            #submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
                 # ユーザーが送信ボタンを押したときに表示されるメッセージ
-            if submit_button:
+            if st.form_submit_button(label='送信',use_container_width = True):
                 st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                 if input_name and input_univ and input_level:
                     absent_01 = []
