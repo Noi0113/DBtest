@@ -9,6 +9,7 @@ import numpy as np
 import csv
 import pandas as pd
 
+conn = sqlite3.connect('monka.db')
 conn.close()
 
 def data_retu(table_name, target_name,target_id, column_name):
