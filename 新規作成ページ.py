@@ -50,8 +50,9 @@ def main():
 
                     # データベースファイルのパス
                     db_path = "monketsu.db"
-
+                    py_path = "新規作成ページ.py"
                     # パスを表示
+                    st.write(f"データベースへのパス: {os.path.abspath(py_path)}")
                     st.write(f"データベースへのパス: {os.path.abspath(db_path)}")
             else:
                 # 全ての欄が埋まっていない場合の処理
