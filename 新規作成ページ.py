@@ -5,9 +5,16 @@ import sqlite3
 # sqliteに接続
 def get_connection():
     if 'conn' not in st.session_state:
-        st.session_state['conn'] = sqlite3.connect("monketsu.db")
+        st.session_state['conn'] = sqlite3.connect('monketsu.db')
+    else:
+        if not st.session_state['conn'].closed:
+            # 既に存在するコネクションが閉じていない場合はそのまま返す
+            return st.session_state['conn']
+        else:
+            # コネクションが閉じていた場合は新しいコネクションを作成
+            st.session_state['conn'] = sqlite3.connect('monketsu.db')
     return st.session_state['conn']
-
+    
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
 
