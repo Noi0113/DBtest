@@ -35,22 +35,6 @@ def get_data_by_taikaiid(n, id):
 #login
 def login_user(id,pas):
     conn = sqlite3.connect('monka.db')
-    cursor = conn.cursor()
-
-    # データの取得
-    cursor.execute('SELECT * FROM taikai_data;')
-    data = cursor.fetchall()
-
-    # データベース接続を閉じる
-    conn.close()
-
-    # Streamlitアプリを構築
-    st.title('データベース内のデータ表示')
-
-    # データの表示
-    st.table(data)
-
-    conn = sqlite3.connect('monka.db')
     c = conn.cursor()
     c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
     data = c.fetchall()
@@ -72,6 +56,21 @@ def main():
     #タイトル
     st.title('対戦表の作成')
     #install coin-or-cbc
+    conn = sqlite3.connect('monka.db')
+    cursor = conn.cursor()
+
+    # データの取得
+    cursor.execute('SELECT * FROM taikai_data;')
+    data = cursor.fetchall()
+
+    # データベース接続を閉じる
+    conn.close()
+
+    # Streamlitアプリを構築
+    st.title('データベース内のデータ表示')
+
+    # データの表示
+    st.table(data)
 
     st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
     input_taikaiid = st.text_input(label = '大会名')    
