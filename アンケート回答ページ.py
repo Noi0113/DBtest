@@ -54,8 +54,6 @@ def main():
         input_wantto = st.text_input(label='対戦したい人を記入してください')
         input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
         absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
-  
-            #if input_name and input_level and input_univ is not None:
     
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
