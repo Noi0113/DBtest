@@ -4,8 +4,7 @@ def main():
  #ここから上は編集しない
 
 #タイトル
-st.title('対戦表の確認ページ')
-st.markdown('現状、単純なcsv入力でしかできない。dbのデータから出力できるようになってない')
+st.title('対戦表の作成')
 #install coin-or-cbc
 
 import subprocess
@@ -16,18 +15,20 @@ import pulp
 import random
 import numpy as np
 import csv
+import pandas as pd
 
-st.markdown('対戦表を作成したい大会の大会ID・大会パスワードを入力してください')
-input_taikaiid = st.text_input(label = '大会ID')
+st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
+input_taikaiid = st.text_input(label = '大会名')
 input_new_password = st.text_input(label = 'パスワード',type = 'password')
-st.button('対戦表の作成',use_container_width=True,help='このボタンを押すと最適化が実行されて対戦表が出力される')
+if st.button('対戦表の作成',use_container_width=True)
     #↓以降最適化の実行
 
 #CSVファイルをアップロード(とりあえず)
-import pandas as pd
-uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+
+#uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
+#if uploaded_file is not None:
+#    df = pd.read_csv(uploaded_file)
+
     if st.button('CSV表示',use_container_width=True):
 
     ####ここに最適化をいれる####
