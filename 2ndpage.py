@@ -589,8 +589,9 @@ if st.button('対戦表の作成',use_container_width=True):
           for p,i1i2 in kekka.items():
             kekkax.append([i1i2[0],i1i2[1]])
           kekkalistx.append(kekkax)
-            
+
           kekkaq = []
+          kekkanameq = []
           for p,i1i2 in kekka.items():
             kekkaq.append('{} vs {}'.format(i1i2[0],i1i2[1]))
           kekkalist.append(kekkaq)
@@ -665,7 +666,6 @@ if st.button('対戦表の作成',use_container_width=True):
         new_df = pd.DataFrame(data)
 
         new_df.to_csv("outputcsv", index =False)
-        #st.table(new_df)
         st.write(new_df)
         st.success("新しいCSVファイルが出力されました。")
 
