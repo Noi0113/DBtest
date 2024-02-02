@@ -92,8 +92,8 @@ def main():
         
         
         #所属の集合
-        S = [row.所属 for row in df.itertuples()]
-        S = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
+        #S = [row.所属 for row in df.itertuples()]
+        #S = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
         
         #級の集合
         K = [row.級 for row in df.itertuples()]
