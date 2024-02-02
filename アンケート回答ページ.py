@@ -25,12 +25,12 @@ def login_user(id,pas):
     conn.close()
     return data
 #hash化
-def make_hashes(password):
-    return hashlib.sha256(str.encode(password)).hexdigest()
-def check_hashes(password,hashed_text):
-    if make_hashes(password) == hashed_text:
-        return hashed_text
-    return False
+#def make_hashes(password):
+    #return hashlib.sha256(str.encode(password)).hexdigest()
+#def check_hashes(password,hashed_text):
+    #if make_hashes(password) == hashed_text:
+        #return hashed_text
+    #return False
     
 def main():
     status_area = st.empty()
