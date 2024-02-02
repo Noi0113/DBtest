@@ -29,7 +29,7 @@ def get_data_by_taikaiid(n, id):
     S = ", ".join([f"s{i}" for i in range(1, n+1)])
     
     # user_dataテーブルから特定のtaikaiidに一致する行を取得
-    query = f"SELECT name, level, {S}, taikaiid FROM user_data WHERE taikaiid=?"
+    query = f"SELECT name, univ, level, kisuu, wantto, wantnotto {S} FROM user_data WHERE taikaiid=?"
     df = pd.read_sql_query(query, conn, params=(id,))
     
     conn.close()
@@ -79,7 +79,7 @@ def main():
         num = int(data_retu("taikai_data","taikaiid","zenkoku","snum")[0])
         df = get_data_by_taikaiid(num,input_taikaiid)
         df.insert(0, '個人ID', range(1, len(df) + 1))
-        df = df.rename(columns={'name': '名前', 'univ': '所属', 'univ': '所属', 'level': '級', 'kisuu': '奇数の時にダミーさんとやりたいですか', 'wantto': '対戦希望', 'wantnotto': '対戦したくない希望', 's1': '第1試合休み', 's2': '第2試合休み', 's3': '第3試合休み', 's4': '第4試合休み', 's5': '第5試合休み', 's6': '第6試合休み', 's7': '第7試合休み', 's8': '第8試合休み', 's9': '第9試合休み', 's10': '第10試合休み', 's11': '第11試合休み', 's12': '第12試合休み', 's13': '第13試合休み', 's14': '第14試合休み', 's15': '第15試合休み'})
+        df = df.rename(columns={'name': '名前', 'univ': '所属', , 'level': '級', 'kisuu': '奇数の時にダミーさんとやりたいですか', 'wantto': '対戦希望', 'wantnotto': '対戦したくない希望', 's1': '第1試合休み', 's2': '第2試合休み', 's3': '第3試合休み', 's4': '第4試合休み', 's5': '第5試合休み', 's6': '第6試合休み', 's7': '第7試合休み', 's8': '第8試合休み', 's9': '第9試合休み', 's10': '第10試合休み', 's11': '第11試合休み', 's12': '第12試合休み', 's13': '第13試合休み', 's14': '第14試合休み', 's15': '第15試合休み'})
         st.table(df)
     ####ここに最適化をいれる####
         #集合定義
@@ -92,12 +92,10 @@ def main():
         
         
         #所属の集合
-        S = []
         S = [row.所属 for row in df.itertuples()]
         S = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
         
         #級の集合
-        K = []
         K = [row.級 for row in df.itertuples()]
         K = list(set(K))
         
