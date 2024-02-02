@@ -31,8 +31,6 @@ def main():
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
         if submit_button:
-            c.execute("INSERT INTO taikai_data (大会ID,パス,試合数) VALUES (?,?,?)", (new_taikaiid,new_password,num_match))
-            conn.commit()
             if new_taikaiid and new_password and num_match and num_universities and universities.count("")==0:
                 c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
                 count = c.fetchone()
