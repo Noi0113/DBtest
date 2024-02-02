@@ -564,6 +564,7 @@ if st.button('対戦表の作成',use_container_width=True)
         print()
         
         kekkalist = []
+        kekkalistx = []
         restlist = []
         rest2list =[]
         kekkanew = []
@@ -584,6 +585,11 @@ if st.button('対戦表の作成',use_container_width=True)
                 rest2.append(i1)
         
           #出力のため
+          kekkax = []
+          for p,i1i2 in kekka.items():
+            kekkax.append([i1i2[0],i1i2[1]])
+          kekkalistx.append(kekkax)
+            
           kekkaq = []
           for p,i1i2 in kekka.items():
             kekkaq.append('{} vs {}'.format(i1i2[0],i1i2[1]))
@@ -591,7 +597,16 @@ if st.button('対戦表の作成',use_container_width=True)
         
           restlist.append(I_rest[qnum-1])
           rest2list.append(rest2)
-        
+
+        namex = [row.名前 for row in df.itertuples()]
+        idx = [row.個人ID for row in df.itertuples()]
+        name_kekkalistx = []
+        for q in range(len(Q)):
+          name_kekkalistx.append([])
+          for p in range(len(kekkalistx[q])):
+            name1=namex[idx.index(kekkalistx[q][p][0])]
+            name2=namex[idx.index(kekkalistx[q][p][1])]
+            name_kekkalistx[q].append([name1,name2])
         #出力準備
         restlistindex = -1
         for list in restlist:
@@ -630,7 +645,7 @@ if st.button('対戦表の作成',use_container_width=True)
           for q in Q:
             qnum += 1
             if pnum <= pairnumlist[qnum-1]:
-              plist.append(kekkalist[qnum-1][pnum-1])
+              plist.append('{}vs{}'.format(name_kekkalistx[qnum-1][pnum-1][0],name_kekkalistx[qnum-1][pnum-1][1]))
             else:
               plist.append('')
           kekkalist_new.append(plist)
