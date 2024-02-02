@@ -31,11 +31,9 @@ def main():
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
         if submit_button:
-            st.write(universities)
-            st.write(universities.count(''))
-            if new_taikaiid and new_password and num_match and num_universities and len(universities)==int(num_universities):
-                conn = get_connection()
-                c = conn.cursor()
+            conn = get_connection()
+            c = conn.cursor()
+            if new_taikaiid and new_password and num_match and num_universities and universities.count("")==0:
                 c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
                 count = c.fetchone()
                 a = count[0] > 0 if count else False
