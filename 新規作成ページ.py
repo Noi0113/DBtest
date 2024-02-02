@@ -16,7 +16,7 @@ def main():
     status_area = st.empty()
     
     # タイトル
-    st.title('新規作成') 
+    st.title('新規作成dayo') 
     with st.form(key='my_form2'):
         # ここから本作成
         new_taikaiid = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
@@ -51,7 +51,25 @@ def main():
                 st.warning("全ての項目を入力してください。")
             conn.close()
             
+    def display_table(table_name):
+        conn = sqlite3.connect('monketsu.db')
+        c = conn.cursor()
 
+        # テーブルのデータを取得
+        c.execute(f"SELECT * FROM {table_name}")
+        data = c.fetchall()
 
+        # テーブルの列名を取得
+        c.execute(f"PRAGMA table_info({table_name})")
+        columns = [column[1] for column in c.fetchall()]
+
+        conn.close()
+
+        # テーブルを表示
+        st.table(data, columns=columns)
+
+    # 例として "your_table" テーブルを表示
+    display_table("taikai_data")
+            
 if __name__ == '__main__':
     main()
