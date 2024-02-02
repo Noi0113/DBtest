@@ -16,20 +16,23 @@ def data_retu(table_name, target_name,target_id, column_name):
     result_list = [item[0] for item in result]
     return result_list
 
+
 #loginする
-#def login_user(id,pas):
-    #conn = sqlite3.connect('monka.db')
-    #c = conn.cursor()
-    #c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
-    #data = c.fetchall()
-    #conn.close()
-    #return data
+def login_user(id,hashed_pas):
+    conn = sqlite3.connect('monka.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,hashed_pas))
+    data = c.fetchall()
+    conn.close()
+    return data
+
 #hash化
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
+
 def check_hashes(password,hashed_text):
     if make_hashes(password) == hashed_text:
-        return hashed_text
+        return True
     return False
     
 def main():
@@ -45,7 +48,9 @@ def main():
 
     if st.button(label='確定'):
         hashed_pswd = make_hashes(input_password)
-        result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
+        if check_hashes(input_password, hashed_pswd):
+            result = login_user(input_taikaiid, hashed_pswd)
+
         if result:
             st.success("{}の参加用フォーム".format(username))
 
