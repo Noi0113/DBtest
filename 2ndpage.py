@@ -25,9 +25,9 @@ if st.button('対戦表の作成',use_container_width=True)
 
 #CSVファイルをアップロード(とりあえず)
 
-uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+#uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
+#if uploaded_file is not None:
+#    df = pd.read_csv(uploaded_file)
 
     
 
