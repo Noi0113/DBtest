@@ -10,6 +10,17 @@ import csv
 import pandas as pd
 import sqlite3
 
+def get_connection():
+    conn = sqlite3.connect('monka.db')  # 'monka.db' はデータベースファイルのパスに変更してください
+    return conn
+
+# データベースからデータを取得する関数
+def get_data():
+    conn = get_connection()
+    query = "SELECT * FROM user_data"  # 適切なSQLクエリを使用してデータを取得してください
+    df = pd.read_sql(query, conn)
+    conn.close()
+    return df
 
 
 def data_retu(table_name, target_name,target_id, column_name):
@@ -73,6 +84,10 @@ def main():
 #↓以降最適化の実行
 
 #CSVファイルをアップロード(とりあえず)
+        data = get_data()
+
+        # データを表示
+        st.table(data)
 
 #uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
 #if uploaded_file is not None:
