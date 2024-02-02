@@ -57,11 +57,10 @@ def main():
   
             #if input_name and input_level and input_univ is not None:
     
-            #submit_button = st.form_submit_button(label='送信',use_container_width = True)
+        submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
                 # ユーザーが送信ボタンを押したときに表示されるメッセージ
-        if st.form_submit_button(label='送信',use_container_width = True):
-            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+        if submit_button:
             if input_name and input_univ and input_level:
                 absent_01 = []
                 for i in absent_options:
@@ -80,7 +79,7 @@ def main():
                     ''', (input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto,absent_01[0], absent_01[1], absent_01[2], absent_01[3], absent_01[4], absent_01[5],absent_01[6], absent_01[7], absent_01[8], absent_01[9], absent_01[10], absent_01[11],absent_01[12], absent_01[13], absent_01[14], input_taikaiid))
 
                 conn.commit()
-        
+                st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")       
             else:
                 # 全ての欄が埋まっていない場合の処理
                 st.warning("必須項目を入力してください。")
