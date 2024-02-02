@@ -6,7 +6,7 @@ import sqlite3
 # sqliteに接続
 #def get_connection():
 #    if 'conn' not in st.session_state:
-#        st.session_state['conn'] = sqlite3.connect('monketsu.db')
+#        st.session_state['conn'] = sqlite3.connect('github.com/Noi0113/DBtest/edit/main/monketsu.db')
 #    return st.session_state['conn']
     
 def make_hashes(password):
@@ -32,7 +32,7 @@ def main():
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
         if submit_button:
-            conn = sqlite3.connect('monketsu.db')
+            conn = sqlite3.connect('github.com/Noi0113/DBtest/edit/main/monketsu.db')
             c = conn.cursor()
             if new_taikaiid and new_password and num_match and num_universities and universities.count("")==0:
                 c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
@@ -50,26 +50,6 @@ def main():
                 # 全ての欄が埋まっていない場合の処理
                 st.warning("全ての項目を入力してください。")
             conn.close()
-            
-    def display_table(table_name):
-        conn = sqlite3.connect('monketsu.db')
-        c = conn.cursor()
-
-        # テーブルのデータを取得
-        c.execute(f"SELECT * FROM {table_name}")
-        data = c.fetchall()
-
-        # テーブルの列名を取得
-        c.execute(f"PRAGMA table_info({table_name})")
-        columns = [column[1] for column in c.fetchall()]
-
-        conn.close()
-
-        # テーブルを表示
-        st.table(data, columns=columns)
-
-    # 例として "your_table" テーブルを表示
-    display_table("taikai_data")
             
 if __name__ == '__main__':
     main()
