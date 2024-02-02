@@ -32,7 +32,7 @@ def main():
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
         if submit_button:
-            conn = sqlite3.connect(' https://github.com/Noi0113/DBtest/monketsu.db')
+            conn = sqlite3.connect('https://github.com/Noi0113/DBtest/monketsu.db')
             c = conn.cursor()
             if new_taikaiid and new_password and num_match and num_universities and universities.count("")==0:
                 c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
