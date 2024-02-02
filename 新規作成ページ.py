@@ -2,11 +2,12 @@ import streamlit as st
 import hashlib
 import sqlite3
 
+
 # sqliteに接続
-def get_connection():
-    if 'conn' not in st.session_state or not st.session_state['conn'].closed:
-        st.session_state['conn'] = sqlite3.connect('monketsu.db')
-    return st.session_state['conn']
+#def get_connection():
+#    if 'conn' not in st.session_state:
+#        st.session_state['conn'] = sqlite3.connect('monketsu.db')
+#    return st.session_state['conn']
     
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
@@ -31,7 +32,7 @@ def main():
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
         if submit_button:
-            conn = get_connection()
+            conn = sqlite3.connect('monketsu.db')
             c = conn.cursor()
             if new_taikaiid and new_password and num_match and num_universities and universities.count("")==0:
                 c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
