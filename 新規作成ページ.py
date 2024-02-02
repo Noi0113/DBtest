@@ -46,10 +46,17 @@ def main():
                         c.execute("INSERT INTO univ_data (taikaiid, univ) VALUES (?, ?);", (new_taikaiid, u))
                     conn.commit()
                     st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
+                    import os
+
+                    # データベースファイルのパス
+                    db_path = "monketsu.db"
+
+                    # パスを表示
+                    st.write(f"データベースへのパス: {os.path.abspath(db_path)}")
             else:
                 # 全ての欄が埋まっていない場合の処理
                 st.warning("全ての項目を入力してください。")
             conn.close()
-            
+           
 if __name__ == '__main__':
     main()
