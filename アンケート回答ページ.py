@@ -46,44 +46,44 @@ def main():
             #absent_options = ['1','2','3']
 
         # フォームを作成します
-        with st.form(key='my_form'):
-            input_name = st.text_input(label='名前を入力してください(必須)')
-            input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
-            input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
-            input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
-            input_wantto = st.text_input(label='対戦したい人を記入してください')
-            input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
-            absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
+    with st.form(key='my_form'):
+        input_name = st.text_input(label='名前を入力してください(必須)')
+        input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
+        input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
+        input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
+        input_wantto = st.text_input(label='対戦したい人を記入してください')
+        input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
+        absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
   
-                #if input_name and input_level and input_univ is not None:
+            #if input_name and input_level and input_univ is not None:
     
             #submit_button = st.form_submit_button(label='送信',use_container_width = True)
 
                 # ユーザーが送信ボタンを押したときに表示されるメッセージ
-            if st.form_submit_button(label='送信',use_container_width = True):
-                st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                if input_name and input_univ and input_level:
-                    absent_01 = []
-                    for i in absent_options:
-                        if i in absent_matches:
-                            absent_01.append(0)
-                        else:
-                            absent_01.append(1)
-                    while len(absent_01) < 16:
+        if st.form_submit_button(label='送信',use_container_width = True):
+            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+            if input_name and input_univ and input_level:
+                absent_01 = []
+                for i in absent_options:
+                    if i in absent_matches:
                         absent_01.append(0)
+                    else:
+                        absent_01.append(1)
+                while len(absent_01) < 16:
+                    absent_01.append(0)
 
-                    conn = conn.sqlite3.connect('monka.db') 
-                    c = conn.cursor()
-                    c.execute('''
-                        INSERT INTO user_data (name, school, level, kisuu, wantto, wantnotto, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, taikaiid)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-                        ''', (input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto,absent_01[0], absent_01[1], absent_01[2], absent_01[3], absent_01[4], absent_01[5],absent_01[6], absent_01[7], absent_01[8], absent_01[9], absent_01[10], absent_01[11],absent_01[12], absent_01[13], absent_01[14], input_taikaiid))
+                conn = conn.sqlite3.connect('monka.db') 
+                c = conn.cursor()
+                c.execute('''
+                    INSERT INTO user_data (name, school, level, kisuu, wantto, wantnotto, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, taikaiid)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                    ''', (input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto,absent_01[0], absent_01[1], absent_01[2], absent_01[3], absent_01[4], absent_01[5],absent_01[6], absent_01[7], absent_01[8], absent_01[9], absent_01[10], absent_01[11],absent_01[12], absent_01[13], absent_01[14], input_taikaiid))
 
-                    conn.commit()
+                conn.commit()
         
-                else:
-                    # 全ての欄が埋まっていない場合の処理
-                    st.warning("必須項目を入力してください。")
+            else:
+                # 全ての欄が埋まっていない場合の処理
+                st.warning("必須項目を入力してください。")
     #else:
     #    st.warning("大会IDか大会パスワードが間違っています")
 
