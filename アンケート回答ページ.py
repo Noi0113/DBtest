@@ -41,7 +41,7 @@ def main():
         absent_options = []
         for i in range(int(s_number[0])):
             absent_options.append(f'{i+1}試合目')
-        st.write(absent_options = [])
+        st.write(absent_options)
             #univ_options = ['あ','い']
             #absent_options = ['1','2','3']
 
