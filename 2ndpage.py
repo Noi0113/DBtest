@@ -94,13 +94,15 @@ def main():
 
         #所属の集合
         S = []
-        S = list(set(df['所属']))
-        st.write(S)
+        for row in df.itertuples:
+            if row.所属 not in S:
+                S.append(row.所属)
+        #st.write(S)
         #級の集合
         K = []
-        K = [row.級 for row in df.itertuples()]
-        K = list(set(K))
-
+        for row in df.intertuples:
+            if row.級 not in K:
+                K.append(row.級)
 
         #試合参加者の集合
         Iall_old = []
