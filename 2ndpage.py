@@ -1,12 +1,4 @@
 import streamlit as st
-def main():
-    status_area = st.empty()
- #ここから上は編集しない
-
-#タイトル
-st.title('対戦表の作成')
-#install coin-or-cbc
-
 import subprocess
 # subprocessモジュールを使用してpipを呼び出し、モジュールをインストールする
 subprocess.check_call(["pip", "install", "pulp"])
@@ -17,19 +9,72 @@ import numpy as np
 import csv
 import pandas as pd
 
-st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
-input_taikaiid = st.text_input(label = '大会名')
-input_new_password = st.text_input(label = 'パスワード',type = 'password')
+def data_retu(table_name, target_name,target_id, column_name):
+    conn = sqlite3.connect('monka.db')
+    c = conn.cursor()
+    query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
+    c.execute(query, (target_id,))
+    result = c.fetchall()
+    conn.close()
+    result_list = [item[0] for item in result]
+    return result_list
+    
+def get_data_by_taikaiid(n, id):
+    conn = sqlite3.connect('monka.db')
+    
+    # s1, s2, ..., s{n} を結合した文字列を生成
+    S = ", ".join([f"s{i}" for i in range(1, n+1)])
+    
+    # user_dataテーブルから特定のtaikaiidに一致する行を取得
+    query = f"SELECT name, level, {S}, taikaiid FROM user_data WHERE taikaiid=?"
+    df = pd.read_sql_query(query, conn, params=(id,))
+    
+    conn.close()
+    return df
+
+#login
+def login_user(id,pas):
+    conn = sqlite3.connect('monka.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
+    data = c.fetchall()
+    conn.close()
+    return data
+#hash化
+def make_hashes(password):
+    return hashlib.sha256(str.encode(password)).hexdigest()
+def check_hashes(password,hashed_text):
+    if make_hashes(password) == hashed_text:
+        return hashed_text
+    return False
+
+
+def main():
+    status_area = st.empty()
+    #ここから上は編集しない
+    
+    #タイトル
+    st.title('対戦表の作成')
+    #install coin-or-cbc
+
+    st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
+    input_taikaiid = st.text_input(label = '大会名')    
+    input_password = st.text_input(label = 'パスワード',type = 'password')
+    if st.button('対戦表の作成',use_container_width=True)
+ #   hashed_pswd = make_hashes(input_password)
+ #   result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
+ #   if result:
+        st.success("対戦表を作成します")
+
+#↓以降最適化の実行
 
 #CSVファイルをアップロード(とりあえず)
-uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    
-if st.button('対戦表の作成',use_container_width=True):
-    #↓以降最適化の実行
 
-    
+#uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
+#if uploaded_file is not None:
+#    df = pd.read_csv(uploaded_file)
+        num = int(data_retu("taikai_data","taikaiid","zenkoku","snum")[0])
+        df = get_data_by_taikaiid(num,input_taikaiid)
 
     ####ここに最適化をいれる####
         #集合定義
@@ -589,9 +634,8 @@ if st.button('対戦表の作成',use_container_width=True):
           for p,i1i2 in kekka.items():
             kekkax.append([i1i2[0],i1i2[1]])
           kekkalistx.append(kekkax)
-
+            
           kekkaq = []
-          kekkanameq = []
           for p,i1i2 in kekka.items():
             kekkaq.append('{} vs {}'.format(i1i2[0],i1i2[1]))
           kekkalist.append(kekkaq)
@@ -666,7 +710,7 @@ if st.button('対戦表の作成',use_container_width=True):
         new_df = pd.DataFrame(data)
 
         new_df.to_csv("outputcsv", index =False)
-        st.write(new_df)
+        st.table(new_df)
         st.success("新しいCSVファイルが出力されました。")
 
 
