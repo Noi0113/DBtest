@@ -41,7 +41,6 @@ def main():
         absent_options = []
         for i in range(int(s_number[0])):
             absent_options.append(f'{i+1}試合目')
-        st.write(absent_options)
             #univ_options = ['あ','い']
             #absent_options = ['1','2','3']
 
@@ -59,6 +58,7 @@ def main():
 
                 # ユーザーが送信ボタンを押したときに表示されるメッセージ
         if submit_button:
+            st.write(f"absent_matches: {absent_matches}")
             if input_name and input_univ and input_level:
                 absent_01 = []
                 for i in absent_options:
