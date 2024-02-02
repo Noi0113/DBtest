@@ -7,7 +7,7 @@ import hashlib
 
 #target_id列の値がtarget_idである行のcolumn_name列の値をリストで出す
 def data_retu(table_name, target_name,target_id, column_name):
-    conn = sqlite3.connect('monketsu.db')
+    conn = sqlite3.connect('monka.db')
     c = conn.cursor()
     query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
     c.execute(query, (target_id,))
@@ -18,7 +18,7 @@ def data_retu(table_name, target_name,target_id, column_name):
 
 #loginする
 def login_user(id,pas):
-    conn = sqlite3.connect('monketsu.db')
+    conn = sqlite3.connect('monka.db')
     c = conn.cursor()
     c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
     data = c.fetchall()
@@ -49,8 +49,8 @@ def main():
         if result:
             st.success("{}の参加用フォーム".format(username))
 
-            univ_options = data_retu('monketsu.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ')
-            s_number = data_retu('monketsu.db', 'taikai_data', 'taikaiid',input_taikaiid, 'snum')
+            univ_options = data_retu('monka.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ')
+            s_number = data_retu('monka.db', 'taikai_data', 'taikaiid',input_taikaiid, 'snum')
             absent_options = []
             for i in range(int(s_number[0])):
                 absent_options.append(f'{i+1}試合目')
@@ -84,7 +84,7 @@ def main():
                         while len(absent_01) < 16:
                             absent_01.append(0)
 
-                        conn = conn.sqlite3.connect('monketsu.db')
+                        conn = conn.sqlite3.connect('monka.db')
                         c = conn.cursor()
                         c.execute('''
                             INSERT INTO user_data (name, school, level, kisuu, wantto, wantnotto, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, taikaiid)
