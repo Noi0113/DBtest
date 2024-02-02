@@ -97,7 +97,9 @@ def main():
                         conn.commit()
                         conn.close()
                         st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                        st.write(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                    else:
+                        # 全ての欄が埋まっていない場合の処理
+                        st.warning("必須項目を入力してください。")
         else:
             st.warning("大会IDか大会パスワードが間違っています")
 
