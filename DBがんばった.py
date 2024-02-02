@@ -10,7 +10,7 @@ import csv
 import pandas as pd
 
 def data_retu(table_name, target_name,target_id, column_name):
-    conn = sqlite3.connect('monketsu.db')
+    conn = sqlite3.connect('monka.db')
     c = conn.cursor()
     query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
     c.execute(query, (target_id,))
@@ -19,21 +19,22 @@ def data_retu(table_name, target_name,target_id, column_name):
     result_list = [item[0] for item in result]
     return result_list
     
-def get_data_by_taikaiid(db_path, id):
-    conn = sqlite3.connect(db_path)
-    c = conn.cursor()
-
+def get_data_by_taikaiid(n, id):
+    conn = sqlite3.connect('monka.db')
+    
+    # s1, s2, ..., s{n} を結合した文字列を生成
+    S = ", ".join([f"s{i}" for i in range(1, n+1)])
+    
     # user_dataテーブルから特定のtaikaiidに一致する行を取得
-    c.execute("SELECT * FROM user_data WHERE taikaiid=?", (id,))
-    result = c.fetchall()
-
+    query = f"SELECT name, level, {S}, taikaiid FROM user_data WHERE taikaiid=?"
+    df = pd.read_sql_query(query, conn, params=(id,))
+    
     conn.close()
-
-    return result
+    return df
 
 #login
 def login_user(id,pas):
-    conn = sqlite3.connect('monketsu.db')
+    conn = sqlite3.connect('monka.db')
     c = conn.cursor()
     c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
     data = c.fetchall()
@@ -49,20 +50,20 @@ def check_hashes(password,hashed_text):
 
 
 def main():
-status_area = st.empty()
+    status_area = st.empty()
     #ここから上は編集しない
     
     #タイトル
-st.title('対戦表の作成')
+    st.title('対戦表の作成')
     #install coin-or-cbc
 
-st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
-input_taikaiid = st.text_input(label = '大会名')    
-input_password = st.text_input(label = 'パスワード',type = 'password')
-if st.button('対戦表の作成',use_container_width=True)
-    hashed_pswd = make_hashes(input_password)
-    result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
-    if result:
+    st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
+    input_taikaiid = st.text_input(label = '大会名')    
+    input_password = st.text_input(label = 'パスワード',type = 'password')
+    if st.button('対戦表の作成',use_container_width=True)
+ #   hashed_pswd = make_hashes(input_password)
+ #   result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
+ #   if result:
         st.success("対戦表を作成します")
 
 #↓以降最適化の実行
@@ -72,15 +73,8 @@ if st.button('対戦表の作成',use_container_width=True)
 #uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
 #if uploaded_file is not None:
 #    df = pd.read_csv(uploaded_file)
-        
-        conn = sqlite3.connect('monketsu.db')
-        # SQL クエリを実行してデータを DataFrame に読み込む
-        query = "SELECT * FROM user_data"
-        df = pd.read_sql_query(query, conn)
-        # データベース接続を閉じる
-        conn.close()
-
-    
+        num = int(data_retu("taikai_data","taikaiid","zenkoku","snum")[0])
+        df = get_data_by_taikaiid(num,input_taikaiid)
 
     ####ここに最適化をいれる####
         #集合定義
