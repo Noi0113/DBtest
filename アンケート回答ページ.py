@@ -52,8 +52,8 @@ def main():
         #if result:
         st.success("{}の参加用フォーム".format(username))
 
-        univ_options = data_retu('monketsu.db', 'univ_data', 'taikaiid',input_taikaiid, 'univ')
-        s_number = data_retu('monketsu.db', 'taikai_data', 'taikaiid',input_taikaiid, 'snum')
+        univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
+        s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
         absent_options = []
         for i in range(int(s_number[0])):
             absent_options.append(f'{i+1}試合目')
