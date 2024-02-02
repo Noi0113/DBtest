@@ -29,7 +29,7 @@ if st.button('対戦表の作成',use_container_width=True)
 #if uploaded_file is not None:
 #    df = pd.read_csv(uploaded_file)
 
-    if st.button('CSV表示',use_container_width=True):
+    
 
     ####ここに最適化をいれる####
         #集合定義
