@@ -32,7 +32,7 @@ def main():
 
         if submit_button:
             st.write(universities)
-            st.write(universities.count())
+            st.write(universities.count(''))
             if new_taikaiid and new_password and num_match and num_universities and len(universities)==int(num_universities):
                 conn = get_connection()
                 c = conn.cursor()
