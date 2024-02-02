@@ -3,8 +3,7 @@ import pandas as pd
 import sqlite3
 import hashlib
 
-conn = sqlite3.connect('monketsu.db')
-c = conn.cursor()
+
 
 #target_id列の値がtarget_idである行のcolumn_name列の値をリストで出す
 def data_retu(table_name, target_name,target_id, column_name):
@@ -115,5 +114,3 @@ def new():
 
 if __name__ == '__main__':
     main()
-
-conn.close()
