@@ -69,20 +69,19 @@ def main():
         st.success("対戦表を作成します")
 
 #↓以降最適化の実行
-        
-    ####ここに最適化をいれる####
-import streamlit as st
-def main():
-    status_area = st.empty()
- #ここから上は編集しない
 
-#タイトル
-st.title('対戦表の作成')
-#install coin-or-cbc
-
-import subprocess
-# subprocessモジュールを使用してpipを呼び出し、モジュールをインストールする
-subprocess.check_call(["pip", "install", "pulp"])
+#uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
+#if uploaded_file is not None:
+#    df = pd.read_csv(uploaded_file)
+        df = pd.DataFrame()
+        conn = sqlite3.connect('monka.db')
+        c = conn.cursor()
+        num = int(data_retu("taikai_data","taikaiid","zenkoku","snum")[0])
+        df = get_data_by_taikaiid(num,input_taikaiid)
+        df.insert(0, '個人ID', range(1, len(df) + 1))
+        df = df.rename(columns={'name': '名前', 'school': '所属', 'level': '級', 'kisuu': '奇数の時にダミーさんとやりたいですか', 'wantto': '対戦希望', 'wantnotto': '対戦したくない希望', 's1': '第1試合休み', 's2': '第2試合休み', 's3': '第3試合休み', 's4': '第4試合休み', 's5': '第5試合休み', 's6': '第6試合休み', 's7': '第7試合休み', 's8': '第8試合休み', 's9': '第9試合休み', 's10': '第10試合休み', 's11': '第11試合休み', 's12': '第12試合休み', 's13': '第13試合休み', 's14': '第14試合休み', 's15': '第15試合休み'})
+        st.table(df)
+        conn.close()
 
         #集合定義
         #試合数
@@ -94,15 +93,18 @@ subprocess.check_call(["pip", "install", "pulp"])
 
 
         #所属の集合
+        S = []
         S = [row.所属 for row in df.itertuples()]
         S = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
 
         #級の集合
+        K = []
         K = [row.級 for row in df.itertuples()]
         K = list(set(K))
 
 
         #試合参加者の集合
+        Iall_old = []
         Iall_old = df['個人ID'].tolist()
         I_all = df['個人ID'].tolist()
         I_all.append('ダミー')
