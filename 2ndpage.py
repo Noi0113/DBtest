@@ -57,17 +57,14 @@ def main():
     st.title('対戦表の作成')
     #install coin-or-cbc
     conn = sqlite3.connect('monka.db')
-    cursor = conn.cursor()
+    c = conn.cursor()
 
     # データの取得
-    cursor.execute('SELECT * FROM taikai_data;')
-    data = cursor.fetchall()
+    c.execute('SELECT * FROM taikai_data;')
+    data = c.fetchall()
 
     # データベース接続を閉じる
     conn.close()
-
-    # Streamlitアプリを構築
-    st.title('データベース内のデータ表示')
 
     # データの表示
     st.table(data)
