@@ -20,7 +20,7 @@ import pandas as pd
 st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
 input_taikaiid = st.text_input(label = '大会名')
 input_new_password = st.text_input(label = 'パスワード',type = 'password')
-if st.button('対戦表の作成',use_container_width=True)
+if st.button('対戦表の作成',use_container_width=True):
     #↓以降最適化の実行
 
 #CSVファイルをアップロード(とりあえず)
