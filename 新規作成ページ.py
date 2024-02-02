@@ -15,7 +15,7 @@ def main():
     status_area = st.empty()
     
     # タイトル
-    st.title('新規作成dayo') 
+    st.title('新規作成') 
     with st.form(key='my_form2'):
         # ここから本作成
         new_taikaiid = st.text_input("大会名を入力してください（被りがあると注意されて新規作成できない予定）")
@@ -32,7 +32,7 @@ def main():
 
         if submit_button:
             st.write(universities)
-            st.write(len(universities))
+            st.write(universities.count())
             if new_taikaiid and new_password and num_match and num_universities and len(universities)==int(num_universities):
                 conn = get_connection()
                 c = conn.cursor()
