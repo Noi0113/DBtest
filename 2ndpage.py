@@ -95,7 +95,7 @@ def main():
         #S = [row.所属 for row in df.itertuples()]
         #S = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
         S = []
-        for row in df.intertuples():
+        for row in df.itertuples():
             if row.所属 not in S:
                 S.append(row.所属)
 
