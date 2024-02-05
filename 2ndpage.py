@@ -93,16 +93,12 @@ def main():
 
 
         #所属の集合
-        S = []
-        for row in df.itertuples:
-            if row.所属 not in S:
-                S.append(row.所属)
-        #st.write(S)
+        S = [row.所属 for row in df.itertuples()]
+        S = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
+
         #級の集合
-        K = []
-        for row in df.intertuples:
-            if row.級 not in K:
-                K.append(row.級)
+        K = [row.級 for row in df.itertuples()]
+        K = list(set(K))
 
         #試合参加者の集合
         Iall_old = []
