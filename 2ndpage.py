@@ -335,8 +335,8 @@ def main():
                 prob += x[q,i1,i2] == 0     
 
 
+        #スコアに反映
         #(2)所属が異なるほうが良い
-        sc1q_sublist = []
         qnum = 0
         for q in Q:
           qnum += 1
@@ -344,18 +344,14 @@ def main():
           for s in S:
             ss_num = pulp.lpSum(x[q,i1,i2] for i1 in S_dict[s] for i2 in S_dict[s])/2 #学校s同士のペア数
             sc1q_sub.append(ss_num)
-          sc1q_sublist.append(sc1q_sub)
         
           #sc1q:所属が異なるペア数
-        qnum = 0
-        for q in Q:
-          qnum += 1
           if len(I_sanka_old[qnum-1]) % 2 == 0:
-            prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sublist[qnum-1])
+            prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub)
           else:
-            prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sublist[qnum-1]) -1  #奇数の場合はダミーを含むペアを引く
-
-
+            prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub) -1  #奇数の場合はダミーを含むペアを引く
+        
+        
         ##スコア定義
         prob += sc1 == pulp.lpSum(sc1q[q] for q in Q)
         prob += score1 == w1 * sc1
