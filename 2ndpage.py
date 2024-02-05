@@ -92,9 +92,12 @@ def main():
             Q.append(f'q{str(n)}')
 
         #所属の集合
-        S = [row.所属 for row in df.itertuples()]
-        print(S)
-        Snew = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
+        #S = [row.所属 for row in df.itertuples()]
+        #S = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
+        S = []
+        for row in df.intertuples():
+            if row.所属 not in S:
+                S.append(row.所属)
 
         #級の集合
         K = [row.級 for row in df.itertuples()]
