@@ -92,16 +92,16 @@ def main():
             Q.append(f'q{str(n)}')
 
         #所属の集合
-        #S = [row.所属 for row in df.itertuples()]
-        #S = list(set(S))     ##ここ2回目以降は再起動しないとエラーになる
         S = []
         for row in df.itertuples():
             if row.所属 not in S:
                 S.append(row.所属)
 
         #級の集合
-        K = [row.級 for row in df.itertuples()]
-        K = list(set(K))
+        K = []
+        for row in df.itertuples():
+            if row.級 not in K:
+                K.append(row.級)
 
         #試合参加者の集合
         Iall_old = []
