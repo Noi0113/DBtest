@@ -346,10 +346,10 @@ def main():
             sc1q_sub.append(ss_num)
         
           #sc1q:所属が異なるペア数
-          if len(I_sanka_old[qnum-1]) % 2 == 0:
+          #if len(I_sanka_old[qnum-1]) % 2 == 0:
             #prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub)
-          else:
-            prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub) -1  #奇数の場合はダミーを含むペアを引く
+          #else:
+            #prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub) -1  #奇数の場合はダミーを含むペアを引く
         
         
         ##スコア定義
