@@ -726,11 +726,10 @@ def main():
         data[maxpairnum+1] = restlist
         data[maxpairnum+2] = rest2list
         new_df = pd.DataFrame(data)
-        #new_df_trans = new_df.transpose()
-        #new_df_trans.to_csv("outputcsv", index =False)
-        #st.write(new_df_trans)
-        new_df.to_csv("outputcsv", index =False)
-        st.write(new_df)        
+        new_df_trans = new_df.transpose()
+        new_df_trans.to_csv("outputcsv", index =False)
+        st.write(new_df_trans)
+
         st.success("新しいCSVファイルが出力されました。")
 
 
