@@ -626,14 +626,14 @@ def main():
               elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
                 rest2.append(i1)
 
-        #出力のため
-        kekkax = []
-        for p,i1i2 in kekka.items():
-          kekkax.append([i1i2[0],i1i2[1]])
-        kekkalistx.append(kekkax)
-
-        restlist.append(I_rest[qnum-1])
-        rest2list.append(rest2)
+          #出力のため
+          kekkax = []
+          for p,i1i2 in kekka.items():
+            kekkax.append([i1i2[0],i1i2[1]])
+          kekkalistx.append(kekkax)
+  
+          restlist.append(I_rest[qnum-1])
+          rest2list.append(rest2)
 
         namex = [row.名前 for row in df.itertuples()]
         idx = [row.個人ID for row in df.itertuples()]
