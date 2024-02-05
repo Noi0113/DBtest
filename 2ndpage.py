@@ -344,11 +344,12 @@ def main():
           for s in S:
             ss_num = pulp.lpSum(x[q,i1,i2] for i1 in S_dict[s] for i2 in S_dict[s])/2 #学校s同士のペア数
             sc1q_sub.append(ss_num)
+          sum = sum(sc1q_sub)
         
           #sc1q:所属が異なるペア数
           if len(I_sanka_old[qnum-1]) % 2 == 0:
             #prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub)
-            prob += sc1q[q] == len(P[qnum-1]) -sum(sc1q_sub)
+            prob += sc1q[q] == len(P[qnum-1]) -sum
           #else:
             #prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub) -1  #奇数の場合はダミーを含むペアを引く
         
