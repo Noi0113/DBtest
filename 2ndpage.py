@@ -104,7 +104,6 @@ def main():
                 K.append(row.級)
 
         #試合参加者の集合
-        Iall_old = []
         Iall_old = df['個人ID'].tolist()
         I_all = df['個人ID'].tolist()
         I_all.append('ダミー')
@@ -353,57 +352,57 @@ def main():
             prob += sc1q[q] == len(P[qnum-1]) - sum -1  #奇数の場合はダミーを含むペアを引く
         
         
-        ##スコア定義
-        prob += sc1 == pulp.lpSum(sc1q[q] for q in Q)
-        prob += score1 == w1 * sc1
-
-        #(3)級が近いほうが良い ←アンケートに基づいて変更する
-        for q in Q:
-        ##同級
-          sc2q_0_list = []
-          for k1k2 in K1K2_0:
-            k1 = K1K2_0[k1k2][0]
-            k2 = K1K2_0[k1k2][1]
-            num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]])/2 #級k同士のペア数
-            sc2q_0_list.append(num)
-          prob += sc2q_0[q] == pulp.lpSum(sc2q_0_list)
-
-        ##1級違い
-          sc2q_1_list = []
-          for k1k2 in K1K2_1:
-            k1 = K1K2_1[k1k2][0]
-            k2 = K1K2_1[k1k2][1]
-            num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
-            sc2q_1_list.append(num)
-          prob += sc2q_1[q] == pulp.lpSum(sc2q_1_list)
-
-        ##2級違い
-          sc2q_2_list = []
-          for k1k2 in K1K2_2:
-            k1 = K1K2_2[k1k2][0]
-            k2 = K1K2_2[k1k2][1]
-            num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
-            sc2q_2_list.append(num)
-          prob += sc2q_2[q] == pulp.lpSum(sc2q_2_list)
-
-        ##3級違い
-          sc2q_3_list = []
-          for k1k2 in K1K2_3:
-            k1 = K1K2_3[k1k2][0]
-            k2 = K1K2_3[k1k2][1]
-            num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
-            sc2q_3_list.append(num)
-          prob += sc2q_3[q] == pulp.lpSum(sc2q_3_list)
-
-        ##4級違い
-          sc2q_4_list = []
-          for k1k2 in K1K2_4:
-            k1 = K1K2_4[k1k2][0]
-            k2 = K1K2_4[k1k2][1]
-            num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
-            sc2q_4_list.append(num)
-          prob += sc2q_4[q] == pulp.lpSum(sc2q_4_list)
-
+          ##スコア定義
+          prob += sc1 == pulp.lpSum(sc1q[q] for q in Q)
+          prob += score1 == w1 * sc1
+  
+          #(3)級が近いほうが良い ←アンケートに基づいて変更する
+          for q in Q:
+          ##同級
+            sc2q_0_list = []
+            for k1k2 in K1K2_0:
+              k1 = K1K2_0[k1k2][0]
+              k2 = K1K2_0[k1k2][1]
+              num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]])/2 #級k同士のペア数
+              sc2q_0_list.append(num)
+            prob += sc2q_0[q] == pulp.lpSum(sc2q_0_list)
+  
+          ##1級違い
+            sc2q_1_list = []
+            for k1k2 in K1K2_1:
+              k1 = K1K2_1[k1k2][0]
+              k2 = K1K2_1[k1k2][1]
+              num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
+              sc2q_1_list.append(num)
+            prob += sc2q_1[q] == pulp.lpSum(sc2q_1_list)
+  
+          ##2級違い
+            sc2q_2_list = []
+            for k1k2 in K1K2_2:
+              k1 = K1K2_2[k1k2][0]
+              k2 = K1K2_2[k1k2][1]
+              num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
+              sc2q_2_list.append(num)
+            prob += sc2q_2[q] == pulp.lpSum(sc2q_2_list)
+  
+          ##3級違い
+            sc2q_3_list = []
+            for k1k2 in K1K2_3:
+              k1 = K1K2_3[k1k2][0]
+              k2 = K1K2_3[k1k2][1]
+              num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
+              sc2q_3_list.append(num)
+            prob += sc2q_3[q] == pulp.lpSum(sc2q_3_list)
+  
+          ##4級違い
+            sc2q_4_list = []
+            for k1k2 in K1K2_4:
+              k1 = K1K2_4[k1k2][0]
+              k2 = K1K2_4[k1k2][1]
+              num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
+              sc2q_4_list.append(num)
+            prob += sc2q_4[q] == pulp.lpSum(sc2q_4_list)
+  
         ##スコア定義
         prob += sc2_0 == pulp.lpSum(sc2q_0[q] for q in Q)
         prob += sc2_1 == pulp.lpSum(sc2q_1[q] for q in Q)
@@ -415,7 +414,7 @@ def main():
         prob += score2_2 == w2_2 * sc2_2
         prob += score2_3 == w2_3 * sc2_3
         prob += score2_4 == w2_4 * sc2_4
-
+  
         #(4)なるべく同じ人と対戦しないようにする
         #変数y...参加者i1とi2の対戦回数が1以下⇒0、2以上⇒1
         for i1 in I_all:
@@ -428,7 +427,7 @@ def main():
         #sc3...全試合における同じペアのペア数
         prob += sc3 == pulp.lpSum(y[i1,i2] for i1 in I_all for i2 in I_all)/2
         prob += score3 == w3 * sc3
-
+  
         #(5)なるべく対戦希望、したくない希望が通るようにする
         for q in Q:
           sc4q_0_list = []
@@ -446,14 +445,14 @@ def main():
             num = pulp.lpSum([x[q,dontwantto1,dontwantto2]])
             sc4q_1_list.append(num)
           prob += sc4q_1[q] == pulp.lpSum(sc4q_1_list)
-
+  
         ##スコア定義
         #sc4_0...対戦希望が通った人数 #sc4_1...対戦したくない希望が通らなかった人数
         prob += sc4_0 == pulp.lpSum(sc4q_0[q] for q in Q)
         prob += sc4_1 == pulp.lpSum(sc4q_1[q] for q in Q)
         prob += score4_0 == w4_0 * sc4_0
         prob += score4_1 == w4_1 * sc4_1
-
+  
         #(6)奇数のとき休みたい人がいれば優先的に休ませる
         for q in Q:
           sc5q_list = []
@@ -466,7 +465,7 @@ def main():
         #sc4_0...対戦希望が通った人数 #sc4_1...対戦したくない希望が通らなかった人数
         prob += sc5 == pulp.lpSum(sc5q[q] for q in Q)
         prob += score5 == w5 * sc5
-
+  
         #(7)個人のスコアの範囲をできるだけ小さくする
         #所属
         for i1 in Iall_old:
@@ -481,7 +480,7 @@ def main():
                 if i1 in S_dict[s] and i2 not in S_dict[s]:
                   zq_0[i1,q] += w1 * x[q,i1,i2]
           prob += z_0[i1] == pulp.lpSum([zq_0[i1,q] for q in Q])
-
+  
         #級
         for i1 in Iall_old:
           qnum = 0
@@ -561,7 +560,7 @@ def main():
 
 
           prob += z_1[i1] == pulp.lpSum([zq_1[i1,q] for q in Q])
-
+  
         #休みたい希望
         for i1 in Iall_old:
           qnum = 0
@@ -573,7 +572,7 @@ def main():
             if i1 in I_wanttorest:
               zq_2[i1,q] += w5 * x[q,i1,'ダミー']
           prob += z_2[i1] == pulp.lpSum([zq_2[i1,q] for q in Q])
-
+  
         #対戦希望、対戦したくない希望
         for i1 in Iall_old:
           qnum = 0
@@ -590,9 +589,9 @@ def main():
                 if (i1 == pair[0] and i2 == pair[1]) or (i1 == pair[1] and i2 == pair[0]):
                   zq_3[i1,q] += w4_1 * x[q,i1,i2]
           prob += z_3[i1] == pulp.lpSum([zq_3[i1,q] for q in Q])
-
-
-
+  
+  
+  
         for i in Iall_old:
           prob += z[i] == z_0[i] + z_1[i] + z_2[i] + z_3[i]
           prob += z[i] <= zmax
@@ -603,11 +602,10 @@ def main():
 
         #totalscore定義
         totalscore = score1 + score2_0 + score2_1 + score2_2 + score2_3 + score2_4 + score3 + score4_0 + score4_1 + score5 + score6
-
+    
         #目的関数定義
         prob += totalscore
 
-        kekkalist = []
         kekkalistx = []
         restlist = []
         rest2list =[]
@@ -628,20 +626,14 @@ def main():
               elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
                 rest2.append(i1)
 
-          #出力のため
-          kekkax = []
-          for p,i1i2 in kekka.items():
-            kekkax.append([i1i2[0],i1i2[1]])
-          kekkalistx.append(kekkax)
+        #出力のため
+        kekkax = []
+        for p,i1i2 in kekka.items():
+          kekkax.append([i1i2[0],i1i2[1]])
+        kekkalistx.append(kekkax)
 
-          kekkaq = []
-          kekkanameq = []
-          for p,i1i2 in kekka.items():
-            kekkaq.append('{} vs {}'.format(i1i2[0],i1i2[1]))
-          kekkalist.append(kekkaq)
-
-          restlist.append(I_rest[qnum-1])
-          rest2list.append(rest2)
+        restlist.append(I_rest[qnum-1])
+        rest2list.append(rest2)
 
         namex = [row.名前 for row in df.itertuples()]
         idx = [row.個人ID for row in df.itertuples()]
@@ -684,7 +676,7 @@ def main():
         qnum = 0
         for q in Q:
           qnum += 1
-          pairnumlist.append(len(kekkalist[qnum-1]))
+          pairnumlist.append(len(kekkalistx[qnum-1]))
         maxpairnum = max(pairnumlist)
 
         kekkalist_new = []
@@ -696,7 +688,7 @@ def main():
           plist.append('p{}'.format(pnum))
           for q in Q:
             qnum += 1
-            if pnum <= pairnumlist[qnum-1]:
+            if pairnumlist[qnum-1] >= pnum:
               plist.append('{}vs{}'.format(name_kekkalistx[qnum-1][pnum-1][0],name_kekkalistx[qnum-1][pnum-1][1]))
             else:
               plist.append('')
