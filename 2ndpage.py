@@ -721,8 +721,8 @@ def main():
         ##csvファイルの出力##
         data = {}
         data[0]=Qnew
-        for i in range(maxpairnum+1):
-            data[i+1] = kekkalist_new[i]
+        for i in range(1,maxpairnum+1):
+            data[i] = kekkalist_new[i-1]
         data[maxpairnum+1] = restlist
         data[maxpairnum+2] = rest2list
         new_df = pd.DataFrame(data)
