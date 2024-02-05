@@ -348,10 +348,9 @@ def main():
         
           #sc1q:所属が異なるペア数
           if len(I_sanka_old[qnum-1]) % 2 == 0:
-            #prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub)
             prob += sc1q[q] == len(P[qnum-1]) -sum
-          #else:
-            #prob += sc1q[q] == len(P[qnum-1]) - sum(sc1q_sub) -1  #奇数の場合はダミーを含むペアを引く
+          else:
+            prob += sc1q[q] == len(P[qnum-1]) - sum -1  #奇数の場合はダミーを含むペアを引く
         
         
         ##スコア定義
@@ -603,7 +602,7 @@ def main():
         prob += score6 == w6 * sc6
 
         #totalscore定義
-        totalscore = score1 + score2_0 + score2_1 + score2_2 + score3 + score4_0 + score4_1 + score5 + score6
+        totalscore = score1 + score2_0 + score2_1 + score2_2 + score2_3 + score2_4 + score3 + score4_0 + score4_1 + score5 + score6
 
         #目的関数定義
         prob += totalscore
@@ -617,7 +616,6 @@ def main():
         # 各クラスに割り当てられている生徒のリストを辞書に格納
         qnum = 0
         for q in Q:
-          total = sc1q[q].value()*w1 + sc2q_0[q].value()*w2_0 + sc2q_1[q].value()*w2_1 + sc2q_2[q].value()*w2_2 + sc4q_0[q].value()*w4_0 + sc4q_1[q].value()*w4_1 + sc5q[q].value()*w5
           qnum += 1
           kekka = {}
           rest2 = []
