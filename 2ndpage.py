@@ -333,25 +333,6 @@ def main():
         ##(1-3)対戦表の対角成分は0(同じ人同士は対戦しない)
               if i1 == i2:
                 prob += x[q,i1,i2] == 0     
-        #制約条件
-        #(1)xの条件
-        ##(1-1)第q試合に参加する人は対戦表の行の和が1/参加しない人は行の和が0
-        qnum = 0
-        for q in Q:
-          qnum += 1
-          for i1 in I_sanka[qnum-1]:
-            prob += pulp.lpSum(x[q,i1,i2] for i2 in I_all)  == 1
-          for i1 in I_rest[qnum-1]:
-            prob += pulp.lpSum(x[q,i1,i2] for i2 in I_all)  == 0
-
-        ##(1-2)対戦表は左右対称
-          for i1 in I_all:
-            for i2 in I_all:
-              prob += x[q,i1,i2] == x[q,i2,i1]
-
-        ##(1-3)対戦表の対角成分は0(同じ人同士は対戦しない)
-              if i1 == i2:
-                prob += x[q,i1,i2] == 0
 
 
         #(2)所属が異なるほうが良い
