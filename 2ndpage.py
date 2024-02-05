@@ -301,7 +301,7 @@ def main():
         y = pulp.LpVariable.dicts('y', II, cat = 'Binary')
 
         #変数z
-        IQ = [(i,q) for i1 in Iall_old for q in Q]
+        IQ = [(i,q) for i in Iall_old for q in Q]
         z = pulp.LpVariable.dicts('z', Iall_old, cat = 'LpInteger')
         z_0 = pulp.LpVariable.dicts('z_0', Iall_old, cat = 'LpInteger')
         z_1 = pulp.LpVariable.dicts('z_1', Iall_old, cat = 'LpInteger')
