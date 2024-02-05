@@ -721,7 +721,7 @@ def main():
         ##csvファイルの出力##
         data = {}
         data[0]=Qnew
-        for i in range(maxpairnum):
+        for i in range(maxpairnum+1):
             data[i+1] = kekkalist_new[i]
         data[maxpairnum+1] = restlist
         data[maxpairnum+2] = rest2list
