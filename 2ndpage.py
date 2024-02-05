@@ -721,14 +721,16 @@ def main():
         ##csvファイルの出力##
         data = {}
         data[0]=Qnew
-        for i in range(1,maxpairnum+1):
-            data[i] = kekkalist_new[i-1]
+        for i in range(maxpairnum):
+            data[i+1] = kekkalist_new[i]
         data[maxpairnum+1] = restlist
         data[maxpairnum+2] = rest2list
         new_df = pd.DataFrame(data)
-        new_df_trans = new_df.transpose()
-        new_df_trans.to_csv("outputcsv", index =False)
-        st.write(new_df_trans)
+        #new_df_trans = new_df.transpose()
+        #new_df_trans.to_csv("outputcsv", index =False)
+        #st.write(new_df_trans)
+        new_df.to_csv("outputcsv", index =False)
+        st.write(new_df)        
         st.success("新しいCSVファイルが出力されました。")
 
 
