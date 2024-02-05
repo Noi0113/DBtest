@@ -90,7 +90,7 @@ def main():
         Q = []
         for n in range(1,q_num+1):
             Q.append(f'q{str(n)}')
-
+        print(Q)
 
         #所属の集合
         S = [row.所属 for row in df.itertuples()]
