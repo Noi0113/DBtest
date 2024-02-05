@@ -717,7 +717,6 @@ def main():
             data[i+1] = kekkalist_new[i]
         data[maxpairnum+1] = restlist
         data[maxpairnum+2] = rest2list
-        data[maxpairnum+3] = kekkalistx
         new_df = pd.DataFrame(data)
         new_df_trans = new_df.transpose()
         new_df_trans.to_csv("outputcsv", index =False)
