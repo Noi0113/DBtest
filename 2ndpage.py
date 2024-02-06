@@ -627,7 +627,6 @@ def main():
               elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
                 rest2.append(i1)
           kekkaall.append(kekka)
-        kekkaall.insert(0,'kekkaall')
 
           #出力のため
           kekkax = []
@@ -712,6 +711,7 @@ def main():
           else:
             restlist[qindex] = ', '.join(list)
 
+        kekkaall.insert(0,'kekkaall')
         kekkalistx.insert(0,'num')
         ##csvファイルの出力##
         data = {}
