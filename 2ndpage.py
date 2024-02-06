@@ -1,3 +1,6 @@
+import gc
+gc.collect()
+
 import streamlit as st
 import subprocess
 # subprocessモジュールを使用してpipを呼び出し、モジュールをインストールする
