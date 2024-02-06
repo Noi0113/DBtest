@@ -1,3 +1,5 @@
+print(Hi)
+
 import streamlit as st
 import subprocess
 # subprocessモジュールを使用してpipを呼び出し、モジュールをインストールする
@@ -51,7 +53,7 @@ def check_hashes(password,hashed_text):
         return hashed_text
     return False
 
-def main2():
+def main():
     status_area = st.empty()
     #ここから上は編集しない
     
@@ -726,4 +728,4 @@ def main2():
 
 #ここから下は編集しない
 if __name__ == '__main__':
-    main2()
+    main()
