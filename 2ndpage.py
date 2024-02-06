@@ -661,7 +661,6 @@ def main():
               name = namex[idx.index(i)]
               namelist.append(name)
             restlist[restlistindex] = namelist
-        restlist.insert(0,'休み')
 
         rest2listindex = -1
         for list2 in rest2list:
@@ -672,7 +671,6 @@ def main():
             for i in list2:
               name = namex[idx.index(i)]
               rest2list[rest2listindex] = name
-        rest2list.insert(0,'奇数人のため休み')
 
         pairnumlist = []
         qnum = 0
@@ -704,12 +702,12 @@ def main():
         qindex = -1
         for list in restlist:
           qindex += 1
-          if qindex == 0:
-            restlist[qindex] == '休み'
           if list == 'なし':
             restlist[qindex] = 'なし'
           else:
             restlist[qindex] = ', '.join(list)
+          restlist.insert(0,'休み')
+          rest2list.insert(0,'奇数人のため休み')
 
         ##csvファイルの出力##
         data = {}
