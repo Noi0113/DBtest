@@ -51,7 +51,7 @@ def check_hashes(password,hashed_text):
         return hashed_text
     return False
 
-def main():
+def main2():
     status_area = st.empty()
     #ここから上は編集しない
     
@@ -726,4 +726,4 @@ def main():
 
 #ここから下は編集しない
 if __name__ == '__main__':
-    main()
+    main2()
