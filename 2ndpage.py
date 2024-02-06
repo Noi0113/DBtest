@@ -54,10 +54,6 @@ def check_hashes(password,hashed_text):
 def main():
     status_area = st.empty()
     #ここから上は編集しない
-
-    #メモリ開放
-    del df,Q,S,K,I_all,Iall_old,I_rest,I_sanka_old,I_sanka,I_d,P,I_wanttorest,Wantto,Dontwantto
-    del S_dict,K_dict
     
     #タイトル
     st.title('対戦表の作成')
