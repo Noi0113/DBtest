@@ -19,18 +19,18 @@ def data_retu(table_name, target_name,target_id, column_name):
     conn.close()
     result_list = [item[0] for item in result]
     return result_list
-    
+
 def get_data_by_taikaiid(n, id):
     # データベースファイルのパスを正確に指定
     conn = sqlite3.connect('monka.db')
-    
+
     # s1, s2, ..., s{n} を結合した文字列を生成
     S = ", ".join([f"s{i}" for i in range(1, n+1)])
-    
+
     # user_dataテーブルから特定のtaikaiidに一致する行を取得
     query = f"SELECT name, school, level, kisuu, wantto, wantnotto, {S} FROM user_data WHERE taikaiid=?"
     df = pd.read_sql_query(query, conn, params=(id,))
-    
+
     conn.close()
     return df
 
@@ -54,13 +54,13 @@ def check_hashes(password,hashed_text):
 def main():
     status_area = st.empty()
     #ここから上は編集しない
-    
+
     #タイトル
     st.title('対戦表の作成')
     #install coin-or-cbc
-    
+
     st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
-    input_taikaiid = st.text_input(label = '大会名')    
+    input_taikaiid = st.text_input(label = '大会名')
     input_password = st.text_input(label = 'パスワード',type = 'password')
     if st.button('対戦表の作成',use_container_width=True):
  #   hashed_pswd = make_hashes(input_password)
@@ -331,7 +331,7 @@ def main():
 
         ##(1-3)対戦表の対角成分は0(同じ人同士は対戦しない)
               if i1 == i2:
-                prob += x[q,i1,i2] == 0     
+                prob += x[q,i1,i2] == 0
 
 
         #スコアに反映
@@ -344,18 +344,18 @@ def main():
             ss_num = pulp.lpSum(x[q,i1,i2] for i1 in S_dict[s] for i2 in S_dict[s])/2 #学校s同士のペア数
             sc1q_sub.append(ss_num)
           sum = pulp.lpSum(sc1q_sub)
-        
+
           #sc1q:所属が異なるペア数
           if len(I_sanka_old[qnum-1]) % 2 == 0:
             prob += sc1q[q] == len(P[qnum-1]) -sum
           else:
             prob += sc1q[q] == len(P[qnum-1]) - sum -1  #奇数の場合はダミーを含むペアを引く
-        
-        
+
+
           ##スコア定義
           prob += sc1 == pulp.lpSum(sc1q[q] for q in Q)
           prob += score1 == w1 * sc1
-  
+
           #(3)級が近いほうが良い ←アンケートに基づいて変更する
           for q in Q:
           ##同級
@@ -366,7 +366,7 @@ def main():
               num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]])/2 #級k同士のペア数
               sc2q_0_list.append(num)
             prob += sc2q_0[q] == pulp.lpSum(sc2q_0_list)
-  
+
           ##1級違い
             sc2q_1_list = []
             for k1k2 in K1K2_1:
@@ -375,7 +375,7 @@ def main():
               num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
               sc2q_1_list.append(num)
             prob += sc2q_1[q] == pulp.lpSum(sc2q_1_list)
-  
+
           ##2級違い
             sc2q_2_list = []
             for k1k2 in K1K2_2:
@@ -384,7 +384,7 @@ def main():
               num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
               sc2q_2_list.append(num)
             prob += sc2q_2[q] == pulp.lpSum(sc2q_2_list)
-  
+
           ##3級違い
             sc2q_3_list = []
             for k1k2 in K1K2_3:
@@ -393,7 +393,7 @@ def main():
               num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
               sc2q_3_list.append(num)
             prob += sc2q_3[q] == pulp.lpSum(sc2q_3_list)
-  
+
           ##4級違い
             sc2q_4_list = []
             for k1k2 in K1K2_4:
@@ -402,7 +402,7 @@ def main():
               num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
               sc2q_4_list.append(num)
             prob += sc2q_4[q] == pulp.lpSum(sc2q_4_list)
-  
+
         ##スコア定義
         prob += sc2_0 == pulp.lpSum(sc2q_0[q] for q in Q)
         prob += sc2_1 == pulp.lpSum(sc2q_1[q] for q in Q)
@@ -414,7 +414,7 @@ def main():
         prob += score2_2 == w2_2 * sc2_2
         prob += score2_3 == w2_3 * sc2_3
         prob += score2_4 == w2_4 * sc2_4
-  
+
         #(4)なるべく同じ人と対戦しないようにする
         #変数y...参加者i1とi2の対戦回数が1以下⇒0、2以上⇒1
         for i1 in I_all:
@@ -427,7 +427,7 @@ def main():
         #sc3...全試合における同じペアのペア数
         prob += sc3 == pulp.lpSum(y[i1,i2] for i1 in I_all for i2 in I_all)/2
         prob += score3 == w3 * sc3
-  
+
         #(5)なるべく対戦希望、したくない希望が通るようにする
         for q in Q:
           sc4q_0_list = []
@@ -445,14 +445,14 @@ def main():
             num = pulp.lpSum([x[q,dontwantto1,dontwantto2]])
             sc4q_1_list.append(num)
           prob += sc4q_1[q] == pulp.lpSum(sc4q_1_list)
-  
+
         ##スコア定義
         #sc4_0...対戦希望が通った人数 #sc4_1...対戦したくない希望が通らなかった人数
         prob += sc4_0 == pulp.lpSum(sc4q_0[q] for q in Q)
         prob += sc4_1 == pulp.lpSum(sc4q_1[q] for q in Q)
         prob += score4_0 == w4_0 * sc4_0
         prob += score4_1 == w4_1 * sc4_1
-  
+
         #(6)奇数のとき休みたい人がいれば優先的に休ませる
         for q in Q:
           sc5q_list = []
@@ -465,7 +465,7 @@ def main():
         #sc4_0...対戦希望が通った人数 #sc4_1...対戦したくない希望が通らなかった人数
         prob += sc5 == pulp.lpSum(sc5q[q] for q in Q)
         prob += score5 == w5 * sc5
-  
+
         #(7)個人のスコアの範囲をできるだけ小さくする
         #所属
         for i1 in Iall_old:
@@ -480,7 +480,7 @@ def main():
                 if i1 in S_dict[s] and i2 not in S_dict[s]:
                   zq_0[i1,q] += w1 * x[q,i1,i2]
           prob += z_0[i1] == pulp.lpSum([zq_0[i1,q] for q in Q])
-  
+
         #級
         for i1 in Iall_old:
           qnum = 0
@@ -560,7 +560,7 @@ def main():
 
 
           prob += z_1[i1] == pulp.lpSum([zq_1[i1,q] for q in Q])
-  
+
         #休みたい希望
         for i1 in Iall_old:
           qnum = 0
@@ -572,7 +572,7 @@ def main():
             if i1 in I_wanttorest:
               zq_2[i1,q] += w5 * x[q,i1,'ダミー']
           prob += z_2[i1] == pulp.lpSum([zq_2[i1,q] for q in Q])
-  
+
         #対戦希望、対戦したくない希望
         for i1 in Iall_old:
           qnum = 0
@@ -589,9 +589,9 @@ def main():
                 if (i1 == pair[0] and i2 == pair[1]) or (i1 == pair[1] and i2 == pair[0]):
                   zq_3[i1,q] += w4_1 * x[q,i1,i2]
           prob += z_3[i1] == pulp.lpSum([zq_3[i1,q] for q in Q])
-  
-  
-  
+
+
+
         for i in Iall_old:
           prob += z[i] == z_0[i] + z_1[i] + z_2[i] + z_3[i]
           prob += z[i] <= zmax
@@ -602,12 +602,12 @@ def main():
 
         #totalscore定義
         totalscore = score1 + score2_0 + score2_1 + score2_2 + score2_3 + score2_4 + score3 + score4_0 + score4_1 + score5 + score6
-    
+
         #目的関数定義
         prob += totalscore
         #求解
         status = prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=240 ))
-        
+
         kekkalistx = []
         restlist = []
         rest2list =[]
@@ -633,7 +633,7 @@ def main():
           for p,i1i2 in kekka.items():
             kekkax.append([i1i2[0],i1i2[1]])
           kekkalistx.append(kekkax)
-  
+
           restlist.append(I_rest[qnum-1])
           rest2list.append(rest2)
 
