@@ -605,12 +605,13 @@ def main():
     
         #目的関数定義
         prob += totalscore
-
+        #求解
+        status = prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=240 ))
+        
         kekkalistx = []
         restlist = []
         rest2list =[]
         kekkanew = []
-        kekkaall = []
 
         # 各クラスに割り当てられている生徒のリストを辞書に格納
         qnum = 0
@@ -626,7 +627,6 @@ def main():
                 kekka[P[qnum-1][pair-1]] = [i1,i2]
               elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
                 rest2.append(i1)
-          kekkaall.append(kekka)
 
           #出力のため
           kekkax = []
@@ -711,8 +711,6 @@ def main():
           else:
             restlist[qindex] = ', '.join(list)
 
-        kekkaall.insert(0,'kekkaall')
-        kekkalistx.insert(0,'num')
         ##csvファイルの出力##
         data = {}
         data[0]=Qnew
@@ -720,7 +718,6 @@ def main():
             data[i+1] = kekkalist_new[i]
         data[maxpairnum+1] = restlist
         data[maxpairnum+2] = rest2list
-        data[maxpairnum + 3] = kekkaall
         new_df = pd.DataFrame(data)
         new_df_trans = new_df.transpose()
         new_df_trans.to_csv("outputcsv", index =False)
