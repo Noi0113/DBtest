@@ -54,7 +54,9 @@ def main():
     st.write("{}の参加用フォーム".format(input_taikaiid))
 
     univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
+    st.write(univ_options)
     s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
+    st.write(s_number)
     absent_options = []
     for i in range(int(s_number[0])):
         absent_options.append(f'{i+1}試合目')
