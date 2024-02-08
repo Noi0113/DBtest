@@ -43,7 +43,8 @@ def main():
     st.markdown('参加者の個人アンケートに回答するため、大会IDとパスワードを入力してください')
 
     #選択肢はフォームの外に作らないとエラーが出るかも
-    input_taikaiid = st.text_input(label = '大会名を入力してください')
+    #input_taikaiid = st.text_input(label = '大会名を入力してください')
+    input_taikaiid = "zenkoku"
     #input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
 
     #if st.button(label='確定'):
