@@ -10,7 +10,7 @@ import hashlib
 
 #target_id列の値がtarget_idである行のcolumn_name列の値をリストで出す
 def data_retu(table_name, target_name,target_id, column_name):
-    conn = sqlite3.connect('monketsu.db')
+    conn = sqlite3.connect('monka.db')
     c = conn.cursor()
     query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
     c.execute(query, (target_id,))
