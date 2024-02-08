@@ -20,20 +20,20 @@ def data_retu(table_name, target_name,target_id, column_name):
     return result_list
 
 #loginする
-def login_user(id,pas):
-    conn = sqlite3.connect('monketsu.db')
-    c = conn.cursor()
-    c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
-    data = c.fetchall()
-    conn.close()
-    return data
+#def login_user(id,pas):
+#    conn = sqlite3.connect('monketsu.db')
+#    c = conn.cursor()
+#    c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
+#    data = c.fetchall()
+#    conn.close()
+#    return data
 #hash化
-def make_hashes(password):
-    return hashlib.sha256(str.encode(password)).hexdigest()
-def check_hashes(password,hashed_text):
-    if make_hashes(password) == hashed_text:
-        return hashed_text
-    return False
+#def make_hashes(password):
+#    return hashlib.sha256(str.encode(password)).hexdigest()
+#def check_hashes(password,hashed_text):
+#    if make_hashes(password) == hashed_text:
+#        return hashed_text
+#    return False
     
 def main():
     status_area = st.empty()
@@ -46,11 +46,11 @@ def main():
     input_taikaiid = st.text_input(label = '大会名を入力してください')
     #input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
 
-    if st.button(label='確定'):
+    #if st.button(label='確定'):
         #hashed_pswd = make_hashes(input_password)
         #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
         #if result:
-        st.success("{}の参加用フォーム".format(input_taikaiid))
+        st.write("{}の参加用フォーム".format(input_taikaiid))
 
         univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
         s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
