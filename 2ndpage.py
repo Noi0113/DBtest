@@ -71,9 +71,9 @@ def main():
 #↓以降最適化の実行
 
         
-        uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
-        if uploaded_file is not None:
-            df = pd.read_csv(uploaded_file)
+    uploaded_file = st.file_uploader("CSVファイルを選択してください。(CSVファイルを読み込み表示させられます。今後最適化を実験するときのために使えるかも)", type="csv")
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
         #df = pd.DataFrame()
         #conn = sqlite3.connect('monka.db')
         #c = conn.cursor()
