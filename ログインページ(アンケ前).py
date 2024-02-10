@@ -1,5 +1,5 @@
 import streamlit as st
-
+st.title('ログインページ(アンケ前)')
 #loginする
 def login_user(id,pas):
     conn = sqlite3.connect('monketsu.db')
