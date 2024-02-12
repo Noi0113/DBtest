@@ -33,3 +33,5 @@ def main():
 
         
 #st.link_button('アンケート回答',"https://monketsu-questionnaire.streamlit.app/",use_container_width=True)
+if __name__ == '__main__':
+    main()
