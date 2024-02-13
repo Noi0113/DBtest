@@ -32,7 +32,8 @@ def main():
       hashed_pswd = make_hashes(input_password)
       result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
       if result:
-        st.success("{}の参加用フォーム".format(input_taikaiid))
+          st.write("ログインしました")
+        #st.success("{}の参加用フォーム".format(input_taikaiid))
 
         
 #st.link_button('アンケート回答',"https://monketsu-questionnaire.streamlit.app/",use_container_width=True)
