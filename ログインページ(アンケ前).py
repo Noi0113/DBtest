@@ -25,17 +25,15 @@ def main():
   input_taikaiid = st.text_input(label = '大会名を入力してください')
   input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
   result = login_user(input_taikaiid,input_password)
+  #hash化されたpasswordをdbに書き込めるようになったらこれ
+  #hashed_pswd = make_hashes(input_password)
+  #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
   if st.button(label='確定') and result:
-      #hash化されたpasswordをdbに書き込めるようになったらこれ
-      #hashed_pswd = make_hashes(input_password)
-      #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
       
       
   #    if result:
-        st.write("ログインしました")
-        st.success("{}の参加用フォーム".format(input_taikaiid))
-
-        
-#st.link_button('アンケート回答',"https://monketsu-questionnaire.streamlit.app/",use_container_width=True)
+        st.success("ログインしました")
+        form = "{}の参加用フォーム".format(input_taikaiid)
+        st.link_button(form,"https://monketsu-questionnaire.streamlit.app/",use_container_width=True)
 if __name__ == '__main__':
     main()
