@@ -1,4 +1,6 @@
 import streamlit as st
+import hashlib
+
 st.title('ログインページ!(アンケ前)')
 #loginする
 def login_user(id,pas):
