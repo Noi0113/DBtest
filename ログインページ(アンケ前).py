@@ -24,15 +24,14 @@ def main():
 
   input_taikaiid = st.text_input(label = '大会名を入力してください')
   input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
-
-  if st.button(label='確定'):
+  result = login_user(input_taikaiid,input_password)
+  if st.button(label='確定') and result:
       #hash化されたpasswordをdbに書き込めるようになったらこれ
       #hashed_pswd = make_hashes(input_password)
       #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
       
-      result = login_user(input_taikaiid,input_password)
       
-      if result:
+  #    if result:
         st.write("ログインしました")
         st.success("{}の参加用フォーム".format(input_taikaiid))
 
