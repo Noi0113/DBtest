@@ -1,8 +1,8 @@
-import streamlit as st
+０import streamlit as st
 st.title('ログインページ!(アンケ前)')
 #loginする
 def login_user(id,pas):
-    conn = sqlite3.connect('monketsu.db')
+    conn = sqlite3.connect('monka.db')
     c = conn.cursor()
     c.execute('SELECT * FROM taikai_data WHERE taikaiid =? AND password = ?',(id,pas))
     data = c.fetchall()
