@@ -70,6 +70,8 @@ def main():
         st.session_state.absent_options = []
         for i in range(int(st.session_state.s_number[0])):
             st.session_state.absent_options.append(f'{i+1}試合目')
+      else:
+        st.warning("大会名か大会パスワードが間違っています")
 
             # フォームを作成します
     with st.form(key='my_form'):
@@ -108,8 +110,7 @@ def main():
                 # 全ての欄が埋まっていない場合の処理
                 else:
                     st.warning("必須項目を入力してください。")
-      #else:
-       # st.warning("大会名か大会パスワードが間違っています")
+
 
 
     ##ログインについて
