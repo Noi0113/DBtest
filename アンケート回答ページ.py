@@ -60,31 +60,7 @@ def main():
         
                 # ユーザーが送信ボタンを押したときに表示されるメッセージ
         if submit_button:
-            if input_name and input_univ and input_level:
-                absent_01 = []
-                for i in absent_options:
-                    if i in absent_matches:
-                        absent_01.append(0)
-                    else:
-                        absent_01.append(1)
-                while len(absent_01) < 16:
-                    absent_01.append(0)
-                
-                conn = conn.sqlite3.connect('monketsu.db')
-                c = conn.cursor()
-                c.execute('''
-                    INSERT INTO user_data (name, school, level, kisuu, wantto, wantnotto, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, taikaiid)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-                    ''', (input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto,absent_01[0], absent_01[1], absent_01[2], absent_01[3], absent_01[4], absent_01[5],absent_01[6], absent_01[7], absent_01[8], absent_01[9], absent_01[10], absent_01[11],absent_01[12], absent_01[13], absent_01[14], input_taikaiid))
-
-                conn.commit()
-                conn.close()
-                st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                # 全ての欄が埋まっていない場合の処理
-            else:
-                st.warning("必須項目を入力してください。")
-
-    st.write("aaa")
+            st.success("aaa")
 
     ##ログインについて
     #st.link_button()を導入したい
