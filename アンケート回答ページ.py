@@ -108,7 +108,7 @@ def main():
             else:
                 st.warning("必須項目を入力してください。")
 
-
+st.write("aaa")
 
     ##ログインについて
     #st.link_button()を導入したい
