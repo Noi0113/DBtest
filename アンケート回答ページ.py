@@ -87,7 +87,7 @@ def main():
             if submit_button:
                 if input_name and input_univ and input_level:
                     absent_01 = []
-                    for i in absent_options:
+                    for i in st.session_state.absent_options:
                         if i in absent_matches:
                             absent_01.append(0)
                         else:
