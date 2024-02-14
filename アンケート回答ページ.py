@@ -3,10 +3,10 @@ import pandas as pd
 import sqlite3
 import hashlib
 
-import ログインページ(アンケ前) as La
+import DBtest as DB
 
 
-st.write(La.input_taikaiid)
+st.write(DB.a)
 
 #def get_connection():
 #    if 'conn' not in st.session_state:
