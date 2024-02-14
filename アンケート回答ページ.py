@@ -49,7 +49,8 @@ def main():
     #hashed_pswd = make_hashes(input_password)
     #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
     
-    if st.button(label='確定') and result:
+    if st.button(label='確定'):
+      if result:
         #hashed_pswd = make_hashes(input_password)
         #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
         #if result:
@@ -103,7 +104,7 @@ def main():
                 # 全ての欄が埋まっていない場合の処理
                 else:
                     st.warning("必須項目を入力してください。")
-    elif st.button(label='確定'):
+      else:
         st.warning("大会IDか大会パスワードが間違っています")
 
 
