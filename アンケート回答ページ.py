@@ -95,7 +95,7 @@ def main():
                     while len(absent_01) < 16:
                         absent_01.append(0)
 
-                    conn = conn.sqlite3.connect('monketsu.db')
+                    conn = sqlite3.connect('monketsu.db')
                     c = conn.cursor()
                     c.execute('''
                         INSERT INTO user_data (name, school, level, kisuu, wantto, wantnotto, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, taikaiid)
