@@ -103,7 +103,7 @@ def main():
                 # 全ての欄が埋まっていない場合の処理
                 else:
                     st.warning("必須項目を入力してください。")
-    if st.button(label='確定'):
+    elif st.button(label='確定'):
         st.warning("大会IDか大会パスワードが間違っています")
 
 
