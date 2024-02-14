@@ -34,9 +34,9 @@ def check_hashes(password,hashed_text):
         return hashed_text
     return False
 
-univ_options = []
-s_number = []
-absent_options = []
+univ_options = ['-']
+s_number = ['-']
+absent_options = ['-']
 
 
 def main():
