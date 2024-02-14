@@ -35,6 +35,14 @@ def check_hashes(password,hashed_text):
     return False
     
 def main():
+    if 'univ_options' not in st.session_state: 
+        st.session_state.univ_options = ["-"]
+    if 's_number' not in st.session_state: 
+        st.session_state.s_number = []
+    if 'absent_options' not in st.session_state: 
+        st.session_state.absent_options = ["-"]
+
+    
     status_area = st.empty()
     #タイトル
     st.title('アンケート回答') 
@@ -64,7 +72,7 @@ def main():
             st.session_state.absent_options.append(f'{i+1}試合目')
 
             # フォームを作成します
-        with st.form(key='my_form'):
+    with st.form(key='my_form'):
             input_name = st.text_input(label='名前を入力してください(必須)')
             input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
             input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
