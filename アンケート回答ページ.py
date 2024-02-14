@@ -39,7 +39,7 @@ def main():
     #タイトル
     st.title('アンケート回答') 
 
-    st.markdown('参加者の個人アンケートに回答するため、大会IDとパスワードを入力してください')
+    st.markdown('参加する大会の大会名とパスワードを入力してください')
 
     input_taikaiid = st.text_input(label = '大会名を入力してください')
     input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
