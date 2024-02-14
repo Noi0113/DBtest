@@ -44,41 +44,17 @@ def main():
     #タイトル
     st.title('アンケート回答') 
 
-    st.markdown('参加する大会の大会名とパスワードを入力してください')
-
-    input_taikaiid = st.text_input(label = '大会名を入力してください')
-    input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
-
-    result = login_user(input_taikaiid,input_password)
-    #hash化されたpasswordをdbに書き込めるようになったらこれ
-    #hashed_pswd = make_hashes(input_password)
-    #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
-    
-    if st.button(label='確定'):
-      if result:
-        #hashed_pswd = make_hashes(input_password)
-        #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
-        #if result:
-        st.success("{}の参加用フォーム".format(input_taikaiid))
-
-        univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
-        s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
-    
-        absent_options = []
-        for i in range(int(s_number[0])):
-            absent_options.append(f'{i+1}試合目')
-      else:
-        st.warning("大会名か大会パスワードが間違っています")
+ 
 
             # フォームを作成します
     with st.form(key='my_form'):
         input_name = st.text_input(label='名前を入力してください(必須)')
-        input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
+        #input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
         input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
         input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
         input_wantto = st.text_input(label='対戦したい人を記入してください')
         input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
-        absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
+        #absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
     
         submit_button = st.form_submit_button(label='送信',use_container_width = True)
         
