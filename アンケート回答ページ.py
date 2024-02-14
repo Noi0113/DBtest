@@ -33,7 +33,12 @@ def check_hashes(password,hashed_text):
     if make_hashes(password) == hashed_text:
         return hashed_text
     return False
-    
+
+univ_options = []
+s_number = []
+absent_options = []
+
+
 def main():
     status_area = st.empty()
     #タイトル
