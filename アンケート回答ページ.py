@@ -2,12 +2,12 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 import hashlib
-##################################
+
 import ログインページ(アンケ前) as La
 
 
 st.write(La.input_taikaiid)
-#########################################
+
 #def get_connection():
 #    if 'conn' not in st.session_state:
 #        st.session_state['conn'] = sqlite3.connect('monketsu.db')
