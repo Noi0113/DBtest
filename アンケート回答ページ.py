@@ -101,7 +101,7 @@ def main():
                 else:
                     st.warning("必須項目を入力してください。")
       else:
-        st.warning("大会IDか大会パスワードが間違っています")
+        st.warning("大会名か大会パスワードが間違っています")
 
 
     ##ログインについて
