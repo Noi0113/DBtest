@@ -5,7 +5,7 @@ def main():
   st.title('DBテストサイト!')
   st.markdown('requirements.txtをアップロードし編集した。誤字チェック済み')
 
-  for i in 3:
+  for i in range(3):
       st.write('インデント？')
   
    
