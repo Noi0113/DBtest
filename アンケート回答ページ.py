@@ -14,10 +14,10 @@ gc = gspread.authorize(credentials)
 
 ##########ここまでスプシ接続設定#######
 
-#def get_connection():
-#    if 'conn' not in st.session_state:
-#        st.session_state['conn'] = sqlite3.connect('monketsu.db')
-#    return st.session_state['conn']
+def get_connection():
+    if 'conn' not in st.session_state:
+        st.session_state['conn'] = sqlite3.connect('monketsu.db')
+    return st.session_state['conn']
 
 #target_id列の値がtarget_idである行のcolumn_name列の値をリストで出す
 #def data_retu(table_name, target_name,target_id, column_name):
