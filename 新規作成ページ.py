@@ -69,7 +69,7 @@ def main():
                     st.error("エラー: この大会名は既に使用されています。別の大会名を入力してください。")
                     
                 else: 
-                    last_row = len(sheet.col_values(1)) + 1
+                    last_row = len(new_gene_sheet.col_values(1)) + 1
                     new_gene_sheet.update_cell(last_row, 1, new_taikaiid)
                     new_gene_sheet.update_cell(last_row, 2, new_password)
                     new_gene_sheet.update_cell(last_row, 3, num_match)
