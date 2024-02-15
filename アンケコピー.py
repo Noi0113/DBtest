@@ -31,7 +31,7 @@ def main():
     new_gene_df = pd.DataFrame(new_gene_data, columns=headers)
     
     status_area = st.empty()
-    st.title('アンケート回答ページ(コピー)') 
+    st.title('アンケート回答ページ(コピー)。') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
@@ -60,13 +60,13 @@ def main():
                 absent_options.append(f'{i + 1}試合目')
 
             form_data = st.form(key='my_form').form_data
-            input_name = form_data.get('input_name', '')
-            input_univ = form_data.get('input_univ', '')
-            input_level = form_data.get('input_level', '')
-            input_kisuu = form_data.get('input_kisuu', '')
-            input_wantto = form_data.get('input_wantto', '')
-            input_wantnotto = form_data.get('input_wantnotto', '')
-            absent_matches = form_data.get('absent_matches', [])
+            input_name = form_data['input_name']
+            input_univ = form_data['input_univ']
+            input_level = form_data['input_level']
+            input_kisuu = form_data['input_kisuu']
+            input_wantto = form_data['input_wantto']
+            input_wantnotto = form_data['input_wantnotto']
+            absent_matches = form_data['absent_matches']
         
             submit_button = st.form_submit_button(label='送信', use_container_width=True)
             
