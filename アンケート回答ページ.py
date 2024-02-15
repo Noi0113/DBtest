@@ -111,7 +111,7 @@ def main():
             absent_options = []
             for i in range(int(filtered_s_num)):
                 absent_options.append(f'{i+1}試合目')
-          elif:
+        else:
             st.warning("大会名か大会パスワードが間違っています")
 
             # フォームを作成します
