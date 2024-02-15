@@ -37,7 +37,7 @@ def main():
     
     status_area = st.empty()
     #タイトル
-    st.title('アンケート回答ページ(コピー)インデント2') 
+    st.title('アンケート回答ページ(コピー)') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
@@ -103,29 +103,18 @@ def main():
                 ##2/15、ちょっとここが分からない…！！！！
                 if submit_button:
                     if input_name and input_univ and input_level:
-                        absent_01 = []
-                        for i in st.session_state.absent_options:
-                            if i in absent_matches:
-                                absent_01.append(0)
-                            else:
-                                absent_01.append(1)
-                        while len(absent_01) < 16:
-                            absent_01.append(0)
-
-                        #########スプシ版(2/15更新)###########
-                        
                         # 休む試合は複数選択のため、リスト化(バイナリ)
                         absent_bin_list = []
-                        for i in range(len(st.session_state.absent_options)):
-                            if st.session_state.absent_options[i] in absent_matches:
+                        for i in range(len(absent_options)):
+                            if absent_options[i] in absent_matches:
                                 absent_bin_list.append(1) # 欠席するなら1を入れる
                             else:
                                 absent_bin_list.append(0) # 出席するなら0を入れる
-
+                
                         #スプレッドシートへの書き込み
                         # Google Sheetsのシート1を開く
                         sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
-                        last_row = len(sheet.col_values(3)) + 1 #空欄を許すための処置。空欄があっても行を揃えて入力できるようにした(便宜上今は3列目(名前)を利用)                  
+                        last_row = len(sheet.col_values(3)) + 1 #行番号の修正                
                         sheet.update_cell(last_row, 1, input_taikaiid)
                         sheet.update_cell(last_row, 2, input_password)
                         sheet.update_cell(last_row, 3, input_name)
@@ -136,7 +125,12 @@ def main():
                         sheet.update_cell(last_row, 8, input_wantnotto)
                         for i in range(len(absent_bin_list)): # 出席・欠席を0,1で格納(試合数の違いにも対応)
                             sheet.update_cell(last_row, 9+i, absent_bin_list[i])
-                        
+        
+        st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+    # 全ての欄が埋まっていない場合の処理
+    else:
+        st.warning("必須項目を入力してください。")
+
                         st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                     # 全ての欄が埋まっていない場合の処理
                     else:
