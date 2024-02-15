@@ -113,6 +113,20 @@ def main():
 
             # フォームを作成します
     with st.form(key='my_form'):
+            # 選択肢のリストはフォーム内に作んなきゃなの？
+            # 大学の選択肢を作成
+            univ_options = []
+            for i in range(int(filtered_univ_num)):
+                univ_options.append(filtered_new_gene_df.iloc[0,4+i])
+            #st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
+            #st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
+            
+            # 欠席試合を入力するために、ここで試合のリストを作る
+            absent_options = []
+            for i in range(int(filtered_s_num)):
+                absent_options.append(f'{i+1}試合目')
+
+
             input_name = st.text_input(label='名前を入力してください(必須)')
             input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
             input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
