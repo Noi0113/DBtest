@@ -84,7 +84,7 @@ def main():
     #ここから上は編集しない
     
     #タイトル
-    st.title('対戦表の作成')
+    st.title('対戦表の作成ページ')
     #install coin-or-cbc
 
     st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
