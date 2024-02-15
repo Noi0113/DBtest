@@ -31,7 +31,7 @@ def main():
     new_gene_df = pd.DataFrame(new_gene_data, columns=headers)
     
     status_area = st.empty()
-    st.title('アンケート回答ページ(コピー)！') 
+    st.title('アンケート回答ページ(コピー)') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
@@ -59,24 +59,16 @@ def main():
             for i in range(int(filtered_s_num)):
                 absent_options.append(f'{i + 1}試合目')
 
-            with st.form(key='my_form'):
-                univ_options = []
-                for i in range(int(filtered_univ_num)):
-                    univ_options.append(filtered_new_gene_df.iloc[0, 4 + i])
-                
-                absent_options = []
-                for i in range(int(filtered_s_num)):
-                    absent_options.append(f'{i + 1}試合目')
-
-                input_name = st.text_input(label='名前を入力してください(必須)')
-                input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
-                input_level = st.selectbox('級を入力してください(必須)', options=['A', 'B', 'C', 'D', 'E'])
-                input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)', options=['はい', 'いいえ'])
-                input_wantto = st.text_input(label='対戦したい人を記入してください')
-                input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
-                absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
+            form_data = st.form(key='my_form').form_data
+            input_name = form_data.get('input_name', '')
+            input_univ = form_data.get('input_univ', '')
+            input_level = form_data.get('input_level', '')
+            input_kisuu = form_data.get('input_kisuu', '')
+            input_wantto = form_data.get('input_wantto', '')
+            input_wantnotto = form_data.get('input_wantnotto', '')
+            absent_matches = form_data.get('absent_matches', [])
         
-                submit_button = st.form_submit_button(label='送信', use_container_width=True)
+            submit_button = st.form_submit_button(label='送信', use_container_width=True)
             
             if submit_button:
                 if input_name and input_univ and input_level:
