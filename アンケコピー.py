@@ -26,7 +26,7 @@ def main():
     new_gene_df = pd.DataFrame(new_gene_data, columns=headers)
     
     # タイトル
-    st.title('アンケート回答ページ') 
+    st.title('アンケート回答ページ！') 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
     input_taikaiid = st.text_input(label='大会名を入力してください')
     input_password = st.text_input(label="大会パスワードを入力してください", type='password')
