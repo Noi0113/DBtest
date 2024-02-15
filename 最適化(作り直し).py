@@ -95,7 +95,7 @@ def main():
  #   result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
  #   if result:
         #if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:
-        if input_taikaiid = 'zenkoku':
+        if input_taikaiid == 'zenkoku':
             st.success("対戦表を作成します")
 
         
