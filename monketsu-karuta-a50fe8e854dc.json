@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "monketsu-karuta",
+  "private_key_id": "a50fe8e854dc17a3d90a21e36912cfb7b3889e43",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQC1ohDNEcdX2rKs\nYUQ1Myb0I9f1IkvmCHKyvIPAwpzEEqCIUriBoZ+NZafbQxp4+zqXEd7KKWduvL3I\nSDZlT72WMBBKZLt0jM0n4PDf4QJgT5rL5ksjqWjjULsZ4cDTc8wpGaMyo894+EwR\n/AUojSGC9FtZiA7jymQqeXiTyOfmaYo1kqjaJhARHXWxWLloaLTxkeHEfJiDnlCG\n1Wu+RwIhmakuwJgPD5pHWhJ1EApTWYaM7elXCs1Ws/F++MNFRrFg/L8A/BH311oE\nrH92WxUtrNKSutSUTE5leNorn3O2edKjstD92+eKfjDxP5WQR5/VhXzfK80YoRmO\npMk22jtpAgMBAAECgf83VynHUaNrITdPTlN54hv8Ru+FwO1fKTPJQabjFGivVP2U\ni5+r35K9gjuiks9+DQ3M+aTn87WQB/HLFDV+qM0a9YoBIK/80umvPNonXGdc8OQ5\nO/Go6/UJTY+0UxRtWNrbqvQOedq9AOoskJ0Bvf535/vtS4c94GykhF44qP3/NaVv\nYrGnArvcD0TptcZ5/0c18vrAFmKciQqfxroMcGETNNb1QZhbRXtTwmynQ8siR2pa\nfyphvdrz0n4YNSW5NMT+itU2YJ1cAAD2wTCXfcVQOlypGMbBTR+mkQ4ek8zNap7K\np+nTJ91jQ1GuPX3YFi/QXVsT5i7rn7BKvU79rGECgYEA3nemXgsPIFGqRVuSyMb4\n7P4tMyUuVqTdJtfRUQ7nzzDZaCZA8N4fISNkYfrcLLprArkCobWzFzdDlEvHKRgE\nVGTaAjwh09oVkwUTV/lgisQhKO18GZEMecgJO4SLJIM9tgQN6JD6V4F/S49ii8UA\nhnqhsugJ/7dDo2sUCXAID7UCgYEA0QK964FKLohVOkVuWQs1glhkDsnAryqAqSkM\nzH2Y3zPAiLLZvCeH+nU4JUa1rlcNiFDs27ifI29EPKcMtKjRJ9ByEuhD1fRa14b0\njBhIHr7iD8FHJIZGyu04ylmEKdnorFnQivM36iYdZZFCN3dUID7S0lwJ+KOjqu2l\nwKlXhWUCgYBA5YqEuJkrBmezX+lL5K9NA0DQQLJp2CIjaKXJDZ4V1Nw3A6HCIinW\nkup/opyD98Wrv6jC36xkw1xVcF2i4TyyGdF3AW+ky2OrxblE2pyNHnXF6LFhC+0l\nwXLgB+RHPHnOFRSxmUlOKZqmwicvOsLSeAeflw0DqcRzcZMgxau0WQKBgEHFWhxU\n2BIihqdKl/nfRBxbUkkxBbhZaJlSuJtU3plGQM0Dcu75hZmz71ITmTJeZHzD8nUF\n+NX+untXmfDzurWLq4n1mvsl5Lwz1JqNPYynRp3slUWSF47d7WQHnUZKMyShMrW2\n6Z5+FfwTJMItg8SN4Guf2OdsHyG3nNQutcLdAoGBANpwucwhDLl7qs/9AsG/1sJk\nntpPnf/JgcZZPuEMK3ViPQ9lLS/G31nRXq1RHpiRC87edamGCH6MVwI9mPnm0h/r\n0gmmvmY0ZDfl2zlOiDg8k5DBnbBSd2GPRI55+RfdMeOOdFjtkTgHk0XwbRV2EQfT\n1RCzUXVw/3zEu9FYjrJl\n-----END PRIVATE KEY-----\n",
+  "client_email": "monketu-karuta@monketsu-karuta.iam.gserviceaccount.com",
+  "client_id": "107255146009927682312",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/monketu-karuta%40monketsu-karuta.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
