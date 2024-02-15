@@ -37,7 +37,7 @@ def main():
     
     status_area = st.empty()
     #タイトル
-    st.title('アンケート回答ページ') 
+    st.title('アンケート回答ページ(コピー)インデント調整') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
@@ -73,76 +73,76 @@ def main():
             absent_options = []
             for i in range(int(filtered_s_num)):
                 absent_options.append(f'{i+1}試合目')
-        else:
-            st.warning("大会名か大会パスワードが間違っています")
+        
 
             # フォームを作成します
-    with st.form(key='my_form'):
-            # 選択肢のリストはフォーム内に作んなきゃなの？
-            # 大学の選択肢を作成
-            univ_options = []
-            for i in range(int(filtered_univ_num)):
-                univ_options.append(filtered_new_gene_df.iloc[0,4+i])
-            
-            # 欠席試合を入力するために、ここで試合のリストを作る
-            absent_options = []
-            for i in range(int(filtered_s_num)):
-                absent_options.append(f'{i+1}試合目')
+            with st.form(key='my_form'):
+                # 選択肢のリストはフォーム内に作んなきゃなの？
+                # 大学の選択肢を作成
+                univ_options = []
+                for i in range(int(filtered_univ_num)):
+                    univ_options.append(filtered_new_gene_df.iloc[0,4+i])
+                
+                # 欠席試合を入力するために、ここで試合のリストを作る
+                absent_options = []
+                for i in range(int(filtered_s_num)):
+                    absent_options.append(f'{i+1}試合目')
 
 
-            input_name = st.text_input(label='名前を入力してください(必須)')
-            input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
-            input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
-            input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
-            input_wantto = st.text_input(label='対戦したい人を記入してください')
-            input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
-            absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
-    
-            submit_button = st.form_submit_button(label='送信',use_container_width = True)
+                input_name = st.text_input(label='名前を入力してください(必須)')
+                input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
+                input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
+                input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
+                input_wantto = st.text_input(label='対戦したい人を記入してください')
+                input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
+                absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
         
-            # ユーザーが送信ボタンを押したときに表示されるメッセージ
-            ##2/15、ちょっとここが分からない…！！！！
-            if submit_button:
-                if input_name and input_univ and input_level:
-                    absent_01 = []
-                    for i in st.session_state.absent_options:
-                        if i in absent_matches:
+                submit_button = st.form_submit_button(label='送信',use_container_width = True)
+            
+                # ユーザーが送信ボタンを押したときに表示されるメッセージ
+                ##2/15、ちょっとここが分からない…！！！！
+                if submit_button:
+                    if input_name and input_univ and input_level:
+                        absent_01 = []
+                        for i in st.session_state.absent_options:
+                            if i in absent_matches:
+                                absent_01.append(0)
+                            else:
+                                absent_01.append(1)
+                        while len(absent_01) < 16:
                             absent_01.append(0)
-                        else:
-                            absent_01.append(1)
-                    while len(absent_01) < 16:
-                        absent_01.append(0)
 
-                    #########スプシ版(2/15更新)###########
-                    
-                    # 休む試合は複数選択のため、リスト化(バイナリ)
-                    absent_bin_list = []
-                    for i in range(len(st.session_state.absent_options)):
-                        if st.session_state.absent_options[i] in absent_matches:
-                            absent_bin_list.append(1) # 欠席するなら1を入れる
-                        else:
-                            absent_bin_list.append(0) # 出席するなら0を入れる
+                        #########スプシ版(2/15更新)###########
+                        
+                        # 休む試合は複数選択のため、リスト化(バイナリ)
+                        absent_bin_list = []
+                        for i in range(len(st.session_state.absent_options)):
+                            if st.session_state.absent_options[i] in absent_matches:
+                                absent_bin_list.append(1) # 欠席するなら1を入れる
+                            else:
+                                absent_bin_list.append(0) # 出席するなら0を入れる
 
-                    #スプレッドシートへの書き込み
-                    # Google Sheetsのシート1を開く
-                    sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
-                    last_row = len(sheet.col_values(3)) + 1 #空欄を許すための処置。空欄があっても行を揃えて入力できるようにした(便宜上今は3列目(名前)を利用)                  
-                    sheet.update_cell(last_row, 1, input_taikaiid)
-                    sheet.update_cell(last_row, 2, input_password)
-                    sheet.update_cell(last_row, 3, input_name)
-                    sheet.update_cell(last_row, 4, input_univ)
-                    sheet.update_cell(last_row, 5, input_level)
-                    sheet.update_cell(last_row, 6, input_kisuu)
-                    sheet.update_cell(last_row, 7, input_wantto)
-                    sheet.update_cell(last_row, 8, input_wantnotto)
-                    for i in range(len(absent_bin_list)): # 出席・欠席を0,1で格納(試合数の違いにも対応)
-                        sheet.update_cell(last_row, 9+i, absent_bin_list[i])
-                    
-                    st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                # 全ての欄が埋まっていない場合の処理
-                else:
-                    st.warning("必須項目を入力してください。")
-    
+                        #スプレッドシートへの書き込み
+                        # Google Sheetsのシート1を開く
+                        sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
+                        last_row = len(sheet.col_values(3)) + 1 #空欄を許すための処置。空欄があっても行を揃えて入力できるようにした(便宜上今は3列目(名前)を利用)                  
+                        sheet.update_cell(last_row, 1, input_taikaiid)
+                        sheet.update_cell(last_row, 2, input_password)
+                        sheet.update_cell(last_row, 3, input_name)
+                        sheet.update_cell(last_row, 4, input_univ)
+                        sheet.update_cell(last_row, 5, input_level)
+                        sheet.update_cell(last_row, 6, input_kisuu)
+                        sheet.update_cell(last_row, 7, input_wantto)
+                        sheet.update_cell(last_row, 8, input_wantnotto)
+                        for i in range(len(absent_bin_list)): # 出席・欠席を0,1で格納(試合数の違いにも対応)
+                            sheet.update_cell(last_row, 9+i, absent_bin_list[i])
+                        
+                        st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                    # 全ての欄が埋まっていない場合の処理
+                    else:
+                        st.warning("必須項目を入力してください。")
+        else:
+            st.warning("大会名か大会パスワードが間違っています")
 
 
     ##ログインについて
