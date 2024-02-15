@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import gspread
@@ -31,7 +32,7 @@ def main():
     new_gene_df = pd.DataFrame(new_gene_data, columns=headers)
     
     status_area = st.empty()
-    st.title('アンケート回答ページ(コピー)') 
+    st.title('アンケート回答ページ(コピー)。') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
@@ -81,16 +82,7 @@ def main():
                 
                         sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
                         last_row = len(sheet.col_values(3)) + 1  # 行番号の修正
-                        sheet.update_cell(last_row, 1, input_taikaiid)
-                        sheet.update_cell(last_row, 2, input_password)
-                        sheet.update_cell(last_row, 3, input_name)
-                        sheet.update_cell(last_row, 4, input_univ)
-                        sheet.update_cell(last_row, 5, input_level)
-                        sheet.update_cell(last_row, 6, input_kisuu)
-                        sheet.update_cell(last_row, 7, input_wantto)
-                        sheet.update_cell(last_row, 8, input_wantnotto)
-                        for i in range(len(absent_bin_list)):
-                            sheet.update_cell(last_row, 9 + i, absent_bin_list[i])
+                        sheet.insert_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list, last_row)
         
                         st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                     else:
