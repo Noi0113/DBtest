@@ -1,37 +1,46 @@
 import streamlit as st
 import subprocess
-# subprocessモジュールを使用してpipを呼び出し、モジュールをインストールする
-subprocess.check_call(["pip", "install", "pulp"])
-
 import pulp
 import random
 import numpy as np
 import csv
 import pandas as pd
 import sqlite3
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
-def data_retu(table_name, target_name,target_id, column_name):
-    conn = sqlite3.connect('monka.db')
-    c = conn.cursor()
-    query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
-    c.execute(query, (target_id,))
-    result = c.fetchall()
-    conn.close()
-    result_list = [item[0] for item in result]
-    return result_list
+# スコープの設定（Google Sheets API および Google Drive API のスコープを追加）
+scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 
-def get_data_by_taikaiid(n, id):
+# Google Sheets認証情報の読み込み
+credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-a50fe8e854dc.json', scopes)
+gc = gspread.authorize(credentials)
+
+##########ここまでスプシ接続設定#######
+
+
+#def data_retu(table_name, target_name,target_id, column_name):
+#    conn = sqlite3.connect('monka.db')
+#    c = conn.cursor()
+#    query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
+#    c.execute(query, (target_id,))
+#    result = c.fetchall()
+#    conn.close()
+#    result_list = [item[0] for item in result]
+#    return result_list
+
+#def get_data_by_taikaiid(n, id):
     # データベースファイルのパスを正確に指定
-    conn = sqlite3.connect('monka.db')
+    #conn = sqlite3.connect('monka.db')
 
     # s1, s2, ..., s{n} を結合した文字列を生成
-    S = ", ".join([f"s{i}" for i in range(1, n+1)])
+    #S = ", ".join([f"s{i}" for i in range(1, n+1)])
 
     # user_dataテーブルから特定のtaikaiidに一致する行を取得
-    query = f"SELECT name, school, level, kisuu, wantto, wantnotto, {S} FROM user_data WHERE taikaiid=?"
-    df = pd.read_sql_query(query, conn, params=(id,))
+    #query = f"SELECT name, school, level, kisuu, wantto, wantnotto, {S} FROM user_data WHERE taikaiid=?"
+    #df = pd.read_sql_query(query, conn, params=(id,))
 
-    conn.close()
+    #conn.close()
     return df
 
 
@@ -50,7 +59,20 @@ def check_hashes(password,hashed_text):
     if make_hashes(password) == hashed_text:
         return hashed_text
     return False
+    
+# まずGoogle Sheetsのシート2を開き、それをデータフレーム化する(大会名・パスワードの確認のため。またこれについてはシート2で十分と判断(アンケページにてシート2で確認→シート1に記載されるため)) 
+new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
+new_gene_data = new_gene_sheet.get_all_values()
+headers = new_gene_data.pop(0)
+new_gene_df = pd.DataFrame(new_gene_data, columns = headers)
 
+# 新規作成ページで作成された大会IDとパスワードを辞書化
+id_from_df = new_gene_df.iloc[:,0]
+pass_from_df = new_gene_df.iloc[:,1]
+id_list = list(id_from_df)
+pass_list = list(pass_from_df)
+taikai_dict = dict(zip(id_list,pass_list))
+   
 def main():
     status_area = st.empty()
     #ここから上は編集しない
@@ -66,8 +88,13 @@ def main():
  #   hashed_pswd = make_hashes(input_password)
  #   result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
  #   if result:
-        st.success("対戦表を作成します")
+        if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:        
+            st.success("対戦表を作成します")
+    else:
+      st.warning("大会名か大会パスワードが間違っています")  
 
+
+        
 #↓以降最適化の実行
 
         
