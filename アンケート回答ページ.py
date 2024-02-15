@@ -100,7 +100,7 @@ def main():
             # 大学の選択肢を作成
             univ_options = []
             for i in range(int(filtered_univ_num)):
-                univ_options.append(filtered_new_df.iloc[0,4+i])
+                univ_options.append(filtered_new_gene_df.iloc[0,4+i])
             #st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
             #st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
             
