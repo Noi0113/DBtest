@@ -90,9 +90,6 @@ def main():
  #   if result:
         if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:        
             st.success("対戦表を作成します")
-    else:
-      st.warning("大会名か大会パスワードが間違っています")  
-
 
         
 #↓以降最適化の実行
@@ -754,7 +751,8 @@ def main():
 
         st.success("新しいCSVファイルが出力されました。")
 
-
+     else:
+      st.warning("大会名か大会パスワードが間違っています")  
 #ここから下は編集しない
 if __name__ == '__main__':
     main()
