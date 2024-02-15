@@ -13,7 +13,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-
 gc = gspread.authorize(credentials)
 
 ##########ここまでスプシ接続設定#######
-
+    
 def main():
     #以下は、未だ入力がされていない時に-を表示できるようにした、ということ？？
     if 'univ_options' not in st.session_state: 
@@ -22,27 +22,28 @@ def main():
         st.session_state.s_number = []
     if 'absent_options' not in st.session_state: 
         st.session_state.absent_options = ["-"]
-
+        
+    # なぜか事前に作っておく必要があるみたいだから
+    filtered_univ_num = 0
+    filtered_s_num = 0
+    univ_options = []
+    absent_options = []
+    
     # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
     new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
     new_gene_data = new_gene_sheet.get_all_values()
     headers = new_gene_data.pop(0)
-    new_gene_df = pd.DataFrame(new_gene_data, column = headers)
-
+    new_gene_df = pd.DataFrame(new_gene_data, columns = headers)
     
     status_area = st.empty()
     #タイトル
-    st.title('アンケート回答') 
+    st.title('アンケート回答ページ') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
     input_taikaiid = st.text_input(label = '大会名を入力してください')
     input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
 
-    #result = login_user(input_taikaiid,input_password)
-    #hash化されたpasswordをdbに書き込めるようになったらこれ
-    #hashed_pswd = make_hashes(input_password)
-    #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
 
     # 新規作成ページで作成された大会IDとパスワードを辞書化
     id_from_df = new_gene_df.iloc[:,0]
@@ -56,15 +57,15 @@ def main():
         if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:
             st.success("{}の参加用フォーム".format(input_taikaiid))
             #大会名が入力内容と一致した行を抜き出す必要な情報を取り出す
-            filtered_new_gene_df = df[new_gene_df.iloc[:,0] == input_taikaiid]
+            filtered_new_gene_df = new_gene_df[new_gene_df.iloc[:,0] == input_taikaiid]
             #以下は指定された大会の参加大学数、試合数
-            filtered_univ_num = filtered_new_df.iloc[0,3]
-            filtered_s_number = filtered_new_df.iloc[0,2]
+            filtered_univ_num = filtered_new_gene_df.iloc[0,3]
+            filtered_s_num = filtered_new_gene_df.iloc[0,2]
 
             # 大学の選択肢を作成
             univ_options = []
             for i in range(int(filtered_univ_num)):
-                univ_options.append(filtered_new_df.iloc[0,4+i])
+                univ_options.append(filtered_new_gene_df.iloc[0,4+i])
             #st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
             #st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
             
@@ -72,18 +73,30 @@ def main():
             absent_options = []
             for i in range(int(filtered_s_num)):
                 absent_options.append(f'{i+1}試合目')
-      else:
-        st.warning("大会名か大会パスワードが間違っています")
+        else:
+            st.warning("大会名か大会パスワードが間違っています")
 
             # フォームを作成します
-    with st.form(key='my_form'):
+        with st.form(key='my_form'):
+            # 選択肢のリストはフォーム内に作んなきゃなの？
+            # 大学の選択肢を作成
+            univ_options = []
+            for i in range(int(filtered_univ_num)):
+                univ_options.append(filtered_new_gene_df.iloc[0,4+i])
+            
+            # 欠席試合を入力するために、ここで試合のリストを作る
+            absent_options = []
+            for i in range(int(filtered_s_num)):
+                absent_options.append(f'{i+1}試合目')
+
+
             input_name = st.text_input(label='名前を入力してください(必須)')
-            input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
+            input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
             input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
             input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
             input_wantto = st.text_input(label='対戦したい人を記入してください')
             input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
-            absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', st.session_state.absent_options)
+            absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', absent_options)
     
             submit_button = st.form_submit_button(label='送信',use_container_width = True)
         
@@ -91,6 +104,15 @@ def main():
             ##2/15、ちょっとここが分からない…！！！！
             if submit_button:
                 if input_name and input_univ and input_level:
+                    absent_01 = []
+                    for i in st.session_state.absent_options:
+                        if i in absent_matches:
+                            absent_01.append(0)
+                        else:
+                            absent_01.append(1)
+                    while len(absent_01) < 16:
+                        absent_01.append(0)
+
                     #########スプシ版(2/15更新)###########
                     
                     # 休む試合は複数選択のため、リスト化(バイナリ)
