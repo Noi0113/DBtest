@@ -127,7 +127,7 @@ def main():
                     
                     # 休む試合は複数選択のため、リスト化(バイナリ)
                     absent_bin_list = []
-                    for i in range(len(absent_options)):
+                    for i in range(len(st.session_state.absent_options)):
                         if absent_options[i] in absent_matches:
                             absent_bin_list.append(1) # 欠席するなら1を入れる
                         else:
