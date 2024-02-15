@@ -19,29 +19,29 @@ gc = gspread.authorize(credentials)
 ##########ここまでスプシ接続設定#######
 
 
-#def data_retu(table_name, target_name,target_id, column_name):
-#    conn = sqlite3.connect('monka.db')
-#    c = conn.cursor()
-#    query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
-#    c.execute(query, (target_id,))
-#    result = c.fetchall()
-#    conn.close()
-#    result_list = [item[0] for item in result]
-#    return result_list
+def data_retu(table_name, target_name,target_id, column_name):
+    conn = sqlite3.connect('monka.db')
+    c = conn.cursor()
+    query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
+    c.execute(query, (target_id,))
+    result = c.fetchall()
+    conn.close()
+    result_list = [item[0] for item in result]
+    return result_list
 
-#def get_data_by_taikaiid(n, id):
+def get_data_by_taikaiid(n, id):
     # データベースファイルのパスを正確に指定
-    #conn = sqlite3.connect('monka.db')
+    conn = sqlite3.connect('monka.db')
 
     # s1, s2, ..., s{n} を結合した文字列を生成
-    #S = ", ".join([f"s{i}" for i in range(1, n+1)])
+    S = ", ".join([f"s{i}" for i in range(1, n+1)])
 
     # user_dataテーブルから特定のtaikaiidに一致する行を取得
-    #query = f"SELECT name, school, level, kisuu, wantto, wantnotto, {S} FROM user_data WHERE taikaiid=?"
-    #df = pd.read_sql_query(query, conn, params=(id,))
+    query = f"SELECT name, school, level, kisuu, wantto, wantnotto, {S} FROM user_data WHERE taikaiid=?"
+    df = pd.read_sql_query(query, conn, params=(id,))
 
-    #conn.close()
-    #return df
+    conn.close()
+    return df
 
 
 #login
