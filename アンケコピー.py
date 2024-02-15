@@ -37,7 +37,7 @@ def main():
     
     status_area = st.empty()
     #タイトル
-    st.title('アンケート回答ページ(コピー)インデント調整') 
+    st.title('アンケート回答ページ(コピー)インデント2') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
@@ -139,8 +139,8 @@ def main():
                         
                         st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                     # 全ての欄が埋まっていない場合の処理
-                    else:
-                        st.warning("必須項目を入力してください。")
+                else:
+                    st.warning("必須項目を入力してください。")
         else:
             st.warning("大会名か大会パスワードが間違っています")
 
