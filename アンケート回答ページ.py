@@ -49,6 +49,7 @@ def check_hashes(password,hashed_text):
     return False
     
 def main():
+    #以下は、未だ入力がされていない時に-を表示できるようにした、ということ？？
     if 'univ_options' not in st.session_state: 
         st.session_state.univ_options = ["-"]
     if 's_number' not in st.session_state: 
