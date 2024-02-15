@@ -77,7 +77,7 @@ def main():
             st.warning("大会名か大会パスワードが間違っています")
 
             # フォームを作成します
-        with st.form(key='my_form'):
+    with st.form(key='my_form'):
             # 選択肢のリストはフォーム内に作んなきゃなの？
             # 大学の選択肢を作成
             univ_options = []
