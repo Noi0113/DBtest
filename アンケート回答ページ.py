@@ -53,9 +53,13 @@ def main():
         st.session_state.s_number = []
     if 'absent_options' not in st.session_state: 
         st.session_state.absent_options = ["-"]
+        
     # なぜか事前に作っておく必要があるみたいだから
     filtered_univ_num = 0
     filtered_s_num = 0
+    univ_options = []
+    absent_options = []
+    
     # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
     new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
     new_gene_data = new_gene_sheet.get_all_values()
@@ -117,14 +121,12 @@ def main():
     with st.form(key='my_form'):
             # 選択肢のリストはフォーム内に作んなきゃなの？
             # 大学の選択肢を作成
-            univ_options = []
             for i in range(int(filtered_univ_num)):
                 univ_options.append(filtered_new_gene_df.iloc[0,4+i])
             #st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
             #st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
             
             # 欠席試合を入力するために、ここで試合のリストを作る
-            absent_options = []
             for i in range(int(filtered_s_num)):
                 absent_options.append(f'{i+1}試合目')
 
