@@ -58,7 +58,7 @@ def main():
     new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
     new_gene_data = new_gene_sheet.get_all_values()
     headers = new_gene_data.pop(0)
-    new_gene_df = pd.DataFrame(new_gene_data, column = headers)
+    new_gene_df = pd.DataFrame(new_gene_data, columns = headers)
 
     st.write(df)
 
