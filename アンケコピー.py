@@ -11,19 +11,12 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-
 gc = gspread.authorize(credentials)
 
 def main():
-    #univ_options = []
-    #absent_options = [] 
-    #if 'univ_options' not in st.session_state: 
-    #    st.session_state.univ_options = ["-"]
-    #if 'absent_options' not in st.session_state: 
-    #    st.session_state.absent_options = ["-"]
-    
     new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
     new_gene_data = new_gene_sheet.get_all_values()
     headers = new_gene_data.pop(0)
     new_gene_df = pd.DataFrame(new_gene_data, columns=headers)
     
-    st.title('アンケート回答ページ！！こぴー') 
+    st.title('アンケート回答ページ！！こぴー！') 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
     input_taikaiid = st.text_input(label='大会名を入力してください')
     input_password = st.text_input(label="大会パスワードを入力してください", type='password')
@@ -60,13 +53,10 @@ def main():
                 
                 if submit_button:
                     if input_name and input_univ and input_level:
-                        absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
-                        while len(absent_bin_list) < 16:
-                            absent_bin_list.append(0)
-                        
                         try:
                             sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
                             last_row = len(sheet.col_values(3)) + 1
+                            absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
                             sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
                             
                             st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
