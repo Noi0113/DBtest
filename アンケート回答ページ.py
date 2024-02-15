@@ -124,6 +124,8 @@ def main():
 
 
                     #########スプシ版(2/15更新)###########
+
+                    st.write(st.session_state.absent_options)
                     
                     # 休む試合は複数選択のため、リスト化(バイナリ)
                     absent_bin_list = []
