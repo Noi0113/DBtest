@@ -123,7 +123,7 @@ def main():
 
                     #スプシ版(2/15更新)
 
-                    last_row = len(sheet.col_values(1)) + 1
+                    last_row = len(sheet.col_values(3)) + 1 #空欄を許すための処置。空欄があっても行を揃えて入力できるようにした(便宜上今は3列目(名前)を利用)                  
                     sheet.update_cell(last_row, 1, input_taikaiid)
                     sheet.update_cell(last_row, 2, input_password)
                     sheet.update_cell(last_row, 3, input_name)
