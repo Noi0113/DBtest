@@ -128,10 +128,10 @@ def main():
                     # 休む試合は複数選択のため、リスト化(バイナリ)
                     absent_bin_list = []
                     for i in range(len(absent_options)):
-                    if absent_options[i] in absent_matches:
-                        absent_bin_list.append(1) # 欠席するなら1を入れる
-                    else:
-                        absent_bin_list.append(0) # 出席するなら0を入れる
+                        if absent_options[i] in absent_matches:
+                            absent_bin_list.append(1) # 欠席するなら1を入れる
+                        else:
+                            absent_bin_list.append(0) # 出席するなら0を入れる
 
 
                     last_row = len(sheet.col_values(3)) + 1 #空欄を許すための処置。空欄があっても行を揃えて入力できるようにした(便宜上今は3列目(名前)を利用)                  
