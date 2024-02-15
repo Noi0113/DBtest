@@ -60,11 +60,17 @@ def check_hashes(password,hashed_text):
         return hashed_text
     return False
     
-# まずGoogle Sheetsのシート2を開き、それをデータフレーム化する(大会名・パスワードの確認のため。またこれについてはシート2で十分と判断(アンケページにてシート2で確認→シート1に記載されるため)) 
+# まずGoogle Sheetsのシート2を開き、それをデータフレーム化する(大会名・パスワードの確認のため。またこれについてはシート2で十分と判断した。(アンケページにてシート2で確認→シート1に記載されるため)) 
 new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
 new_gene_data = new_gene_sheet.get_all_values()
 headers = new_gene_data.pop(0)
 new_gene_df = pd.DataFrame(new_gene_data, columns = headers)
+
+# まずGoogle Sheetsのシート1を開き、それをデータフレーム化する
+sheet1 = gc.open('monketsu-karuta-db').get_worksheet(0)
+sheet1_data = sheet1.get_all_values()
+headers = sheet1_data.pop(0)
+raw_df = pd.DataFrame(sheet1_data, columns = headers)
 
 # 新規作成ページで作成された大会IDとパスワードを辞書化
 id_from_df = new_gene_df.iloc[:,0]
@@ -108,8 +114,22 @@ def main():
         st.table(df)
         conn.close()
 
-        #スプレッドシートのシート1から、大会名が一致
-        raw_df = 
+
+        #######スプシversion#######
+        #大会名が入力内容と一致した行を抜き出し必要な情報を取り出す(今回は試合数が知りたい)
+        filtered_new_gene_df = new_gene_df[new_gene_df.iloc[:,0] == input_taikaiid]
+        s_num = int(filtered_new_gene_df.iloc[0,2])
+        
+        #スプレッドシートのシート1から、大会名が一致する行のみ取り出し一旦DF化(filtered_df)
+        filtered_df = raw_df[raw_df.iloc[:,0] == inpur_taikaiid]
+        #filtered_dfから必要な列のみ取り出す(これにより大会名・大会パス・不要な試合分の欠席が除かれる)
+        df = filtered_df.iloc[:,2:s_num+7]
+        #列数に番号を付け、それを個人IDとする
+        df.insert(0, '個人ID', range(1, len(df) + 1))
+        st.table(df)
+        #######スプシversion#######
+
+        #######以下最適化
 
         #集合定義
         #試合数
