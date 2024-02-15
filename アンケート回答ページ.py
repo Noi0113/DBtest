@@ -92,7 +92,7 @@ def main():
         #if result:
             st.success("{}の参加用フォーム".format(input_taikaiid))
             #大会名が入力内容と一致した行を抜き出す必要な情報を取り出す
-            filtered_new_gene_df = df[new_gene_df.iloc[:,0] == input_taikaiid]
+            filtered_new_gene_df = new_gene_df[new_gene_df.iloc[:,0] == input_taikaiid]
             #以下は指定された大会の参加大学数、試合数
             filtered_univ_num = filtered_new_df.iloc[0,3]
             filtered_s_number = filtered_new_df.iloc[0,2]
