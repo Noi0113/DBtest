@@ -2,6 +2,20 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 import hashlib
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# スコープの設定（Google Sheets API および Google Drive API のスコープを追加）
+scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+
+# Google Sheets認証情報の読み込み
+credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu2-2b83cfd57ed6.json', scopes)
+gc = gspread.authorize(credentials)
+
+# Google Sheetsのシート1を開く
+sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
+
+##########ここまでスプシ接続設定#######
 
 #def get_connection():
 #    if 'conn' not in st.session_state:
