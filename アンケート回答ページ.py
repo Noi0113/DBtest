@@ -76,20 +76,31 @@ def main():
     #hash化されたpasswordをdbに書き込めるようになったらこれ
     #hashed_pswd = make_hashes(input_password)
     #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
-    
+
+    # 新規作成ページで作成された大会IDとパスワードを辞書化
+    id_from_df = new_gene_df.iloc[:,0]
+    pass_from_df = new_gene_df.iloc[:,1]
+    id_list = list(id_from_df)
+    pass_list = list(pass_from_df)
+    taikai_dict = dict(zip(id_list,pass_list))
+
     if st.button(label='確定'):
-      if result:
+    # ↓スプシと接続できたからこっちを使う
+        if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:
+        
+      # ↓スプシ接続前にやってたやつ残しておく(インデント変になったかも。ハッシュが分かんない)
+      #if result:
         #hashed_pswd = make_hashes(input_password)
         #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
         #if result:
-        st.success("{}の参加用フォーム".format(input_taikaiid))
+            st.success("{}の参加用フォーム".format(input_taikaiid))
 
-        st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
-        st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
+            st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
+            st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
     
-        st.session_state.absent_options = []
-        for i in range(int(st.session_state.s_number[0])):
-            st.session_state.absent_options.append(f'{i+1}試合目')
+            st.session_state.absent_options = []
+            for i in range(int(st.session_state.s_number[0])):
+                st.session_state.absent_options.append(f'{i+1}試合目')
       else:
         st.warning("大会名か大会パスワードが間違っています")
 
