@@ -100,7 +100,8 @@ def main():
     
             submit_button = st.form_submit_button(label='送信',use_container_width = True)
         
-                # ユーザーが送信ボタンを押したときに表示されるメッセージ
+            # ユーザーが送信ボタンを押したときに表示されるメッセージ
+            ##2/15、ちょっとここが分からない…！！！！
             if submit_button:
                 if input_name and input_univ and input_level:
                     absent_01 = []
@@ -124,8 +125,6 @@ def main():
 
 
                     #########スプシ版(2/15更新)###########
-
-                    st.write(st.session_state.absent_options)
                     
                     # 休む試合は複数選択のため、リスト化(バイナリ)
                     absent_bin_list = []
@@ -135,7 +134,7 @@ def main():
                         else:
                             absent_bin_list.append(0) # 出席するなら0を入れる
 
-
+                    #スプレッドシートへの書き込み
                     last_row = len(sheet.col_values(3)) + 1 #空欄を許すための処置。空欄があっても行を揃えて入力できるようにした(便宜上今は3列目(名前)を利用)                  
                     sheet.update_cell(last_row, 1, input_taikaiid)
                     sheet.update_cell(last_row, 2, input_password)
