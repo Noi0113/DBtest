@@ -1,4 +1,4 @@
-import streamlit as st
+    import streamlit as st
 import pandas as pd
 import sqlite3
 import hashlib
@@ -122,7 +122,17 @@ def main():
                     #conn.commit()
                     #conn.close()
 
-                    #スプシ版(2/15更新)
+
+                    #########スプシ版(2/15更新)###########
+                    
+                    # 休む試合は複数選択のため、リスト化(バイナリ)
+                    absent_bin_list = []
+                    for i in range(len(absent_options)):
+                    if absent_options[i] in absent_matches:
+                        absent_bin_list.append(1) # 欠席するなら1を入れる
+                    else:
+                        absent_bin_list.append(0) # 出席するなら0を入れる
+
 
                     last_row = len(sheet.col_values(3)) + 1 #空欄を許すための処置。空欄があっても行を揃えて入力できるようにした(便宜上今は3列目(名前)を利用)                  
                     sheet.update_cell(last_row, 1, input_taikaiid)
@@ -133,8 +143,8 @@ def main():
                     sheet.update_cell(last_row, 6, input_kisuu)
                     sheet.update_cell(last_row, 7, input_wantto)
                     sheet.update_cell(last_row, 8, input_wantnotto)
-                    
-
+                    for i in range(len(absent_bin_list)): # 出席・欠席を0,1で格納(試合数の違いにも対応)
+                        sheet.update_cell(last_row, 9+i, absent_bin_list[i])
                     
                     st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                 # 全ての欄が埋まっていない場合の処理
