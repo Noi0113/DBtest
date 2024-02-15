@@ -58,7 +58,7 @@ def main():
                 if a:
                     st.error("エラー: この大会名は既に使用されています。別の大会名を入力してください。")
                 else: 
-                    last_row = len(sheet.col_values()) + 1
+                    last_row = len(sheet.col_values(0)) + 1
                     sheet.update_cell(last_row, 1, new_taikaiid)
                     sheet.update_cell(last_row, 2, new_password)
                     sheet.update_cell(last_row, 3, num_match)
