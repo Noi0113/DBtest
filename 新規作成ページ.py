@@ -33,7 +33,7 @@ def main():
 
     
     # タイトル
-    st.title('新規作成') 
+    st.title('新規作成ページ') 
     with st.form(key='my_form2'):
         # ここから本作成
         new_taikaiid = st.text_input("大会名を入力してください")
