@@ -1,7 +1,22 @@
 import streamlit as st
 import hashlib
 import sqlite3
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import pandas as pd
 
+
+##########ここからスプシ接続設定#######
+# スコープの設定（Google Sheets API および Google Drive API のスコープを追加）
+scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+
+# Google Sheets認証情報の読み込み
+credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-a50fe8e854dc.json', scopes)
+gc = gspread.authorize(credentials)
+
+# Google Sheetsのシート2を開く
+sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
+##########ここまでスプシ接続設定#######
 
 # sqliteに接続
 conn = sqlite3.connect('monketsu.db')
@@ -42,13 +57,20 @@ def main():
                 a = count[0] > 0 if count else False
                 if a:
                     st.error("エラー: この大会名は既に使用されています。別の大会名を入力してください。")
-                else:
-                    c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
-                    for u in universities:
-                        c.execute("INSERT INTO univ_data (taikaiid, univ) VALUES (?, ?);", (new_taikaiid, u))
-                    conn.commit()
+                else: 
+                    last_row = len(sheet.col_values()) + 1
+                    sheet.update_cell(last_row, 1, new_taikaiid)
+                    sheet.update_cell(last_row, 2, new_password)
+                    sheet.update_cell(last_row, 3, num_match)
+                    sheet.update_cell(last_row, 4, num_universities)
+                    for i in range(num_universities): # 出席・欠席を0,1で格納(試合数の違いにも対応)
+                        sheet.update_cell(last_row, 5+i, universities[i])
+                    #c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
+                    #for u in universities:
+                    #    c.execute("INSERT INTO univ_data (taikaiid, univ) VALUES (?, ?);", (new_taikaiid, u))
+                    #conn.commit()
                     st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
-                    import os
+                    
             else:
                 # 全ての欄が埋まっていない場合の処理
                 st.warning("全ての項目を入力してください。")
