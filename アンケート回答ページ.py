@@ -62,7 +62,7 @@ def main():
     
     status_area = st.empty()
     #タイトル
-    st.title('アンケート回答') 
+    st.title('アンケート回答ページ') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
