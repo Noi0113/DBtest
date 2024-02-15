@@ -111,20 +111,34 @@ def main():
                     while len(absent_01) < 16:
                         absent_01.append(0)
 
-                    conn = sqlite3.connect('monketsu.db')
-                    c = conn.cursor()
-                    c.execute('''
-                        INSERT INTO user_data (name, school, level, kisuu, wantto, wantnotto, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, taikaiid)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-                        ''', (input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto,absent_01[0], absent_01[1], absent_01[2], absent_01[3], absent_01[4], absent_01[5],absent_01[6], absent_01[7], absent_01[8], absent_01[9], absent_01[10], absent_01[11],absent_01[12], absent_01[13], absent_01[14], input_taikaiid))
+                    #conn = sqlite3.connect('monketsu.db')
+                    #c = conn.cursor()
+                    #c.execute('''
+                    #    INSERT INTO user_data (name, school, level, kisuu, wantto, wantnotto, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, taikaiid)
+                    #    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                    #    ''', (input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto,absent_01[0], absent_01[1], absent_01[2], absent_01[3], absent_01[4], absent_01[5],absent_01[6], absent_01[7], absent_01[8], absent_01[9], absent_01[10], absent_01[11],absent_01[12], absent_01[13], absent_01[14], input_taikaiid))
 
-                    conn.commit()
-                    conn.close()
+                    #conn.commit()
+                    #conn.close()
+
+                    #スプシ版(2/15更新)
+
+                    last_row = len(sheet.col_values(1)) + 1
+                    sheet.update_cell(last_row, 1, input_taikaiid)
+                    sheet.update_cell(last_row, 2, input_password)
+                    sheet.update_cell(last_row, 3, input_name)
+                    sheet.update_cell(last_row, 4, input_level)
+                    sheet.update_cell(last_row, 5, input_kisuu)
+                    sheet.update_cell(last_row, 6, input_wantto)
+                    sheet.update_cell(last_row, 7, input_wantnotto)
+                    
+
+                    
                     st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                 # 全ての欄が埋まっていない場合の処理
                 else:
                     st.warning("必須項目を入力してください。")
-
+    
 
 
     ##ログインについて
