@@ -41,7 +41,7 @@ gc = gspread.authorize(credentials)
     #df = pd.read_sql_query(query, conn, params=(id,))
 
     #conn.close()
-    return df
+    #return df
 
 
 #login
@@ -110,6 +110,9 @@ def main():
         df = df.rename(columns={'name': '名前', 'school': '所属', 'level': '級', 'kisuu': '奇数の時にダミーさんとやりたいですか', 'wantto': '対戦希望', 'wantnotto': '対戦したくない希望', 's1': '第1試合休み', 's2': '第2試合休み', 's3': '第3試合休み', 's4': '第4試合休み', 's5': '第5試合休み', 's6': '第6試合休み', 's7': '第7試合休み', 's8': '第8試合休み', 's9': '第9試合休み', 's10': '第10試合休み', 's11': '第11試合休み', 's12': '第12試合休み', 's13': '第13試合休み', 's14': '第14試合休み', 's15': '第15試合休み'})
         st.table(df)
         conn.close()
+
+        #スプレッドシートのシート1から、大会名が一致
+        raw_df = 
 
         #集合定義
         #試合数
