@@ -53,7 +53,9 @@ def main():
         st.session_state.s_number = []
     if 'absent_options' not in st.session_state: 
         st.session_state.absent_options = ["-"]
-
+    # なぜか事前に作っておく必要があるみたいだから
+    filtered_univ_num = 0
+    filtered_s_num = 0
     # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
     new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
     new_gene_data = new_gene_sheet.get_all_values()
