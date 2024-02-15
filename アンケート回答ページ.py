@@ -127,10 +127,11 @@ def main():
                     sheet.update_cell(last_row, 1, input_taikaiid)
                     sheet.update_cell(last_row, 2, input_password)
                     sheet.update_cell(last_row, 3, input_name)
-                    sheet.update_cell(last_row, 4, input_level)
-                    sheet.update_cell(last_row, 5, input_kisuu)
-                    sheet.update_cell(last_row, 6, input_wantto)
-                    sheet.update_cell(last_row, 7, input_wantnotto)
+                    sheet.update_cell(last_row, 4, input_univ)
+                    sheet.update_cell(last_row, 5, input_level)
+                    sheet.update_cell(last_row, 6, input_kisuu)
+                    sheet.update_cell(last_row, 7, input_wantto)
+                    sheet.update_cell(last_row, 8, input_wantnotto)
                     
 
                     
