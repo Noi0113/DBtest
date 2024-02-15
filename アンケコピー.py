@@ -126,7 +126,7 @@ def main():
                         for i in range(len(absent_bin_list)): # 出席・欠席を0,1で格納(試合数の違いにも対応)
                             sheet.update_cell(last_row, 9+i, absent_bin_list[i])
         
-        st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                        st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
     # 全ての欄が埋まっていない場合の処理
     else:
         st.warning("必須項目を入力してください。")
