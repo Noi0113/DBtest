@@ -12,9 +12,6 @@ scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapi
 credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-a50fe8e854dc.json', scopes)
 gc = gspread.authorize(credentials)
 
-# Google Sheetsのシート1を開く
-sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
-
 ##########ここまでスプシ接続設定#######
 
 #def get_connection():
@@ -56,6 +53,14 @@ def main():
         st.session_state.s_number = []
     if 'absent_options' not in st.session_state: 
         st.session_state.absent_options = ["-"]
+
+    # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
+    new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
+    new_gene_data = new_gene_sheet.get_all_values()
+    headers = new_gene_data.pop(0)
+    df = pd.DataFrame(new_gene_data, column = headers)
+
+    st.write(df)
 
     
     status_area = st.empty()
@@ -135,6 +140,8 @@ def main():
                             absent_bin_list.append(0) # 出席するなら0を入れる
 
                     #スプレッドシートへの書き込み
+                    # Google Sheetsのシート1を開く
+                    sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
                     last_row = len(sheet.col_values(3)) + 1 #空欄を許すための処置。空欄があっても行を揃えて入力できるようにした(便宜上今は3列目(名前)を利用)                  
                     sheet.update_cell(last_row, 1, input_taikaiid)
                     sheet.update_cell(last_row, 2, input_password)
