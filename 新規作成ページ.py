@@ -86,7 +86,7 @@ def main():
                 # 全ての欄が埋まっていない場合の処理
                 st.warning("全ての項目を入力してください。")
             
-    #conn.close()
+    # conn.close()
 if __name__ == '__main__':
     main()
 
