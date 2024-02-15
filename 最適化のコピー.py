@@ -65,8 +65,12 @@ def main():
             df = filtered_df.iloc[:,2:s_num+8]
             #列数に番号を付け、それを個人IDとする
             df.insert(0, '個人ID', range(1, len(df) + 1))
+
+            # いろいろ確認したいから、一応スプシから取得して形成したDFを表示させておく
             st.table(df)
             #######スプシversion#######
+
+           
 
             #######以下最適化
 
