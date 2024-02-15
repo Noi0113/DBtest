@@ -13,14 +13,12 @@ scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapi
 # Google Sheets認証情報の読み込み
 credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-a50fe8e854dc.json', scopes)
 gc = gspread.authorize(credentials)
-
-# Google Sheetsのシート2を開く
-sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
 ##########ここまでスプシ接続設定#######
 
+
 # sqliteに接続
-conn = sqlite3.connect('monketsu.db')
-c = conn.cursor()
+#conn = sqlite3.connect('monketsu.db')
+#c = conn.cursor()
 
     
 def make_hashes(password):
@@ -30,12 +28,12 @@ def main():
     status_area = st.empty()
 
     # sqliteに接続
-    conn = sqlite3.connect('monketsu.db')
-    c = conn.cursor()
+    #conn = sqlite3.connect('monketsu.db')
+    #c = conn.cursor()
 
     
     # タイトル
-    st.title('新規作成page') 
+    st.title('新規作成') 
     with st.form(key='my_form2'):
         # ここから本作成
         new_taikaiid = st.text_input("大会名を入力してください")
@@ -52,19 +50,32 @@ def main():
 
         if submit_button:
             if new_taikaiid and new_password and num_match and num_universities and universities.count("")==0:
-                c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
-                count = c.fetchone()
-                a = count[0] > 0 if count else False
-                if a:
+                #c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
+                #count = c.fetchone()
+                #a = count[0] > 0 if count else False
+                #if a:
+
+                
+                # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
+                new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
+                new_gene_data = new_gene_sheet.get_all_values()
+                headers = new_gene_data.pop(0)
+                new_gene_df = pd.DataFrame(new_gene_data, column = headers)
+                
+                # 以前使用された大会名がないか、検索して確かめる
+                col1 = new_gene_df.iloc[:, 0]
+                taikaiid_list =list(col1)
+                if new_taikaiid in taikaiid_list:                
                     st.error("エラー: この大会名は既に使用されています。別の大会名を入力してください。")
+                    
                 else: 
                     last_row = len(sheet.col_values(1)) + 1
-                    sheet.update_cell(last_row, 1, new_taikaiid)
-                    sheet.update_cell(last_row, 2, new_password)
-                    sheet.update_cell(last_row, 3, num_match)
-                    sheet.update_cell(last_row, 4, num_universities)
+                    new_gene_sheet.update_cell(last_row, 1, new_taikaiid)
+                    new_gene_sheet.update_cell(last_row, 2, new_password)
+                    new_gene_sheet.update_cell(last_row, 3, num_match)
+                    new_gene_sheet.update_cell(last_row, 4, num_universities)
                     for i in range(num_universities): # 出席・欠席を0,1で格納(試合数の違いにも対応)
-                        sheet.update_cell(last_row, 5+i, universities[i])
+                        new_gene_sheet.update_cell(last_row, 5+i, universities[i])
                     #c.execute("INSERT INTO taikai_data (taikaiid, password, snum) VALUES (?, ?, ?);", (new_taikaiid, new_password, num_match))
                     #for u in universities:
                     #    c.execute("INSERT INTO univ_data (taikaiid, univ) VALUES (?, ?);", (new_taikaiid, u))
