@@ -31,7 +31,7 @@ def main():
     new_gene_df = pd.DataFrame(new_gene_data, columns=headers)
     
     status_area = st.empty()
-    st.title('アンケート回答ページ(コピー)。') 
+    st.title('アンケート回答ページ(コピー)') 
 
     st.markdown('参加する大会の大会名とパスワードを入力してください')
 
@@ -59,48 +59,48 @@ def main():
             for i in range(int(filtered_s_num)):
                 absent_options.append(f'{i + 1}試合目')
 
-            form_data = st.form(key='my_form').form_data
-            input_name = form_data['input_name']
-            input_univ = form_data['input_univ']
-            input_level = form_data['input_level']
-            input_kisuu = form_data['input_kisuu']
-            input_wantto = form_data['input_wantto']
-            input_wantnotto = form_data['input_wantnotto']
-            absent_matches = form_data['absent_matches']
-        
-            submit_button = st.form_submit_button(label='送信', use_container_width=True)
-            
-            if submit_button:
-                if input_name and input_univ and input_level:
-                    absent_bin_list = []
-                    for i in range(len(absent_options)):
-                        if absent_options[i] in absent_matches:
-                            absent_bin_list.append(1) # 欠席するなら1を入れる
-                        else:
-                            absent_bin_list.append(0) # 出席するなら0を入れる
+            with st.form(key='my_form'):
+                input_name = st.text_input(label='名前を入力してください(必須)')
+                input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=univ_options)
+                input_level = st.selectbox('級を入力してください(必須)', options=['A', 'B', 'C', 'D', 'E'])
+                input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)', options=['はい', 'いいえ'])
+                input_wantto = st.text_input(label='対戦したい人を記入してください')
+                input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
+                absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', options=absent_options)
+
+                submit_button = st.form_submit_button(label='送信', use_container_width=True)
+
+                if submit_button:
+                    if input_name and input_univ and input_level:
+                        absent_bin_list = []
+                        for i in range(len(absent_options)):
+                            if absent_options[i] in absent_matches:
+                                absent_bin_list.append(1)  # 欠席するなら1を入れる
+                            else:
+                                absent_bin_list.append(0)  # 出席するなら0を入れる
                 
-                    sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
-                    last_row = len(sheet.col_values(3)) + 1 #行番号の修正                
-                    sheet.update_cell(last_row, 1, input_taikaiid)
-                    sheet.update_cell(last_row, 2, input_password)
-                    sheet.update_cell(last_row, 3, input_name)
-                    sheet.update_cell(last_row, 4, input_univ)
-                    sheet.update_cell(last_row, 5, input_level)
-                    sheet.update_cell(last_row, 6, input_kisuu)
-                    sheet.update_cell(last_row, 7, input_wantto)
-                    sheet.update_cell(last_row, 8, input_wantnotto)
-                    for i in range(len(absent_bin_list)):
-                        sheet.update_cell(last_row, 9 + i, absent_bin_list[i])
+                        sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
+                        last_row = len(sheet.col_values(3)) + 1  # 行番号の修正
+                        sheet.update_cell(last_row, 1, input_taikaiid)
+                        sheet.update_cell(last_row, 2, input_password)
+                        sheet.update_cell(last_row, 3, input_name)
+                        sheet.update_cell(last_row, 4, input_univ)
+                        sheet.update_cell(last_row, 5, input_level)
+                        sheet.update_cell(last_row, 6, input_kisuu)
+                        sheet.update_cell(last_row, 7, input_wantto)
+                        sheet.update_cell(last_row, 8, input_wantnotto)
+                        for i in range(len(absent_bin_list)):
+                            sheet.update_cell(last_row, 9 + i, absent_bin_list[i])
         
-                    st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                else:
-                    st.warning("必須項目を入力してください。")
+                        st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                    else:
+                        st.warning("必須項目を入力してください。")
         else:
             st.warning("大会名か大会パスワードが間違っています")
 
 
     ##ログインについて
-    #st.link_button()を導入したい
+    # st.link_button()を導入したい
 
 
     #######トップページ終わり
