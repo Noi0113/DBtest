@@ -9,7 +9,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 
 # Google Sheets認証情報の読み込み
-credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu2-2b83cfd57ed6.json', scopes)
+credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-a50fe8e854dc.json', scopes)
 gc = gspread.authorize(credentials)
 
 # Google Sheetsのシート1を開く
