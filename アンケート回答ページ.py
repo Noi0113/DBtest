@@ -20,15 +20,15 @@ gc = gspread.authorize(credentials)
 #    return st.session_state['conn']
 
 #target_id列の値がtarget_idである行のcolumn_name列の値をリストで出す
-def data_retu(table_name, target_name,target_id, column_name):
-    conn = sqlite3.connect('monka.db')
-    c = conn.cursor()
-    query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
-    c.execute(query, (target_id,))
-    result = c.fetchall()
-    conn.close()
-    result_list = [item[0] for item in result]
-    return result_list
+#def data_retu(table_name, target_name,target_id, column_name):
+#    conn = sqlite3.connect('monka.db')
+#    c = conn.cursor()
+#    query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
+#    c.execute(query, (target_id,))
+#    result = c.fetchall()
+#    conn.close()
+#    result_list = [item[0] for item in result]
+#    return result_list
 
 #loginする
 def login_user(username,password):
@@ -72,7 +72,7 @@ def main():
     input_taikaiid = st.text_input(label = '大会名を入力してください')
     input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
 
-    result = login_user(input_taikaiid,input_password)
+    #result = login_user(input_taikaiid,input_password)
     #hash化されたpasswordをdbに書き込めるようになったらこれ
     #hashed_pswd = make_hashes(input_password)
     #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
@@ -94,13 +94,23 @@ def main():
         #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
         #if result:
             st.success("{}の参加用フォーム".format(input_taikaiid))
+            #大会名が入力内容と一致した行を抜き出す必要な情報を取り出す
+            filtered_new_gene_df = df[new_gene_df.iloc[:,0] == input_taikaiid]
+            #以下は指定された大会の参加大学数、試合数
+            filtered_univ_num = filtered_new_df.iloc[0,3]
+            filtered_s_number = filtered_new_df.iloc[0,2]
 
-            st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
-            st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
-    
-            st.session_state.absent_options = []
-            for i in range(int(st.session_state.s_number[0])):
-                st.session_state.absent_options.append(f'{i+1}試合目')
+            # 大学の選択肢を作成
+            univ_options = []
+            for i in range(int(filtered_univ_num)):
+                univ_options.append(filtered_new_df.iloc[0,4+i])
+            #st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
+            #st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
+            
+            # 欠席試合を入力するために、ここで試合のリストを作る
+            absent_options = []
+            for i in range(int(filtered_s_num)):
+                absent_options.append(f'{i+1}試合目')
       else:
         st.warning("大会名か大会パスワードが間違っています")
 
@@ -120,14 +130,14 @@ def main():
             ##2/15、ちょっとここが分からない…！！！！
             if submit_button:
                 if input_name and input_univ and input_level:
-                    absent_01 = []
-                    for i in st.session_state.absent_options:
-                        if i in absent_matches:
-                            absent_01.append(0)
-                        else:
-                            absent_01.append(1)
-                    while len(absent_01) < 16:
-                        absent_01.append(0)
+                    #absent_01 = []
+                    #for i in st.session_state.absent_options:
+                    #    if i in absent_matches:
+                    #        absent_01.append(0)
+                    #    else:
+                    #        absent_01.append(1)
+                    #while len(absent_01) < 16:
+                    #    absent_01.append(0)
 
                     #conn = sqlite3.connect('monketsu.db')
                     #c = conn.cursor()
