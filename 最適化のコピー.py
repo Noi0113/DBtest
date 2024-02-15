@@ -62,7 +62,7 @@ def main():
             #スプレッドシートのシート1から、大会名が一致する行のみ取り出し一旦DF化(filtered_df)
             filtered_df = raw_df[raw_df.iloc[:,0] == input_taikaiid]
             #filtered_dfから必要な列のみ取り出す(これにより大会名・大会パス・不要な試合分の欠席が除かれる)
-            df = filtered_df.iloc[:,2:s_num+7]
+            df = filtered_df.iloc[:,2:s_num+8]
             #列数に番号を付け、それを個人IDとする
             df.insert(0, '個人ID', range(1, len(df) + 1))
             st.table(df)
