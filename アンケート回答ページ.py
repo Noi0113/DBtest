@@ -34,8 +34,6 @@ def main():
     pass_list = list(pass_from_df)
     taikai_dict = dict(zip(id_list,pass_list))
 
-    st.write(taikai_dict)
-
     filtered_univ_num = 0
     filtered_s_num = 0
 
@@ -75,8 +73,6 @@ def main():
         st.session_state.absent_options = []
         for i in range(int(filtered_s_num)):
             st.session_state.absent_options.append(f'{i+1}試合目')
-        st.write(st.session_state.univ_options)
-        st.write(st.session_state.absent_options)
         
       else:
         st.warning("大会名か大会パスワードが間違っています")
