@@ -8,7 +8,6 @@ import pandas as pd
 import sqlite3
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import math
 import hashlib
 
 # スコープの設定（Google Sheets API および Google Drive API のスコープを追加）
@@ -150,13 +149,10 @@ def main():
               else:
                 I_rest[qnum].append('ダミー')
 
-            maxpnum = math.ceil(len(I_all)/2)
+
             P = []
-            pnum = 0
-            for n in range(maxpnum):
-              pnum += 1
-              P.append('p{}'.format(pnum))
-            st.success(P)
+            for qnum in range(q_num):
+              P.append([f'p{str(k)}' for k in range(1,int(len(I_sanka[qnum])/2)+1)])
 
             I_wanttorest = [row.個人ID for row in df.itertuples() if row.奇数の時にダミーさんとやりたいですか == 1]
 
