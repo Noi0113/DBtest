@@ -104,6 +104,8 @@ def main():
             Iall_old = df['個人ID'].tolist()
             I_all = df['個人ID'].tolist()
             I_all.append('ダミー')
+            st.success(Iall_old)
+            st.success(Iall)
 
             I_rest = []
             I_sanka_old = []
