@@ -55,7 +55,7 @@ def main():
                 #a = count[0] > 0 if count else False
                 #if a:
                 hashed_pswd = make_hashes(new_password)
-                
+                st.write(hashed_pswd)
                 # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
                 new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
                 new_gene_data = new_gene_sheet.get_all_values()
