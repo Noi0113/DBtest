@@ -74,8 +74,6 @@ def main():
            
 
             #######以下最適化
-
-            
             q_num = len(df.columns)-7
             
             Q = []
@@ -115,8 +113,7 @@ def main():
               else:
                 I_rest[qnum].append('ダミー')
 
-            #maxpnum = math.ceil(len(I_all)/2)
-            maxpnum = 30
+            maxpnum = math.ceil(len(I_all)/2)
             P = []
             pnum = 0
             for n in range(maxpnum):
@@ -569,10 +566,10 @@ def main():
             if pulp.LpStatus[status] == 'Optimal':
                st.success("最適解が計算されました")
 
-            for i1 in I_all:
-               for i2 in I_all:
-                  if x['q1',i1,i2].value() == 1:
-                     st.success([i1,i2])
+               for i1 in I_all:
+                  for i2 in I_all:
+                     if x['q1',i1,i2].value() == 1:
+                        st.success([i1,i2])
             kekkalistx = []
             restlist = []
             rest2list =[]
