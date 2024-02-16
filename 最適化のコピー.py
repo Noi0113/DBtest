@@ -569,10 +569,10 @@ def main():
             if pulp.LpStatus[status] == 'Optimal':
                st.success("最適解が計算されました")
 
-           for i1 in I_all:
-              for i2 in I_all:
-                 if x['q1',i1,i2].value() == 1:
-                    st.success([i1,i2])
+            for i1 in I_all:
+               for i2 in I_all:
+                  if x['q1',i1,i2].value() == 1:
+                     st.success([i1,i2])
             kekkalistx = []
             restlist = []
             rest2list =[]
