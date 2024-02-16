@@ -133,14 +133,14 @@ def main():
             I_wanttorest = [row.個人ID for row in df.itertuples() if row.奇数の時にダミーさんとやりたいですか == 1]
 
             Wantto = []
-            wantto1 = [row.個人ID for row in df.itertuples() if row.対戦希望 != 'なし']
-            wantto2 = [row.対戦希望 for row in df.itertuples() if row.対戦希望 != 'なし']
+            wantto1 = [row.個人ID for row in df.itertuples() if row.対戦希望 != 'なし' and row.対戦希望!='']
+            wantto2 = [row.対戦希望 for row in df.itertuples() if row.対戦希望 != 'なし' and row.対戦希望!='']
             for i in range(len(wantto1)):
               Wantto.append([wantto1[i],wantto2[i]])
 
             Dontwantto = []
-            dontwantto1 = [row.個人ID for row in df.itertuples() if row.対戦したくない希望 != 'なし']
-            dontwantto2 = [row.対戦したくない希望 for row in df.itertuples() if row.対戦したくない希望 != 'なし']
+            dontwantto1 = [row.個人ID for row in df.itertuples() if row.対戦したくない希望 != 'なし' and row.対戦したくない希望!='']
+            dontwantto2 = [row.対戦したくない希望 for row in df.itertuples() if row.対戦したくない希望 != 'なし' and row.対戦したくない希望!='']
             for i in range(len(dontwantto1)):
               Dontwantto.append([dontwantto1[i],dontwantto2[i]])
 
