@@ -87,7 +87,8 @@ def main():
             for row in df.itertuples():
                 if row.所属 not in S:
                     S.append(row.所属)
-
+            st.success(S)
+           
             #級の集合
             K = []
             for row in df.itertuples():
