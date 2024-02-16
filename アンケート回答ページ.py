@@ -49,7 +49,21 @@ def main():
         st.session_state.univ_options = ["-"]
     if 'absent_options' not in st.session_state: 
         st.session_state.absent_options = ["-"]
-    
+    if 'input_name' not in st.session_state: 
+        st.session_state.input_name = "-"
+    if 'input_univ' not in st.session_state: 
+        st.session_state.input_univ = "-"
+    if 'input_level' not in st.session_state: 
+        st.session_state.input_level = "-"
+    if 'input_kisuu' not in st.session_state: 
+        st.session_state.input_kisuu = "-"
+    if 'input_wantto' not in st.session_state: 
+        st.session_state.input_wantto = "-"
+    if 'input_wantnotto' not in st.session_state: 
+        st.session_state.input_wantnotto = "-"
+    if 'absent_matches' not in st.session_state: 
+        st.session_state.absent_matches = "-"
+
     status_area = st.empty()
     #タイトル
     st.title('アンケート回答') 
@@ -84,21 +98,19 @@ def main():
         st.session_state.absent_options = []
         for i in range(int(filtered_s_num)):
             st.session_state.absent_options.append(f'{i+1}試合目')
-        st.write(st.session_state.univ_options)
-        st.write(st.session_state.absent_options)
         
       else:
         st.warning("大会名か大会パスワードが間違っています")
 
             # フォームを作成します
-    with st.form(key='my_form'):
-            input_name = st.text_input(label='名前を入力してください(必須)')
-            input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
-            input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
-            input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
-            input_wantto = st.text_input(label='対戦したい人を記入してください')
-            input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
-            absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', st.session_state.absent_options)
+      with st.form(key='my_form'):
+            st.session_state.input_name = st.text_input(label='名前を入力してください(必須)')
+            st.session_state.input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
+            st.session_state.input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
+            st.session_state.input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
+            st.session_state.input_wantto = st.text_input(label='対戦したい人を記入してください')
+            st.session_state.input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
+            st.session_state.absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', st.session_state.absent_options)
     
             submit_button = st.form_submit_button(label='送信',use_container_width = True)
         
@@ -108,8 +120,8 @@ def main():
                     try:
                         sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
                         last_row = len(sheet.col_values(3)) + 1
-                        absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
-                        sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+                        absent_bin_list = [1 if option in st.session_state.absent_matches else 0 for option in st.session_state.absent_options]
+                        sheet.append_row([input_taikaiid, input_password, st.session_state.input_name, st.session_state.input_univ, st.session_state.input_level, st.session_state.input_kisuu, st.session_state.input_wantto, st.session_state.input_wantnotto] + absent_bin_list)
                             
                         st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                     except Exception as e:
