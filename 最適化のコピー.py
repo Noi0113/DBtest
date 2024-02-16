@@ -102,9 +102,9 @@ def main():
 
             for qnum in range(q_num):
               I_sanka_oldq = []
-              yasumanai = df.loc[df['第{}試合休み'.format(qnum+1)] == 0]
+              column = df['第{}試合休み'.format(qnum+1)]
               I_sankaq = []
-              for row in yasumanai.itertuples():
+              for row in df.loc[column == 1].itertuples():
                   I_sanka_oldq.append(row.個人ID)
                   I_sankaq.append(row.個人ID)
               I_sanka_old.append(I_sanka_oldq)
