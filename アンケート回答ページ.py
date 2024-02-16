@@ -42,10 +42,11 @@ def main():
     pass_list = list(pass_from_df)
     taikai_dict = dict(zip(id_list,pass_list))
 
+    filtered_univ_num = 0
+    filtered_s_num = 0
+
     if 'univ_options' not in st.session_state: 
         st.session_state.univ_options = ["-"]
-    if 's_number' not in st.session_state: 
-        st.session_state.s_number = []
     if 'absent_options' not in st.session_state: 
         st.session_state.absent_options = ["-"]
     
