@@ -112,36 +112,9 @@ def main():
             I_sanka = []
            
             for qnum in range(q_num):
-              I_rest.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 1].itertuples()])
-
-            
-            for qnum in range(q_num):
-              I_restq = []
-              I_sanka_oldq = []
-              I_sankaq = []
-              index0 = []
-              index1 = []
-              colq = df['第{}試合休み'.format(qnum+1)].tolist()
-              st.success(colq)
-              anum = -1
-              for a in colq:
-                 anum += 1
-                 if a == 0:
-                    index0.append(anum)
-                 if a == 1:
-                    index1.append(anum)
-              st.success(index0)
-              for ind in index0:
-                  I_sanka_oldq.append(Iall_old[ind])
-                  I_sankaq.append(Iall_old[ind])
-              for ind in index1:
-                  I_restq,append(Iall_old[ind])
-              I_sanka_old.append(I_sanka_oldq)
-              I_sanka.append(I_sankaq)
-            st.success('I_rest')
-            st.success(I_rest)
-            st.success('I_sanka')
-            st.success(I_sanka)
+              I_rest.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == '1'].itertuples()])
+              I_sanka_old.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == '0'].itertuples()])
+              I_sanka.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == '0'].itertuples()])
 
             I_d = []
             for qnum in range(q_num):
