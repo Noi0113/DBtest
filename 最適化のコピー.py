@@ -114,6 +114,7 @@ def main():
 
             
             for qnum in range(q_num):
+              I_sanka_oldq = []
               index0 = []
               index1 = []
               colq = df['第{}試合休み'.format(qnum+1)].tolist()
@@ -125,13 +126,9 @@ def main():
                     index0.append(anum)
                  if a == 1:
                     index1.append(anum)
-                    
-              I_sanka_oldq = []
-              column = df['第{}試合休み'.format(qnum+1)]
-              I_sankaq = []
-              for row in df.loc[column == 1].itertuples():
-                  I_sanka_oldq.append(row.個人ID)
-                  I_sankaq.append(row.個人ID)
+              for ind in index0:
+                  I_sanka_oldq.append(Iall_old[ind])
+                  I_sankaq.append(Iall_old[ind])
               I_sanka_old.append(I_sanka_oldq)
               I_sanka.append(I_sankaq)
 
