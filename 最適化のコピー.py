@@ -79,7 +79,6 @@ def main():
             Q = []
             for n in range(1,q_num+1):
                 Q.append(f'q{str(n)}')
-            st.success(Q)
            
             S = []
             for row in df.itertuples():
@@ -91,10 +90,10 @@ def main():
                 if row.級 not in K:
                     K.append(row.級)
 
-      
             Iall_old = df['個人ID'].tolist()
             I_all = df['個人ID'].tolist()
-            I_all.append('ダミー')   
+            I_all.append('ダミー') 
+            st.success('Iall_old')
             st.success(Iall_old)
 
             I_rest = []
@@ -114,6 +113,8 @@ def main():
                  I_sankaq.append(row.個人ID)
               I_sanka_old.append(I_sanka_oldq)
               I_sanka.append(I_sankaq)
+               
+            st.success('I_sanka')
             st.success(I_sanka)
 
             I_d = []
