@@ -102,19 +102,19 @@ def main():
             submit_button = st.form_submit_button(label='送信',use_container_width = True)
         
                 # ユーザーが送信ボタンを押したときに表示されるメッセージ
-                if submit_button:
-                    if input_name and input_univ and input_level:
-                        try:
-                            sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
-                            last_row = len(sheet.col_values(3)) + 1
-                            absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
-                            sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+            if submit_button:
+                if input_name and input_univ and input_level:
+                    try:
+                        sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
+                        last_row = len(sheet.col_values(3)) + 1
+                        absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
+                        sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
                             
-                            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                        except Exception as e:
-                            st.error("データの送信中にエラーが発生しました。もう一度試してください。")
-                    else:
-                        st.warning("必須項目を入力してください。")
+                        st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                    except Exception as e:
+                        st.error("データの送信中にエラーが発生しました。もう一度試してください。")
+                else:
+                    st.warning("必須項目を入力してください。")
 
 
 if __name__ == '__main__':
