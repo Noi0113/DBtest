@@ -33,7 +33,7 @@ def main():
 
     
     # タイトル
-    st.title('新規作成ページ') 
+    st.title('新規作成ページ！') 
     with st.form(key='my_form2'):
         # ここから本作成
         new_taikaiid = st.text_input("大会名を入力してください")
@@ -51,14 +51,12 @@ def main():
         if submit_button:
             if new_taikaiid and new_password and num_match and num_universities and universities.count("")==0:
                 hashed_pswd = make_hashes(new_password)
-                st.write(hashed_pswd)
                 
                 #c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
                 #count = c.fetchone()
                 #a = count[0] > 0 if count else False
                 #if a:
-                hashed_pswd = make_hashes(new_password)
-                st.write(hashed_pswd)
+
                 # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
                 new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
                 new_gene_data = new_gene_sheet.get_all_values()
