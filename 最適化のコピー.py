@@ -8,6 +8,7 @@ import pandas as pd
 import sqlite3
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import math
 
 # スコープの設定（Google Sheets API および Google Drive API のスコープを追加）
 scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
@@ -120,9 +121,12 @@ def main():
                 I_rest[qnum].append('ダミー')
 
             #対戦ペアの集合
+            maxpnum = math.ceil(len(I_all)/2)
             P = []
-            for qnum in range(q_num):
-              P.append([f'p{str(k)}' for k in range(1,int(len(I_sanka[qnum])/2)+1)])
+            pnum = 0
+            for n in range(maxpnum):
+              pnum += 1
+              P.append('p{}'.format(pnum))
             st.success(P)
 
 
@@ -620,7 +624,7 @@ def main():
                 for i2 in I_all:
                   if x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 != 'ダミー' and i2 != 'ダミー':
                     pair += 1
-                    kekka[P[qnum-1][pair-1]] = [i1,i2]
+                    kekka[P[pair-1]] = [i1,i2]
                   elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
                     rest2.append(i1)
 
