@@ -50,6 +50,9 @@ def main():
 
         if submit_button:
             if new_taikaiid and new_password and num_match and num_universities and universities.count("")==0:
+                hashed_pswd = make_hashes(new_password)
+                st.write(hashed_pswd)
+                
                 #c.execute(f"SELECT COUNT(*) FROM taikai_data WHERE taikaiid = ?;", (new_taikaiid,))
                 #count = c.fetchone()
                 #a = count[0] > 0 if count else False
