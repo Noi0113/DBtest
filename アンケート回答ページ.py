@@ -34,6 +34,8 @@ def main():
     pass_list = list(pass_from_df)
     taikai_dict = dict(zip(id_list,pass_list))
 
+    st.write(taikai_dict)
+
     filtered_univ_num = 0
     filtered_s_num = 0
 
