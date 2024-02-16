@@ -100,7 +100,7 @@ def main():
             for qnum in range(q_num):
               I_restq = []
               for row in df.itertuples():
-                 if df['第{}試合休み'.format(qnum+1)] == 0
+                 if df['第{}試合休み'.format(qnum+1)] == 0:
                     I_restq.append(row.個人ID)
               I_rest.append(I_restq)
 
