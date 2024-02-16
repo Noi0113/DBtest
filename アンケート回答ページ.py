@@ -48,7 +48,7 @@ def main():
     st.markdown('参加する大会の大会名とパスワードを入力してください')
     input_taikaiid = st.text_input(label = '大会名を入力してください')
     input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
-    result = login_user(input_taikaiid,input_password)
+
     #hash化されたpasswordをdbに書き込めるようになったらこれ
     hashed_pswd = make_hashes(input_password)
     cheked_password = check_hashes(input_password,hashed_pswd)
