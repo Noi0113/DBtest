@@ -100,7 +100,12 @@ def main():
             for qnum in range(q_num):
               I_rest.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 1].itertuples()])
 
+            col = df['第{}試合休み'.format(qnum+1)].tolist()
+           
             for qnum in range(q_num):
+              col = df['第{}試合休み'.format(qnum+1)].tolist()
+              st.success('col')
+              st.success(col)
               I_sanka_oldq = []
               column = df['第{}試合休み'.format(qnum+1)]
               I_sankaq = []
