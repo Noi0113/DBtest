@@ -102,39 +102,20 @@ def main():
             submit_button = st.form_submit_button(label='送信',use_container_width = True)
         
                 # ユーザーが送信ボタンを押したときに表示されるメッセージ
-            if submit_button:
-                if input_name and input_univ and input_level:
-                    absent_01 = []
-                    for i in st.session_state.absent_options:
-                        if i in absent_matches:
-                            absent_01.append(0)
-                        else:
-                            absent_01.append(1)
-                    while len(absent_01) < 16:
-                        absent_01.append(0)
-                    conn = sqlite3.connect('monketsu.db')
-                    c = conn.cursor()
-                    c.execute('''
-                        INSERT INTO user_data (name, school, level, kisuu, wantto, wantnotto, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, taikaiid)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-                        ''', (input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto,absent_01[0], absent_01[1], absent_01[2], absent_01[3], absent_01[4], absent_01[5],absent_01[6], absent_01[7], absent_01[8], absent_01[9], absent_01[10], absent_01[11],absent_01[12], absent_01[13], absent_01[14], input_taikaiid))
-                    conn.commit()
-                    conn.close()
-                    st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                # 全ての欄が埋まっていない場合の処理
-                else:
-                    st.warning("必須項目を入力してください。")
-      #else:
-       # st.warning("大会名か大会パスワードが間違っています")
+                if submit_button:
+                    if input_name and input_univ and input_level:
+                        try:
+                            sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
+                            last_row = len(sheet.col_values(3)) + 1
+                            absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
+                            sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+                            
+                            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                        except Exception as e:
+                            st.error("データの送信中にエラーが発生しました。もう一度試してください。")
+                    else:
+                        st.warning("必須項目を入力してください。")
 
 
-
-    ##ログインについて
-    #st.link_button()を導入したい
-    #######トップページ終わり
-#######新規作成クリック後のページ
-def new():
-    st.sidebar.title("ページが切り替わりました")
-    st.markdown("## 次のページです")
 if __name__ == '__main__':
     main()
