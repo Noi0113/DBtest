@@ -44,7 +44,11 @@ def main():
 
     filtered_univ_num = 0
     filtered_s_num = 0
-
+    
+    if 'input_taikaiid' not in st.session_state: 
+        st.session_state.input_taikaiid = "-"
+    if 'input_password' not in st.session_state: 
+        st.session_state.input_password = "-"
     if 'univ_options' not in st.session_state: 
         st.session_state.univ_options = ["-"]
     if 'absent_options' not in st.session_state: 
@@ -121,7 +125,7 @@ def main():
                         sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
                         last_row = len(sheet.col_values(3)) + 1
                         absent_bin_list = [1 if option in st.session_state.absent_matches else 0 for option in st.session_state.absent_options]
-                        sheet.append_row([input_taikaiid, input_password, st.session_state.input_name, st.session_state.input_univ, st.session_state.input_level, st.session_state.input_kisuu, st.session_state.input_wantto, st.session_state.input_wantnotto] + absent_bin_list)
+                        sheet.append_row([st.session_state.input_taikaiid, st.session_state.input_password, st.session_state.input_name, st.session_state.input_univ, st.session_state.input_level, st.session_state.input_kisuu, st.session_state.input_wantto, st.session_state.input_wantnotto] + absent_bin_list)
                             
                         st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                     except Exception as e:
