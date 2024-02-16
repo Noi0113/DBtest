@@ -2,20 +2,17 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 import hashlib
-#def get_connection():
-#    if 'conn' not in st.session_state:
-#        st.session_state['conn'] = sqlite3.connect('monketsu.db')
-#    return st.session_state['conn']
-#target_id列の値がtarget_idである行のcolumn_name列の値をリストで出す
-def data_retu(table_name, target_name,target_id, column_name):
-    conn = sqlite3.connect('monka.db')
-    c = conn.cursor()
-    query = f"SELECT {column_name} FROM {table_name} WHERE {target_name} = ?;"
-    c.execute(query, (target_id,))
-    result = c.fetchall()
-    conn.close()
-    result_list = [item[0] for item in result]
-    return result_list
+
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# スコープの設定（Google Sheets API および Google Drive API のスコープを追加）
+scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+
+# Google Sheets認証情報の読み込み
+credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-a50fe8e854dc.json', scopes)
+gc = gspread.authorize(credentials)
+
 #loginする
 def login_user(username,password):
     c = sqlite3.connect('monka.db')
@@ -32,6 +29,18 @@ def check_hashes(password,hashed_text):
     return False
     
 def main():
+    # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
+    new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
+    new_gene_data = new_gene_sheet.get_all_values()
+    headers = new_gene_data.pop(0)
+    new_gene_df = pd.DataFrame(new_gene_data, columns = headers)
+    
+    # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
+    new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
+    new_gene_data = new_gene_sheet.get_all_values()
+    headers = new_gene_data.pop(0)
+    new_gene_df = pd.DataFrame(new_gene_data, columns = headers)
+    
     if 'univ_options' not in st.session_state: 
         st.session_state.univ_options = ["-"]
     if 's_number' not in st.session_state: 
@@ -51,7 +60,8 @@ def main():
     #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
     
     if st.button(label='確定'):
-      if result:
+      if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:
+        
         #hashed_pswd = make_hashes(input_password)
         #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
         #if result:
