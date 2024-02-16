@@ -55,11 +55,11 @@ def main():
     #install coin-or-cbc
 
     st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
-  #  input_taikaiid = st.text_input(label = '大会名')
-  #  input_password = st.text_input(label = 'パスワード',type = 'password')
+    input_taikaiid = st.text_input(label = '大会名')
+    input_password = st.text_input(label = 'パスワード',type = 'password')
 
-    hashed_pswd = make_hashes(input_password)
-    checked_password = check_hashes(input_password,hashed_pswd)
+  #  hashed_pswd = make_hashes(input_password)
+  #  checked_password = check_hashes(input_password,hashed_pswd)
 
     if st.button('対戦表の作成',use_container_width=True):
      #   if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == checked_password:
