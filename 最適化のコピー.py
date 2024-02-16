@@ -9,6 +9,7 @@ import sqlite3
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import math
+import hashlib
 
 # スコープの設定（Google Sheets API および Google Drive API のスコープを追加）
 scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
@@ -58,11 +59,11 @@ def main():
     input_taikaiid = st.text_input(label = '大会名')
     input_password = st.text_input(label = 'パスワード',type = 'password')
 
- #   hashed_pswd = make_hashes(input_password)
-  #  checked_password = check_hashes(input_password,hashed_pswd)
+    hashed_pswd = make_hashes(input_password)
+    checked_password = check_hashes(input_password,hashed_pswd)
 
     if st.button('対戦表の作成',use_container_width=True):
-    #    if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == checked_password:
+        if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == checked_password:
             st.success("対戦表を作成します")
 
         
