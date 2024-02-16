@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 import hashlib
-
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -13,13 +12,6 @@ scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapi
 credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-a50fe8e854dc.json', scopes)
 gc = gspread.authorize(credentials)
 
-#loginする
-def login_user(username,password):
-    c = sqlite3.connect('monka.db')
-    cursor = c.cursor()
-    cursor.execute('SELECT * FROM taikai_data WHERE taikaiid = ? AND password = ?', (username, password))
-    data = cursor.fetchall()
-    return data
 #hash化
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
@@ -58,15 +50,12 @@ def main():
     input_password = st.text_input(label = "大会パスワードを入力してください",type='password')
     result = login_user(input_taikaiid,input_password)
     #hash化されたpasswordをdbに書き込めるようになったらこれ
-    #hashed_pswd = make_hashes(input_password)
-    #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
+    hashed_pswd = make_hashes(input_password)
+    cheked_password = check_hashes(input_password,hashed_pswd)
     
     if st.button(label='確定'):
-      if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:
+      if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == checked_password:
         
-        #hashed_pswd = make_hashes(input_password)
-        #result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
-        #if result:
         st.success("{}の参加用フォーム".format(input_taikaiid))
 
         #大会名が入力内容と一致した行を抜き出す必要な情報を取り出す
