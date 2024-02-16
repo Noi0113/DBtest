@@ -74,13 +74,6 @@ def main():
            
 
             #######以下最適化
-
-            n = 0
-            for a in [1,2,3,4,5]:
-               for b in [3,4,5,6,7]:
-                  if a == b:
-                     n += 1
-            st.success(n)
        
             #集合定義
             #試合数
@@ -631,6 +624,7 @@ def main():
               for i1 in I_all:
                 for i2 in I_all:
                   if x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 != 'ダミー' and i2 != 'ダミー':
+                    st.success([i1,i2])
                     pair += 1
                     kekka[P[pair-1]] = [i1,i2]
                   elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
