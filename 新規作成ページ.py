@@ -81,7 +81,13 @@ def main():
                     #for u in universities:
                     #    c.execute("INSERT INTO univ_data (taikaiid, univ) VALUES (?, ?);", (new_taikaiid, u))
                     #conn.commit()
-                    st.success(f"新しい大会({new_taikaiid})の作成に成功しました\n以下の情報を大会参加者に共有してください。")
+                    st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
+                    st.subheader("以下の情報を大会参加者に共有してください。")
+                    st.write(f"大会名：({new_taikaiid})")
+                    st.write(f"大会パスワード：({new_password})")
+                    st.write("大会参加者アンケートURL：https://monketsu-questionnaire.streamlit.app/")
+
+            
                     
             else:
                 # 全ての欄が埋まっていない場合の処理
