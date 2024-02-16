@@ -72,8 +72,8 @@ def main():
                     #conn.commit()
                     st.success(f"新しい大会({new_taikaiid})の作成に成功しました")
                     st.subheader("以下の情報を大会参加者に共有してください。")
-                    st.write(f"大会名：({new_taikaiid})")
-                    st.write(f"大会パスワード：({new_password})")
+                    st.write(f"大会名：{new_taikaiid}")
+                    st.write(f"大会パスワード：{new_password}")
                     st.write("大会参加者アンケートURL：https://monketsu-questionnaire.streamlit.app/")
 
             
