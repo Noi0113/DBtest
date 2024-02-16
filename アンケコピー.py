@@ -30,16 +30,28 @@ def main():
     if st.button(label='確定'):
         if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:
             st.success("{}の参加用フォーム".format(input_taikaiid))
+ #大会名が入力内容と一致した行を抜き出す必要な情報を取り出す
             filtered_new_gene_df = new_gene_df[new_gene_df.iloc[:,0] == input_taikaiid]
-            filtered_univ_num = int(filtered_new_gene_df.iloc[0,3])
-            filtered_s_num = int(filtered_new_gene_df.iloc[0,2])
+            #以下は指定された大会の参加大学数、試合数
+            filtered_univ_num = filtered_new_gene_df.iloc[0,3]
+            filtered_s_num = filtered_new_gene_df.iloc[0,2]
+
+            # 大学の選択肢を作成
+            univ_options = []
+            for i in range(int(filtered_univ_num)):
+                univ_options.append(filtered_new_gene_df.iloc[0,4+i])
+            #st.session_state.univ_options = data_retu("univ_data","taikaiid",input_taikaiid,"univ")
+            #st.session_state.s_number = data_retu("taikai_data","taikaiid",input_taikaiid,"snum")
             
-            univ_options = [filtered_new_gene_df.iloc[0,4+i] for i in range(filtered_univ_num)]
-            st.session_state.univ_options = univ_options
-            
-            absent_options = [f'{i+1}試合目' for i in range(filtered_s_num)]
-            st.session_state.absent_options = absent_options
-            
+            # 欠席試合を入力するために、ここで試合のリストを作る
+            absent_options = []
+            for i in range(int(filtered_s_num)):
+                absent_options.append(f'{i+1}試合目')
+            st.write(univ_options)
+            st.write(absent_options)
+        else:
+            st.warning("大会名か大会パスワードが間違っています")
+
             with st.form(key='my_form'):
                 input_name = st.text_input(label='名前を入力してください(必須)')
                 input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
