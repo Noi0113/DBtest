@@ -105,7 +105,7 @@ def main():
             I_all = df['個人ID'].tolist()
             I_all.append('ダミー')
             st.success(Iall_old)
-            st.success(Iall)
+            st.success(I_all)
 
             I_rest = []
             I_sanka_old = []
@@ -130,6 +130,7 @@ def main():
                     index0.append(anum)
                  if a == 1:
                     index1.append(anum)
+              st.success(index0)
               for ind in index0:
                   I_sanka_oldq.append(Iall_old[ind])
                   I_sankaq.append(Iall_old[ind])
