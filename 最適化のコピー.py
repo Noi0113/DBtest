@@ -568,7 +568,11 @@ def main():
             status = prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=240 ))
             if pulp.LpStatus[status] == 'Optimal':
                st.success("最適解が計算されました")
-       
+
+           for i1 in I_all:
+              for i2 in I_all:
+                 if x['q1',i1,i2].value() == 1:
+                    st.success([i1,i2])
             kekkalistx = []
             restlist = []
             rest2list =[]
@@ -584,12 +588,10 @@ def main():
               for i1 in I_all:
                 for i2 in I_all:
                   if x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 != 'ダミー' and i2 != 'ダミー':
-                    st.success([i1,i2])
                     pair += 1
                     kekka[P[pair-1]] = [i1,i2]
                   elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
                     rest2.append(i1)
-              st.success(pair)
 
               #出力のため
               kekkax = []
