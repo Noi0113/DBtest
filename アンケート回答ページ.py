@@ -89,7 +89,8 @@ def main():
         
       else:
         st.warning("大会名か大会パスワードが間違っています")
-    st.markdown('正しい大会名と大会パスワードを入力すると、アンケートに回答できます')
+    else:
+        st.warning('正しい大会名と大会パスワードを入力し、確定を押してください')
             # フォームを作成します
     with st.form(key='my_form'):
             input_name = st.text_input(label='名前を入力してください(必須)')
