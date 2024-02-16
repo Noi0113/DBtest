@@ -71,7 +71,6 @@ def main():
             st.table(df)
             #######スプシversion#######
 
-            st.success(df.loc['ka', '第2試合休み'])
 
             #######以下最適化
             q_num = len(df.columns)-7
