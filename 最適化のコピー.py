@@ -122,6 +122,8 @@ def main():
             P = []
             for qnum in range(q_num):
               P.append([f'p{str(k)}' for k in range(1,int(len(I_sanka[qnum])/2)+1)])
+            st.success(P)
+
 
             #奇数のときに休みたい人
             I_wanttorest = [row.個人ID for row in df.itertuples() if row.奇数の時にダミーさんとやりたいですか == 1]
