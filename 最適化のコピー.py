@@ -37,6 +37,14 @@ pass_from_df = new_gene_df.iloc[:,1]
 id_list = list(id_from_df)
 pass_list = list(pass_from_df)
 taikai_dict = dict(zip(id_list,pass_list))
+
+#hash化
+def make_hashes(password):
+    return hashlib.sha256(str.encode(password)).hexdigest()
+def check_hashes(password,hashed_text):
+    if make_hashes(password) == hashed_text:
+        return hashed_text
+    return False
    
 def main():
     status_area = st.empty()
@@ -49,8 +57,12 @@ def main():
     st.markdown('対戦表を作成したい大会の大会名・大会パスワードを入力してください')
     input_taikaiid = st.text_input(label = '大会名')
     input_password = st.text_input(label = 'パスワード',type = 'password')
+
+    hashed_pswd = make_hashes(input_password)
+    checked_password = check_hashes(input_password,hashed_pswd)
+
     if st.button('対戦表の作成',use_container_width=True):
-        if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == input_password:
+        if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == checked_password:
             st.success("対戦表を作成します")
 
         
