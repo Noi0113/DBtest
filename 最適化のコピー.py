@@ -718,7 +718,7 @@ def main():
             st.success("新しいCSVファイルが出力されました。")
 
      #   else:
-      $    st.warning("大会名か大会パスワードが間違っています")  
+      #    st.warning("大会名か大会パスワードが間違っています")  
 #ここから下は編集しない
 if __name__ == '__main__':
     main()
