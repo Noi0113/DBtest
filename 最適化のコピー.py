@@ -71,7 +71,7 @@ def main():
             st.table(df)
             #######スプシversion#######
 
-           
+           st.success(df.iloc[1, 2])
 
             #######以下最適化
             q_num = len(df.columns)-7
@@ -97,15 +97,24 @@ def main():
             I_rest = []
             I_sanka_old = []
             I_sanka = []
+           
             for qnum in range(q_num):
               I_rest.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 1].itertuples()])
 
-            col = df['第{}試合休み'.format(qnum+1)].tolist()
-           
+            
             for qnum in range(q_num):
-              col = df['第{}試合休み'.format(qnum+1)].tolist()
-              st.success('col')
-              st.success(col)
+              index0 = []
+              index1 = []
+              colq = df['第{}試合休み'.format(qnum+1)].tolist()
+              st.success(colq)
+              anum = -1
+              for a in colq:
+                 anum += 1
+                 if a == 0:
+                    index0.append(anum)
+                 if a == 1:
+                    index1.append(anum)
+                    
               I_sanka_oldq = []
               column = df['第{}試合休み'.format(qnum+1)]
               I_sankaq = []
