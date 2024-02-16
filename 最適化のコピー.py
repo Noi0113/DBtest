@@ -121,7 +121,8 @@ def main():
                 I_rest[qnum].append('ダミー')
 
             #対戦ペアの集合
-            maxpnum = math.ceil(len(I_all)/2)
+            #maxpnum = math.ceil(len(I_all)/2)
+            maxpnum = 30
             P = []
             pnum = 0
             for n in range(maxpnum):
