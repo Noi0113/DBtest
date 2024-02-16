@@ -54,7 +54,7 @@ def main():
                 #count = c.fetchone()
                 #a = count[0] > 0 if count else False
                 #if a:
-
+                hashed_pswd = make_hashes(new_password)
                 
                 # まずGoogle Sheetsのシート2を開き、それをデータフレーム化する
                 new_gene_sheet = gc.open('monketsu-karuta-db').get_worksheet(1)
@@ -71,7 +71,7 @@ def main():
                 else: 
                     last_row = len(new_gene_sheet.col_values(1)) + 1
                     new_gene_sheet.update_cell(last_row, 1, new_taikaiid)
-                    new_gene_sheet.update_cell(last_row, 2, new_password)
+                    new_gene_sheet.update_cell(last_row, 2, hashed_pswd)
                     new_gene_sheet.update_cell(last_row, 3, num_match)
                     new_gene_sheet.update_cell(last_row, 4, num_universities)
                     for i in range(num_universities): # 出席・欠席を0,1で格納(試合数の違いにも対応)
