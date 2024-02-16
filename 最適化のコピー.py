@@ -78,7 +78,7 @@ def main():
             n = 0
             for a in [1,2,3,4,5]:
                for b in [3,4,5,6,7]:
-                  if a = b:
+                  if a == b:
                      n += 1
             st.success(n)
        
