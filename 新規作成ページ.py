@@ -14,12 +14,6 @@ scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapi
 credentials = ServiceAccountCredentials.from_json_keyfile_name('monketsu-karuta-a50fe8e854dc.json', scopes)
 gc = gspread.authorize(credentials)
 ##########ここまでスプシ接続設定#######
-
-
-# sqliteに接続
-#conn = sqlite3.connect('monketsu.db')
-#c = conn.cursor()
-
     
 def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
@@ -27,13 +21,8 @@ def make_hashes(password):
 def main():
     status_area = st.empty()
 
-    # sqliteに接続
-    #conn = sqlite3.connect('monketsu.db')
-    #c = conn.cursor()
-
-    
     # タイトル
-    st.title('新規作成ページ！') 
+    st.title('新規作成ページ') 
     with st.form(key='my_form2'):
         # ここから本作成
         new_taikaiid = st.text_input("大会名を入力してください")
