@@ -114,7 +114,9 @@ def main():
 
             
             for qnum in range(q_num):
+              I_restq = []
               I_sanka_oldq = []
+              I_sankaq = []
               index0 = []
               index1 = []
               colq = df['第{}試合休み'.format(qnum+1)].tolist()
@@ -129,9 +131,10 @@ def main():
               for ind in index0:
                   I_sanka_oldq.append(Iall_old[ind])
                   I_sankaq.append(Iall_old[ind])
+              for ind in index1:
+                  I_restq,append(Iall_old[ind])
               I_sanka_old.append(I_sanka_oldq)
               I_sanka.append(I_sankaq)
-
             st.success('I_rest')
             st.success(I_rest)
             st.success('I_sanka')
