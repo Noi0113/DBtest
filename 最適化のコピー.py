@@ -598,7 +598,9 @@ def main():
             prob += totalscore
             #求解
             status = prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=240 ))
-
+            if pulp.LpStatus[status] == 'Optimal':
+               st.success("最適解が計算されました")
+       
             kekkalistx = []
             restlist = []
             rest2list =[]
