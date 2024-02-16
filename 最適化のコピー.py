@@ -101,9 +101,19 @@ def main():
             I_sanka_old = []
             I_sanka = []
             for qnum in range(q_num):
-              I_rest.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 1].itertuples()])
-              I_sanka_old.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 0].itertuples()])
-              I_sanka.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 0].itertuples()])
+              I_restq = []
+              for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 1].itertuples():
+                 I_restq.append(row.個人ID)
+              I_rest.append(I_restq)
+
+            for qnum in range(q_num):
+              I_sanka_oldq = []
+              I_sankaq = []
+              for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 0].itertuples():
+                 I_sanka_oldq.append(row.個人ID)
+                 I_sankaq.append(row.個人ID)
+              I_sanka_old.append(I_sanka_oldq)
+              I_sanka.append(I_sankaq)
             st.success(I_sanka)
 
             I_d = []
