@@ -82,13 +82,13 @@ def main():
             Q = []
             for n in range(1,q_num+1):
                 Q.append(f'q{str(n)}')
-
+            st.success(Q)
+           
             #所属の集合
             S = []
             for row in df.itertuples():
                 if row.所属 not in S:
                     S.append(row.所属)
-            st.success(S)
            
             #級の集合
             K = []
