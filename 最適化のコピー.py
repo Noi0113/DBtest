@@ -94,7 +94,8 @@ def main():
       
             Iall_old = df['個人ID'].tolist()
             I_all = df['個人ID'].tolist()
-            I_all.append('ダミー')
+            I_all.append('ダミー')   
+            st.success(Iall_old)
 
             I_rest = []
             I_sanka_old = []
@@ -103,6 +104,7 @@ def main():
               I_rest.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 1].itertuples()])
               I_sanka_old.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 0].itertuples()])
               I_sanka.append([row.個人ID for row in df.loc[df['第{}試合休み'.format(qnum+1)] == 0].itertuples()])
+            st.success(I_sanka)
 
             I_d = []
             for qnum in range(q_num):
