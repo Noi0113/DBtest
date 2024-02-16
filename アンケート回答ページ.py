@@ -51,7 +51,7 @@ def main():
 
     #hash化されたpasswordをdbに書き込めるようになったらこれ
     hashed_pswd = make_hashes(input_password)
-    cheked_password = check_hashes(input_password,hashed_pswd)
+    checked_password = check_hashes(input_password,hashed_pswd)
     
     if st.button(label='確定'):
       if input_taikaiid in taikai_dict and taikai_dict[input_taikaiid] == checked_password:
