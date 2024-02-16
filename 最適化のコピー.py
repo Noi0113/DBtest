@@ -352,55 +352,55 @@ def main():
 
 
               ##スコア定義
-              prob += sc1 == pulp.lpSum(sc1q[q] for q in Q)
-              prob += score1 == w1 * sc1
+            prob += sc1 == pulp.lpSum(sc1q[q] for q in Q)
+            prob += score1 == w1 * sc1
 
-              #(3)級が近いほうが良い ←アンケートに基づいて変更する
-              for q in Q:
-              ##同級
-                sc2q_0_list = []
-                for k1k2 in K1K2_0:
-                  k1 = K1K2_0[k1k2][0]
-                  k2 = K1K2_0[k1k2][1]
-                  num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]])/2 #級k同士のペア数
-                  sc2q_0_list.append(num)
-                prob += sc2q_0[q] == pulp.lpSum(sc2q_0_list)
+            #(3)級が近いほうが良い ←アンケートに基づいて変更する
+            for q in Q:
+            ##同級
+              sc2q_0_list = []
+              for k1k2 in K1K2_0:
+                k1 = K1K2_0[k1k2][0]
+                k2 = K1K2_0[k1k2][1]
+                num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]])/2 #級k同士のペア数
+                sc2q_0_list.append(num)
+              prob += sc2q_0[q] == pulp.lpSum(sc2q_0_list)
 
-              ##1級違い
-                sc2q_1_list = []
-                for k1k2 in K1K2_1:
-                  k1 = K1K2_1[k1k2][0]
-                  k2 = K1K2_1[k1k2][1]
-                  num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
-                  sc2q_1_list.append(num)
-                prob += sc2q_1[q] == pulp.lpSum(sc2q_1_list)
+            ##1級違い
+              sc2q_1_list = []
+              for k1k2 in K1K2_1:
+                k1 = K1K2_1[k1k2][0]
+                k2 = K1K2_1[k1k2][1]
+                num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
+                sc2q_1_list.append(num)
+              prob += sc2q_1[q] == pulp.lpSum(sc2q_1_list)
 
               ##2級違い
-                sc2q_2_list = []
-                for k1k2 in K1K2_2:
-                  k1 = K1K2_2[k1k2][0]
-                  k2 = K1K2_2[k1k2][1]
-                  num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
-                  sc2q_2_list.append(num)
-                prob += sc2q_2[q] == pulp.lpSum(sc2q_2_list)
+              sc2q_2_list = []
+              for k1k2 in K1K2_2:
+                k1 = K1K2_2[k1k2][0]
+                k2 = K1K2_2[k1k2][1]
+                num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
+                sc2q_2_list.append(num)
+              prob += sc2q_2[q] == pulp.lpSum(sc2q_2_list)
 
               ##3級違い
-                sc2q_3_list = []
-                for k1k2 in K1K2_3:
-                  k1 = K1K2_3[k1k2][0]
-                  k2 = K1K2_3[k1k2][1]
-                  num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
-                  sc2q_3_list.append(num)
-                prob += sc2q_3[q] == pulp.lpSum(sc2q_3_list)
+              sc2q_3_list = []
+              for k1k2 in K1K2_3:
+                k1 = K1K2_3[k1k2][0]
+                k2 = K1K2_3[k1k2][1]
+                num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
+                sc2q_3_list.append(num)
+              prob += sc2q_3[q] == pulp.lpSum(sc2q_3_list)
 
-              ##4級違い
-                sc2q_4_list = []
-                for k1k2 in K1K2_4:
-                  k1 = K1K2_4[k1k2][0]
-                  k2 = K1K2_4[k1k2][1]
-                  num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
-                  sc2q_4_list.append(num)
-                prob += sc2q_4[q] == pulp.lpSum(sc2q_4_list)
+             ##4級違い
+              sc2q_4_list = []
+              for k1k2 in K1K2_4:
+                k1 = K1K2_4[k1k2][0]
+                k2 = K1K2_4[k1k2][1]
+                num = pulp.lpSum([x[q,i1,i2] for i1 in K_dict[k1] for i2 in K_dict[k2]]) #級k1k2同士のペア数
+                sc2q_4_list.append(num)
+              prob += sc2q_4[q] == pulp.lpSum(sc2q_4_list)
 
             ##スコア定義
             prob += sc2_0 == pulp.lpSum(sc2q_0[q] for q in Q)
