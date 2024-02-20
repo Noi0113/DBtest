@@ -596,7 +596,8 @@ def main():
                     kekka[P[qnum-1][pair-1]] = [i1,i2]
                   elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
                     rest2.append(i1)
-
+              st.success('出力準備1完了')
+                
               #出力のため
               kekkax = []
               for p,i1i2 in kekka.items():
@@ -615,7 +616,8 @@ def main():
                 name1=namex[idx.index(kekkalistx[q][p][0])]
                 name2=namex[idx.index(kekkalistx[q][p][1])]
                 name_kekkalistx[q].append([name1,name2])
-
+            st.success('出力準備2完了')
+        
             #出力準備
             restlistindex = -1
             for list in restlist:
@@ -640,6 +642,7 @@ def main():
                 for i in list2:
                   name = namex[idx.index(i)]
                   rest2list[rest2listindex] = name
+            st.success('出力準備3完了')
 
             pairnumlist = []
             qnum = 0
@@ -677,7 +680,7 @@ def main():
                 restlist[qindex] = ', '.join(list)
               restlist.insert(0,'休み')
               rest2list.insert(0,'奇数人のため休み')
-            st.success('出力準備完了')
+            st.success('出力準備4完了')
         
             ##csvファイルの出力##
             data = {}
