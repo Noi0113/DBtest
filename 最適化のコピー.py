@@ -104,7 +104,7 @@ def main():
             Iall_old = df['個人ID'].tolist()
             I_all = df['個人ID'].tolist()
             I_all.append('ダミー')
-            st.success(Iall_old)
+            st.success('Iall')
             st.success(I_all)
 
             I_rest = []
@@ -143,7 +143,8 @@ def main():
             dontwantto2 = [row.対戦したくない希望 for row in df.itertuples() if row.対戦したくない希望 != 'なし' and row.対戦したくない希望!='']
             for i in range(len(dontwantto1)):
               Dontwantto.append([dontwantto1[i],dontwantto2[i]])
-
+            st.success('集合定義完了')
+        
             w1 = 3.78
             w2_0 = 4.75
             w2_1 = 4.66
@@ -155,7 +156,7 @@ def main():
             w4_1 = -4.74
             w5 = 4.74
             w6 = -round((len(I_all)-1)*q_num/5,2)
-
+            st.success('重み定義完了')
            
             S_dict = {}
             for s in S:
@@ -203,10 +204,10 @@ def main():
             if 'A' and 'E' in K:
               K1K2_4['AE'] = ['A','E']
             K1K2.append(K1K2_4)
-
+            st.success('所属と級の辞書作成完了')
 
             prob = pulp.LpProblem('Taisen1Problem', pulp.LpMaximize)
-
+            st.success('問題定義完了')
 
             QII = [(q,i1,i2) for q in Q for i1 in I_all for i2 in I_all]
             x = pulp.LpVariable.dicts('x', QII, cat = 'Binary')
