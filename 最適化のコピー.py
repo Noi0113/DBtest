@@ -567,15 +567,15 @@ def main():
             prob += sc6 == (zmax - zmin)/q_num
 
             prob += score6 == w6 * sc6
-            st.success('制約条件定義')
+            st.success('制約条件定義完了')
         
             totalscore = score1 + score2_0 + score2_1 + score2_2 + score2_3 + score2_4 + score3 + score4_0 + score4_1 + score5 + score6
     
             prob += totalscore
-            st.success('目的関数定義')
+            st.success('目的関数定義完了')
         
             status = prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=240 ))
-            st.success('求解成功')
+            st.success('求解完了')
                      
             kekkalistx = []
             restlist = []
