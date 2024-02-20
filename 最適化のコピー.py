@@ -296,7 +296,8 @@ def main():
             zq_3 = pulp.LpVariable.dicts('zq_3', IQ, cat = 'LpInteger')
             zmax = pulp.LpVariable('zmax', cat = 'LpInteger')
             zmin = pulp.LpVariable('zmin', cat = 'LpInteger')
-
+            st.success('変数定義')
+        
             qnum = 0
             for q in Q:
               qnum += 1
@@ -565,14 +566,15 @@ def main():
             prob += sc6 == (zmax - zmin)/q_num
 
             prob += score6 == w6 * sc6
-
+            st.success('制約条件定義')
+        
             totalscore = score1 + score2_0 + score2_1 + score2_2 + score2_3 + score2_4 + score3 + score4_0 + score4_1 + score5 + score6
-
     
             prob += totalscore
-            
+            st.success('目的関数定義')
+        
             status = prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=240 ))
-
+            st.success('求解成功')
                      
             kekkalistx = []
             restlist = []
@@ -674,7 +676,8 @@ def main():
                 restlist[qindex] = ', '.join(list)
               restlist.insert(0,'休み')
               rest2list.insert(0,'奇数人のため休み')
-
+            st.success('出力準備完了')
+        
             ##csvファイルの出力##
             data = {}
             data[0]=Qnew
