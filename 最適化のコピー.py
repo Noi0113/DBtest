@@ -596,7 +596,6 @@ def main():
                     kekka[P[qnum-1][pair-1]] = [i1,i2]
                   elif x[q,i1,i2].value() == 1 and [i2,i1] not in kekka.values() and i1 not in rest2 and i1 != 'ダミー':
                     rest2.append(i1)
-              st.success('出力準備1完了')
                 
               #出力のため
               kekkax = []
@@ -606,7 +605,9 @@ def main():
 
               restlist.append(I_rest[qnum-1])
               rest2list.append(rest2)
+            st.success('出力準備1完了')
 
+        
             namex = [row.名前 for row in df.itertuples()]
             idx = [row.個人ID for row in df.itertuples()]
             name_kekkalistx = []
