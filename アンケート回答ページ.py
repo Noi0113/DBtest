@@ -100,7 +100,7 @@ def main():
                         st.write("waa")
                         matching_rows = user_sheet.findall(input_name,in_column=3)
                         st.write(matching_rows[0].row)
-                        user_sheet.delete_row(6)
+                        user_sheet.delete_rows(6)
             
                     try:
                             
