@@ -34,6 +34,10 @@ def main():
     pass_list = list(pass_from_df)
     taikai_dict = dict(zip(id_list,pass_list))
 
+    name_from_df = new_gene_df.iloc[:,2]
+    name_list = list(name_from_df)
+    st.write(name_list)
+    
     filtered_univ_num = 0
     filtered_s_num = 0
 
@@ -90,9 +94,10 @@ def main():
     
             submit_button = st.form_submit_button(label='送信',use_container_width = True)
         
-                # ユーザーが送信ボタンを押したときに表示されるメッセージ
+                # ユーザーが送信ボタンを押したとき
             if submit_button:
                 if input_name and input_univ and input_level:
+                    #if input_name in
                     try:
                         sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
                         last_row = len(sheet.col_values(3)) + 1
