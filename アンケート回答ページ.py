@@ -95,6 +95,7 @@ def main():
                 # ユーザーが送信ボタンを押したとき
             if submit_button:
                 if input_name and input_univ and input_level:
+                    user_sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
                     if input_name in st.session_state.name_list:
                         st.write("waa")
                         matching_rows = user_sheet.findall(input_name,in_column=3)
