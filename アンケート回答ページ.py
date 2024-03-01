@@ -99,7 +99,7 @@ def main():
                     if input_name in st.session_state.name_list:
                         st.write("waa")
                         matching_rows = user_sheet.findall(input_name,in_column=3)
-                        st.write(matching_rows[0])
+                        st.write(matching_rows[0].row)
                         try:
 
                             absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
