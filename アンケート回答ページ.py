@@ -95,9 +95,9 @@ def main():
                 # ユーザーが送信ボタンを押したとき
             if submit_button:
                 if input_name and input_univ and input_level:
-                    if "tanaka" in st.session_state.name_list:
+                    if input_name in st.session_state.name_list:
                         st.write("waa")
-                        matching_rows = user_sheet.findall("tanaka",in_column=3)
+                        matching_rows = user_sheet.findall(input_name,in_column=3)
                         st.write(matching_rows)
                         try:
 
