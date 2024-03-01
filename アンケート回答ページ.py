@@ -103,7 +103,7 @@ def main():
                         try:
 
                             absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
-                            user_sheet.update_row(matching_rows,[input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+                            user_sheet.update_row(matching_rows[0].row,[input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
                             
                             st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                         except Exception as e:
