@@ -66,7 +66,7 @@ def main():
         st.session_state.name_list = filtered_user_df['名前'].tolist()
         st.write("現時点での参加者は以下の通りです。名前がかぶっていると、データが上書き保存され、前のデータは削除されますのでお気を付けください。")
         for i in st.session_state.name_list:
-            st.write(i)
+            st.write(i, end=" ")
           
         # 大学の選択肢を作成
         st.session_state.univ_options = []
@@ -105,7 +105,7 @@ def main():
 
                         st.write(matching_rows)
                         
-                        user_sheet.delete_rows(matching_rows)
+                        user_sheet.delete_rows(matching_rows[0])
             
                     try:
                             
