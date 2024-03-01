@@ -69,7 +69,7 @@ def main():
         #以下は指定された大会の参加大学数、試合数
         filtered_univ_num = filtered_new_gene_df.iloc[0,3]
         filtered_s_num = filtered_new_gene_df.iloc[0,2]
-        st.session_state.name_list = filtered_user_df.iloc[0,2].tolist()
+        st.session_state.name_list = filtered_user_df['name'].tolist()
         st.write(st.session_state.name_list)
 
         # 大学の選択肢を作成
