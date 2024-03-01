@@ -100,24 +100,17 @@ def main():
                         st.write("waa")
                         matching_rows = user_sheet.findall(input_name,in_column=3)
                         st.write(matching_rows[0].row)
-                        try:
-
-                            absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
-                            user_sheet.update_row(matching_rows[0],[input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+                        user_sheet.delete_row(matching_rows[0].row)
+            
+                    try:
                             
-                            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                        except Exception as e:
-                            st.error("データの送信中にエラーが発生しました。もう一度試してね。")
-                    else:
-                        try:
-                            
-                            last_row = len(user_sheet.col_values(3)) + 1
-                            absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
-                            user_sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
-                            
-                            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                        except Exception as e:
-                            st.error("データの送信中にエラーが発生しました。もう一度試してください。")
+                        last_row = len(user_sheet.col_values(3)) + 1
+                        absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
+                        user_sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+                        
+                        st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                    except Exception as e:
+                        st.error("データの送信中にエラーが発生しました。もう一度試してください。")
                 else:
                     st.warning("必須項目を入力してください。")
 if __name__ == '__main__':
