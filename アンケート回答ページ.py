@@ -90,7 +90,7 @@ def main():
     with st.form(key='my_form'):
             input_name = st.text_input(label='名前を入力してください(必須)')
             if input_name in name_list:
-                st.warning('同じ名前の人がいるため、記載内容を上書きします。別人の場合は名前を変えてください。'）
+                st.warning('同じ名前の人がいるため、記載内容を上書きします。別人の場合は名前を変えてください。')
             input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
             input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
             input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
