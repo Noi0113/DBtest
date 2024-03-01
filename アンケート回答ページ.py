@@ -65,7 +65,8 @@ def main():
         filtered_s_num = filtered_new_gene_df.iloc[0,2]
         st.session_state.name_list = filtered_user_df['名前'].tolist()
         st.write("現時点での参加者は以下の通りです。名前がかぶっていると、データが上書き保存され、前のデータは削除されますのでお気を付けください。")
-        st.write(filtered_user_df['名前'])
+        for i in st.session_state.name_list:
+            st.write(i)
                  
         # 大学の選択肢を作成
         st.session_state.univ_options = []
