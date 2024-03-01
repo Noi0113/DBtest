@@ -81,8 +81,6 @@ def main():
             # フォームを作成します
     with st.form(key='my_form'):
             input_name = st.text_input(label='名前を入力してください(必須)')
-            #if input_name in name_list:
-                #st.warning('同じ名前の人がいるため、記載内容を上書きします。別人の場合は名前を変えてください。')
             input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
             input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
             input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
@@ -95,15 +93,26 @@ def main():
                 # ユーザーが送信ボタンを押したとき
             if submit_button:
                 if input_name and input_univ and input_level:
-                    try:
-                        
-                        last_row = len(sheet.col_values(3)) + 1
-                        absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
-                        sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+                    matching_rows = user_sheet.findall(input_name, in_column="名前")
+                    if matching_rows:
+                        try:
+
+                            absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
+                            user_sheet.update_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
                             
-                        st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
-                    except Exception as e:
-                        st.error("データの送信中にエラーが発生しました。もう一度試してください。")
+                            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                        except Exception as e:
+                            st.error("データの送信中にエラーが発生しました。もう一度試してください。")
+                    else:
+                        try:
+                            
+                            last_row = len(user_sheet.col_values(3)) + 1
+                            absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
+                            user_sheet.append_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+                            
+                            st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
+                        except Exception as e:
+                            st.error("データの送信中にエラーが発生しました。もう一度試してください。")
                 else:
                     st.warning("必須項目を入力してください。")
 if __name__ == '__main__':
