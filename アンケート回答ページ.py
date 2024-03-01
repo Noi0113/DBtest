@@ -65,7 +65,7 @@ def main():
         filtered_s_num = filtered_new_gene_df.iloc[0,2]
         st.session_state.name_list = filtered_user_df['名前'].tolist()
         st.write(st.session_state.name_list)
-        if "田中" in st.session_state.name_list:
+        if "tanaka" in st.session_state.name_list:
             st.write("waa")
             matching_rows = user_sheet.findall("田中",in_column="名前")
             st.write(matching_rows)
