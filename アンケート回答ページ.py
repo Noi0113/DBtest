@@ -98,8 +98,11 @@ def main():
                     user_sheet = gc.open('monketsu-karuta-db').get_worksheet(0)
                     if input_name in st.session_state.name_list:
                         st.write("waa")
-                        matching_rows = user_sheet.findall(input_name,in_column=3)
-                        st.write(matching_rows[0].row)
+                        matching_cells = user_sheet.findall(input_name, in_column=3)
+                        matching_rows = [cell.row for cell in matching_cells if user_sheet.cell(cell.row, 1).value == input_taikaiid]
+
+                        st.write(matching_rows)
+                        
                         user_sheet.delete_rows(matching_rows[0].row)
             
                     try:
