@@ -63,15 +63,14 @@ def main():
         user_headers = user_data.pop(0)
         user_df = pd.DataFrame(user_data, columns = user_headers)
         filtered_user_df = user_df[user_df.iloc[:,0] == input_taikaiid]
-        st.write(filtered_user_df)
 
         #大会名が入力内容と一致した行を抜き出す必要な情報を取り出す
         filtered_new_gene_df = new_gene_df[new_gene_df.iloc[:,0] == input_taikaiid]
         #以下は指定された大会の参加大学数、試合数
         filtered_univ_num = filtered_new_gene_df.iloc[0,3]
         filtered_s_num = filtered_new_gene_df.iloc[0,2]
-        #st.session_state.name_list = filtered_user_df.iloc[0,1].tolist()
-          
+        st.session_state.name_list = filtered_user_df.iloc[0,2].tolist()
+        st.write(st.session_state.name_list)
 
         # 大学の選択肢を作成
         st.session_state.univ_options = []
@@ -90,8 +89,8 @@ def main():
             # フォームを作成します
     with st.form(key='my_form'):
             input_name = st.text_input(label='名前を入力してください(必須)')
-            #if input_name in name_list:
-            #st.warning('同じ名前の人がいるため、記載内容を上書きします。別人の場合は名前を変えてください。'）
+            if input_name in name_list:
+                st.warning('同じ名前の人がいるため、記載内容を上書きします。別人の場合は名前を変えてください。'）
             input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
             input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
             input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
