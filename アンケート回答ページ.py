@@ -67,7 +67,7 @@ def main():
         st.write(st.session_state.name_list)
         if "tanaka" in st.session_state.name_list:
             st.write("waa")
-            matching_rows = user_sheet.findall("tanaka",in_column="名前")
+            matching_rows = user_sheet.findall("tanaka",in_column=3)
             st.write(matching_rows)
           
           
