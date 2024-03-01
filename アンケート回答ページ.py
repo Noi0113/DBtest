@@ -65,11 +65,6 @@ def main():
         filtered_s_num = filtered_new_gene_df.iloc[0,2]
         st.session_state.name_list = filtered_user_df['名前'].tolist()
         st.write(st.session_state.name_list)
-        if "tanaka" in st.session_state.name_list:
-            st.write("waa")
-            matching_rows = user_sheet.findall("tanaka",in_column=2)
-            st.write(matching_rows)
-          
           
         # 大学の選択肢を作成
         st.session_state.univ_options = []
@@ -100,12 +95,14 @@ def main():
                 # ユーザーが送信ボタンを押したとき
             if submit_button:
                 if input_name and input_univ and input_level:
-                    matching_rows = user_sheet.findall(input_name, in_column="名前")
-                    if matching_rows:
-                        try:
+                    if "tanaka" in st.session_state.name_list:
+                        st.write("waa")
+                        matching_rows = user_sheet.findall("tanaka",in_column=3)
+                        st.write(matching_rows)
+                            try:
 
                             absent_bin_list = [1 if option in absent_matches else 0 for option in st.session_state.absent_options]
-                            user_sheet.update_row([input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
+                            user_sheet.update_row(matching_rows,[input_taikaiid, input_password, input_name, input_univ, input_level, input_kisuu, input_wantto, input_wantnotto] + absent_bin_list)
                             
                             st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                         except Exception as e:
