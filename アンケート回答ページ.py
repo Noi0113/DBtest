@@ -102,7 +102,7 @@ def main():
                             
                             st.success(f"送信が完了しました。ありがとうございます、{input_name}さん！")
                         except Exception as e:
-                            st.error("データの送信中にエラーが発生しました。もう一度試してください。")
+                            st.error("データの送信中にエラーが発生しました。もう一度試してね。")
                     else:
                         try:
                             
