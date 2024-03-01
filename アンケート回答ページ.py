@@ -88,18 +88,18 @@ def main():
         st.warning('正しい大会名と大会パスワードを入力し、確定を押してください')
             # フォームを作成します
     with st.form(key='my_form'):
-            input_name = st.text_input(label='名前を入力してください(必須)')
-            input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
-            input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
-            input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
-            input_wantto = st.text_input(label='対戦したい人を記入してください')
-            input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
-            absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', st.session_state.absent_options)
+        input_name = st.text_input(label='名前を入力してください(必須)')
+        input_univ = st.selectbox('学校名または所属会名を入力してください(必須)', options=st.session_state.univ_options)
+        input_level = st.selectbox('級を入力してください(必須)',options=['A','B','C','D','E'])
+        input_kisuu = st.selectbox('奇数の場合一人取りまたは読手を希望しますか(必ず希望に添えるわけではありません)',options=['はい','いいえ'])
+        input_wantto = st.text_input(label='対戦したい人を記入してください')
+        input_wantnotto = st.text_input(label='対戦したくない人を記入してください')
+        absent_matches = st.multiselect('欠席する試合を入力してください(複数選択可)', st.session_state.absent_options)
     
-            submit_button = st.form_submit_button(label='送信',use_container_width = True)
+        submit_button = st.form_submit_button(label='送信',use_container_width = True)
         
                 # ユーザーが送信ボタンを押したとき
-            if submit_button:
+        if submit_button:
                 if input_name and input_univ and input_level:
                     if input_name in name_list:
                         st.warning('同じ名前の人がいるため、記載内容を上書きします。よろしいですか。（別人の場合は名前を変えてください。）')
