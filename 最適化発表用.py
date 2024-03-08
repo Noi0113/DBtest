@@ -27,3 +27,5 @@ def main():
  #   hashed_pswd = make_hashes(input_password)
  #   result = login_user(input_taikaiid,check_hashes(input_password,hashed_pswd))
  #   if result:
+if __name__ == '__main__':
+    main()
