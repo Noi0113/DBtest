@@ -19,7 +19,7 @@ def main():
         
         # CSVファイルを読み込む
         try:
-            df = pd.read_csv(csv_file_path)
+            df = pd.read_csv(data25結果.csv)
             st.dataframe(df)
         except FileNotFoundError:
             st.error("CSVファイルが見つかりませんでした。")
