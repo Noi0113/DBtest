@@ -2,7 +2,7 @@ import streamlit as st
 import time
 import pandas as pd
 def main():
-    status_area = st.empty()
+    #status_area = st.empty()
     #ここから上は編集しない
 
     #タイトル
