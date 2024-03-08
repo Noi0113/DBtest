@@ -108,7 +108,10 @@ def main():
 
 
         #試合参加者の集合
-        Iall_old = df['名前'].tolist()
+        Iall_old = []
+        for row in df.itertuples():
+          Iall_old.append(row.名前)
+        #Iall_old = df['名前'].tolist()
         I_all = df['名前'].tolist()
         I_all.append('ダミー')
 
