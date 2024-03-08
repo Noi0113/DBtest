@@ -111,8 +111,11 @@ def main():
         Iall_old = []
         for row in df.itertuples():
           Iall_old.append(row.名前)
+        I_all = []
+        for row in df.itertuples():
+          I_all.append(row.名前)  
         #Iall_old = df['名前'].tolist()
-        I_all = df['名前'].tolist()
+        #I_all = df['名前'].tolist()
         I_all.append('ダミー')
 
         #試合qを休む人と参加する人の集合
